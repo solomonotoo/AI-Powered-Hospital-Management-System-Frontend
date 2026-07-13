@@ -1,0 +1,17 @@
+At the moment, our Patient interface contains only demographic information. These summary metrics—such 
+as visit count, active medications, allergies, and outstanding balance—belong to different bounded contexts
+ in your HMS (Visits, Pharmacy, Billing, etc.). Mixing them into the Patient entity would tightly couple 
+ those domains.
+
+Instead, I recommend creating a separate PatientWorkspaceSummary type that aggregates these values 
+specifically for the workspace. Then patient-workspace.tsx can fetch both:
+
+patient → demographics and identifiers
+summary → cross-module statistics
+
+and pass them independently:
+<PatientHeader patient={patient} />
+<PatientSummaryCards summary={summary} />
+
+This keeps your DDD boundaries clean while still giving the UI everything it needs. 
+It will also scale much better as you add modules like Laboratory, Radiology, Pharmacy, Billing, and Admissions.

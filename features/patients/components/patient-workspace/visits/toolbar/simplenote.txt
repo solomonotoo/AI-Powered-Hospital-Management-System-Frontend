@@ -1,0 +1,13 @@
+The visit-filter.tsx component will introduce filter dropdowns for:
+
+Visit Type (All, OPD, IPD, Emergency)
+Visit Status (All, Scheduled, Checked In, In Progress, Completed, Cancelled)
+Department (loaded dynamically later from the backend)
+
+We'll follow the same pattern we just established:
+
+VisitTab owns the filter state.
+VisitToolbar passes the values and handlers.
+VisitFilters remains a purely presentational component.
+
+This keeps the codebase consistent and scalable as we build the remaining Patient Workspace tabs.

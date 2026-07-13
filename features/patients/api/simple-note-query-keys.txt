@@ -1,0 +1,233 @@
+In TanStack Query (formerly React Query), a query key is a unique identifier for a piece of data that your application fetches and caches.
+
+Think of it like a label or address that tells TanStack Query:
+
+What data is being requested.
+Where to store it in the cache.
+When cached data can be reused.
+Which queries should be refetched or invalidated.
+A simple example
+const { data } = useQuery({
+  queryKey: ['todos'],
+  queryFn: fetchTodos,
+});
+
+Here:
+
+queryKey: ['todos'] identifies the list of todos.
+queryFn is the function that actually fetches the data.
+
+TanStack Query stores the result under the key ['todos'].
+
+Why not just use a string?
+
+You can, but TanStack Query recommends using an array because it makes it easy to describe more specific data.
+
+For example:
+
+['todos']
+
+means:
+
+"All todos."
+
+Whereas:
+
+['todos', 5]
+
+means:
+
+"The todo whose ID is 5."
+
+Or:
+
+['todos', { completed: true }]
+
+means:
+
+"Todos filtered by completed = true."
+
+Query keys should include everything the query depends on
+
+Suppose you fetch a user by ID.
+
+function User({ id }) {
+  const { data } = useQuery({
+    queryKey: ['user', id],
+    queryFn: () => fetchUser(id),
+  });
+}
+
+If:
+
+id = 1
+
+the key becomes
+
+['user', 1]
+
+If later:
+
+id = 2
+
+the key becomes
+
+['user', 2]
+
+These are treated as different cached queries.
+
+If you used only:
+
+['user']
+
+TanStack Query would think both requests are the same, and you could end up displaying the wrong user's data.
+
+How caching works
+
+Imagine these components:
+
+useQuery({
+  queryKey: ['posts'],
+  queryFn: fetchPosts,
+});
+
+and later:
+
+useQuery({
+  queryKey: ['posts'],
+  queryFn: fetchPosts,
+});
+
+The second component doesn't necessarily make another network request.
+
+Instead, TanStack Query:
+
+Looks for ['posts'] in the cache.
+Finds the cached data.
+Returns it immediately.
+Optionally refetches in the background if the data is stale.
+
+This is one of the main performance benefits of TanStack Query.
+
+Query keys can be nested
+
+Example:
+
+['posts']
+['posts', 7]
+['posts', 7, 'comments']
+
+These represent different resources:
+
+All posts
+Post 7
+Comments for post 7
+Invalidating queries
+
+One powerful feature is invalidating cached data.
+
+Suppose you create a new todo.
+
+await createTodo(todo);
+
+queryClient.invalidateQueries({
+  queryKey: ['todos'],
+});
+
+TanStack Query marks every query whose key starts with ['todos'] as stale, so they will be refetched the next time they're needed.
+
+For example:
+
+['todos']
+['todos', 1]
+['todos', { completed: true }]
+
+can all be matched when invalidating with the appropriate key and matching options.
+
+Organizing query keys
+
+In larger applications, it's common to centralize query keys.
+
+export const queryKeys = {
+  users: ['users'] as const,
+  user: (id: number) => ['users', id] as const,
+  posts: ['posts'] as const,
+  post: (id: number) => ['posts', id] as const,
+};
+
+Then use them consistently:
+
+useQuery({
+  queryKey: queryKeys.user(3),
+  queryFn: () => fetchUser(3),
+});
+
+This helps avoid typos and keeps related keys consistent across the app.
+
+Best practices
+Use arrays instead of plain strings.
+Include all variables that affect the fetched data in the key.
+Keep keys stable—avoid creating new objects with changing references unless their values actually differ.
+Group related resources with a common prefix (for example, ['users'], ['users', id]), which makes cache management and invalidation easier.
+Summary
+
+A query key is the identity of a query. TanStack Query uses it to:
+
+Cache fetched data.
+Reuse cached results.
+Know when a query has changed.
+Refetch stale data.
+Invalidate related queries after updates.
+
+For example:
+
+Query Key	Represents
+['users']	All users
+['users', 5]	User with ID 5
+['users', 5, 'posts']	Posts belonging to user 5
+['users', { active: true }]	Active users only
+
+A good rule of thumb is: if changing a variable would change the data returned by your query, 
+that variable should be part of the query key.
+
+Think of useQuery as a smart cache manager.
+
+When you write:
+
+const result = useQuery({
+  queryKey: ...,
+  queryFn: ...
+})
+
+you're telling React Query two things:
+
+How to fetch the data (queryFn)
+How to identify that data in the cache (queryKey)
+The queryFn
+
+This part is straightforward.
+
+queryFn: () => visitService.getPatientVisits(query)
+
+This simply says:
+
+"If you need this data, call this function."
+
+React Query doesn't care whether it uses Axios, Fetch, GraphQL, etc.
+
+In your case:
+
+visitService.getPatientVisits(query)
+
+eventually calls
+
+GET /patients/:patientId/visits
+
+and returns the response.
+
+The queryKey
+
+This is not an API route.
+
+It is the name React Query uses for the cached data.
+

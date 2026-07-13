@@ -1,0 +1,13 @@
+instead of coding  const query = useQuery(...)
+
+inside a every page. the pages should only call these methods.
+and this keeps the business logic out of the UI
+usePatients()
+
+usePatient()
+
+useCreatePatient()
+
+useUpdatePatient()
+
+useDeletePatient()

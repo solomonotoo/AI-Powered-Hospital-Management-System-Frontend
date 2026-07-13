@@ -1,0 +1,2 @@
+all the files in this folder are global files it is supposed to be in
+the same level as app/  but i decided to put it under features directory

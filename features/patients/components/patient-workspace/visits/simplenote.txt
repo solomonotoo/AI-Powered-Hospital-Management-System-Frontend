@@ -1,0 +1,19 @@
+Unlike the table, visit-tab.tsx will act as the container for the entire Visits tab. It will:
+
+Fetch visit data (initially with mock data, later via TanStack Query).
+Render the VisitTable.
+Eventually include additional enterprise features such as:
+Visit summary metrics (e.g., Total Visits, OPD Visits, IPD Admissions).
+Search by visit number or chief complaint.
+Filters (Visit Type, Status, Department, Date Range).
+Sorting and pagination.
+"New Visit" action (for users with the appropriate permissions).
+
+This keeps the same separation of concerns we've established:
+
+visit-tab.tsx = feature container and orchestration.
+visit-table.tsx = table layout.
+visit-row.tsx = individual row rendering.
+Badge and action components = focused reusable UI elements.
+
+This is the same scalable pattern we'll reuse for the future Medical Records, Medications, Allergies, Documents, and Billing tabs.
