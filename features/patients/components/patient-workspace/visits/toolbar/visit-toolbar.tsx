@@ -10,7 +10,7 @@ interface VisitToolbarProps {
   visitType: string;
   visitStatus: string;
   onSearchChange: (value: string) => void;
-  onVisitTypeChage: (value: string) => void;
+  onVisitTypeChange: (value: string) => void;
   onVisitStatusChange: (value: string) => void;
 }
 
@@ -19,7 +19,7 @@ export function VisitToolbar({
   visitType,
   visitStatus,
   onSearchChange,
-  onVisitTypeChage,
+  onVisitTypeChange,
   onVisitStatusChange,
 }: VisitToolbarProps) {
   //   const [search, setSearch] = useState(""); //moved to visit-tab.tsx
@@ -32,7 +32,7 @@ export function VisitToolbar({
         <VisitFilters
           visitType={visitStatus}
           visitStatus={visitStatus}
-          onVisitTypeChange={onVisitTypeChage}
+          onVisitTypeChange={onVisitTypeChange}
           onVisitStatusChange={onVisitStatusChange}
         />
 
