@@ -1,3 +1,4 @@
+import { SharedLayout } from "@/components/shared-layout/shared-layout";
 import { PatientsNav } from "@/features/patients/components/patients-nav";
 
 /**
@@ -18,15 +19,23 @@ export default function PatientsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Patients</h1>
-        <p className="text-sm text-muted-foreground">
-          Manage patient records, registration, and admissions.
-        </p>
-      </div>
-      <PatientsNav />
-      <div className="flex flex-col gap-6">{children}</div>
-    </div>
+    // <div className="flex flex-col gap-4">
+    //   <div className="flex flex-col gap-1">
+    //     <h1 className="text-2xl font-semibold tracking-tight">Patients</h1>
+    //     <p className="text-sm text-muted-foreground">
+    //       Manage patient records, registration, and admissions.
+    //     </p>
+    //   </div>
+    //   <PatientsNav />
+    //   <div className="flex flex-col gap-6">{children}</div>
+    // </div>
+
+    //the above is extracted to SharedLayout
+    <SharedLayout 
+    title="Patient" 
+    description="Manage patient records, registration, and admissions."
+    pageNavbar={<PatientsNav />}
+    children = {children}
+    />
   );
 }

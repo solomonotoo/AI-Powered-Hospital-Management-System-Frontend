@@ -27,9 +27,24 @@ export const patientKeys = {
   detail: (id: string) => [...patientKeys.details(), id] as const, // Key for a specific patient by ID
 };
 
+// export const patientVisitKeys ={
+//   all:["patient-visits"] as const,
+//   list:(query:PatientVisitQuery) => [
+//     ...patientVisitKeys.all,
+//     query.patientId,
+//     query.search,
+//     query.visitType,
+//     query.status,
+//     query.page,
+//     query.size,
+//     query.sortBy,
+//     query.direction,
+//   ] as const,
+// }
+
 export const patientVisitKeys ={
   all:["patient-visits"] as const,
-  list:(query:PatientVisitQuery) => [
+  visits:(query:PatientVisitQuery) => [
     ...patientVisitKeys.all,
     query.patientId,
     query.search,
@@ -37,5 +52,23 @@ export const patientVisitKeys ={
     query.status,
     query.page,
     query.size,
+    query.sortBy,
+    query.direction,
   ] as const,
+
+ // or 
+
+  // visits:(query:PatientVisitQuery) => [
+  //   "patient-visits",
+  //   query.patientId,
+  //   query.search,
+  //   query.visitType,
+  //   query.status,
+  //   query.page,
+  //   query.size,
+  //   query.sortBy,
+  //   query.direction,
+  // ] as const,
+
+
 }

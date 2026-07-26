@@ -30,7 +30,7 @@ export function VisitToolbar({
 
       <div className="flex items-center gap-2">
         <VisitFilters
-          visitType={visitStatus}
+          visitType={visitType}
           visitStatus={visitStatus}
           onVisitTypeChange={onVisitTypeChange}
           onVisitStatusChange={onVisitStatusChange}

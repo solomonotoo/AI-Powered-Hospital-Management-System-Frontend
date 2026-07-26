@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PatientWorkspaceSummary } from "../../types/patient-workspace-summary";
 import {
   Activity,
@@ -10,9 +9,7 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import { formatDate } from "@/lib/format";
-import { cn } from "@/lib/utils";
-import { getDefaultClassNames } from "react-day-picker";
-import { MetricCard } from "./shared/metric-card";
+import { MetricCard } from "@/features/shared-features/metric-card";
 
 //check patient-summary-cards-old.tsx for the previous code
 //the previous code works and is updated because  we're repeating the same Card structure six times.

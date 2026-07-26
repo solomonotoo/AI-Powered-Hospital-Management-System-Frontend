@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, MoreHorizontal } from "lucide-react";
-import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
+import { DataTableColumnHeader } from "@/components/data-table-old/data-table-column-header";
 
 export const columns: ColumnDef<Patient>[] = [
   // {
@@ -43,7 +43,7 @@ export const columns: ColumnDef<Patient>[] = [
   // { accessorKey: "created", header: "Created At" },
   {
     accessorKey: "name",
-    cell: ({row}) =>{
+    cell: ({ row }) => {
       const patient = row.original;
       return (
         <div>
@@ -51,14 +51,11 @@ export const columns: ColumnDef<Patient>[] = [
             {patient.name.first}
             {patient.name.last}
           </div>
-          <div className="text-xs text-muted-foreground">
-            {patient.email}
-          </div>
+          <div className="text-xs text-muted-foreground">{patient.email}</div>
         </div>
-      )
-
+      );
     },
-    
+
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Fullname" />
     ),

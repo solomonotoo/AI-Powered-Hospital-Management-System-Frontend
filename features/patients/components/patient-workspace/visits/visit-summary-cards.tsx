@@ -1,5 +1,5 @@
 import { PatientVisit } from "@/features/patients/types/visit";
-import { MetricCard } from "../shared/metric-card";
+import { MetricCard } from "@/features/shared-features/metric-card";
 
 interface VisitSummaryCardsProps {
   visits: PatientVisit[];

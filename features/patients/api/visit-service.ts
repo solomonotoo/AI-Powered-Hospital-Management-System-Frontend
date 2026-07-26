@@ -19,6 +19,8 @@ export const visitService ={
                 status:query.status,
                 page: query.page,
                 size:query.size,
+                sortBy:query.sortBy,
+                direction:query.direction,
             },
         });
 

@@ -5,6 +5,7 @@ import {
   Boxes,
   CalendarDays,
   FlaskConical,
+  Hospital,
   LayoutDashboard,
   Pill,
   Radiation,
@@ -24,6 +25,16 @@ export const sidebarItems = [
         title: "Dashboard",
         url: "/dashboard",
         icon: LayoutDashboard,
+      },
+    ],
+  },
+  {
+    group: "",
+    menus: [
+      {
+        title: "Facility",
+        url: "/facility",
+        icon: Hospital,
       },
     ],
   },

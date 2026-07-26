@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Patient } from "../../types/patient";
-import { SectionCard } from "./shared/section-card";
-import { InfoRow } from "./shared/info-row";
+import { SectionCard } from "@/features/shared-features/section-card";
+import { InfoRow } from "@/features/shared-features/info-row";
 
 //this component render the patient overview content
 

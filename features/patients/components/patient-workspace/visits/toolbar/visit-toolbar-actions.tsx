@@ -20,17 +20,17 @@ export function VisitToolbarActions({
   return (
     <div className="flex flex-wrap items-center gap-2">
         <Button variant="outline" size="sm" onClick={onRefresh} >
-            <RefreshCw className="mr-2 n-4 w-4" />
+            <RefreshCw className="mr-2 h-4 w-4" />
             Refresh
         </Button>
         <Button variant="outline" size="sm" onClick={onExport} >
-            <Download className="mr-2 n-4 w-4" />
+            <Download className="mr-2 h-4 w-4" />
             Export
         </Button>
         
         {canCreateVisit && (
             <Button  size="sm" onClick={onNewVisit} >
-            <Plus className="mr-2 n-4 w-4" />
+            <Plus className="mr-2 h-4 w-4" />
             New Visit
         </Button>
         )}

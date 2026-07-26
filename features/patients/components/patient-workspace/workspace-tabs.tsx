@@ -4,6 +4,7 @@ import { ComponentType } from "react";
 import { Patient } from "../../types/patient";
 import { PatientOverview } from "./patient-overview";
 import { VisitTab } from "./visits/visit-tab";
+import { MedicalRecordTab } from "@/features/medical-records/components/medical-record-tab";
 
 // if (activeTab === "overview") {
 //   return <PatientOverview />;
@@ -42,34 +43,30 @@ interface WorkspaceTabsProps {
   patient: Patient;
 }
 
-interface WorkspaceTabComponentProps{
-    patient:Patient
+interface WorkspaceTabComponentProps {
+  patient: Patient;
 }
 
 const ComingSoon: ComponentType<WorkspaceTabComponentProps> = () => (
-    <div className="rounded-xl border bg-card p-8 text-center">
-    <h2 className="text-lg font-semibold">
-      Coming Soon
-    </h2>
+  <div className="rounded-xl border bg-card p-8 text-center">
+    <h2 className="text-lg font-semibold">Coming Soon</h2>
 
     <p className="mt-2 text-muted-foreground">
       This module is still under development.
     </p>
   </div>
-)
+);
 
-const tabRegistry: Record<
-string, ComponentType<WorkspaceTabComponentProps>
-> = {
-    overview : PatientOverview,
-    visits:VisitTab ,
-    "medical-record": ComingSoon,
-    medications:ComingSoon,
-    laboratory:ComingSoon,
-    billing:ComingSoon,
-    document:ComingSoon,
-    problems:ComingSoon,
-}
+const tabRegistry: Record<string, ComponentType<WorkspaceTabComponentProps>> = {
+  overview: PatientOverview,
+  visits: VisitTab,
+  "medical-record": MedicalRecordTab,
+  medications: ComingSoon,
+  laboratory: ComingSoon,
+  billing: ComingSoon,
+  document: ComingSoon,
+  problems: ComingSoon,
+};
 
 // export function WorkspaceTabs({ activeTab, patient }: WorkspaceTabsProps) {
 //   const tabs: Record<string, React.ReactNode> = {
@@ -86,14 +83,9 @@ string, ComponentType<WorkspaceTabComponentProps>
 //   return tabs[activeTab] ?? tabs.overview;
 // }
 
-
 //updated
 export function WorkspaceTabs({ activeTab, patient }: WorkspaceTabsProps) {
-    const ActiveTab = tabRegistry[activeTab] ?? PatientOverview;
-   
-    
-    return <ActiveTab patient={patient} />;
-};
-  
-  
-  
+  const ActiveTab = tabRegistry[activeTab] ?? PatientOverview;
+
+  return <ActiveTab patient={patient} />;
+}

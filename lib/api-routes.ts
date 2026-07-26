@@ -20,6 +20,9 @@ export const API_ROUTES = {
   LABS: {
     ROOT: "/labs",
   },
+  MEDICAL_RECORDS:{
+    ROOT: "/medical-records",
+  }
 } as const;
 
 //now the service method becomes much cleaner

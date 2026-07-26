@@ -5,7 +5,7 @@ export interface PageResponse<T>{
     page:number;
     size:number;
     totalElements:number;
-    tatoalPages:number;
+    totalPages:number;
     first:boolean;
     last:boolean;
 }

@@ -1,7 +1,6 @@
 "use client";
-import { DataTable } from "@/components/data-table/data-table";
-import { DataTablePagination } from "@/components/data-table/data-table-pagination";
-import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
+import { DataTable } from "@/components/data-table-old/data-table";
+import { DataTableToolbar } from "@/components/data-table-old/data-table-toolbar";
 import {
   Card,
   CardContent,
@@ -9,15 +8,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { WorkspacePagination } from "@/features/shared-features/workspace-pagination";
 //import { DataTable } from "@/features/web/data-table";
 import { Patients } from "@/features/web/patient-data";
 import { columns } from "@/features/web/table-column";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function PatientList() {
   const router = useRouter();
-  const [searchQuery,setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
   return (
     // <Card className="ring-0">
     //   <CardHeader>
@@ -53,11 +54,13 @@ export default function PatientList() {
     onPageChange={setPage}
     onSearch={setSearch}
     onSort={setSort} */}
-        <DataTableToolbar search={searchQuery} onSearchChange={setSearchQuery}/>
+        <DataTableToolbar
+          search={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
         <DataTable
           columns={columns}
           data={Patients}
-          page={1}
           pageSize={20}
           total={200}
           loading={true}
@@ -65,12 +68,13 @@ export default function PatientList() {
           onSearch={null}
           onSort={null}
           onRowClick={(patient) => {
-            console.log(patient)
+            console.log(patient);
             router.push(`/patients/${patient.id}`);
           }}
         />
 
-        <DataTablePagination page={1} pageSize={20} total={200} />
+        {/* <DataTablePagination page={1} pageSize={20} total={200} /> */}
+        <WorkspacePagination page={10} totalPages={20} onPageChange={setPage} />
       </CardContent>
     </Card>
   );

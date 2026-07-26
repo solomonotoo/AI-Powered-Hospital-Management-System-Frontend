@@ -1,5 +1,8 @@
 //NB this mirror the api response from the spring boot dto
 
+import { SortDirection } from "@tanstack/react-table";
+import { VisitSortField } from "./table";
+
 export type VisitType = "OPD" | "IPD" | "EMERGENCY";
 
 export type VisitStatus =
@@ -36,4 +39,6 @@ export interface PatientVisitQuery {
   status?: string;
   page?: number;
   size?: number;
+  sortBy?: VisitSortField;
+  direction?: SortDirection;
 }
