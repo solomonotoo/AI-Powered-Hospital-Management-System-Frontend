@@ -25,7 +25,6 @@ export function DataTableEmpty({
       <TableRow>
         <FileSearch className="mb-4 h-12 w-12 text-muted-foreground" />
         <TableCell
-          // colSpan={column.length} 
           className="h-2 text-center">
           {title}
         </TableCell>
