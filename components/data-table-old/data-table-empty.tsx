@@ -24,12 +24,14 @@ export function DataTableEmpty({
       </p> */}
       <TableRow>
         <FileSearch className="mb-4 h-12 w-12 text-muted-foreground" />
-        <TableCell colSpan={columns.length} className="h-2 text-center">
+        <TableCell
+          // colSpan={column.length} 
+          className="h-2 text-center">
           {title}
         </TableCell>
         <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-        {description}
-      </p>
+          {description}
+        </p>
       </TableRow>
     </div>
   );
