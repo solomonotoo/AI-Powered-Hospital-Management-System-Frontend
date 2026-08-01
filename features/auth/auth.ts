@@ -13,7 +13,7 @@ export const loginSchema = z.object({
 
 export const signupSchema = z.object({
   email: z.email("Invalid email address"),
-  phoneNumber: z.number(),
+  phoneNumber: z.string(),
   password: z
     .string()
     .min(2, "Password should have at least 8 character")
