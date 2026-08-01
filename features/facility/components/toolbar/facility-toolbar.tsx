@@ -10,6 +10,7 @@ interface FacilityToolbarProps {
   onSearchChange: (value: string) => void;
   onCategoryChange: (value: string) => void;
   onStatusChange: (value: string) => void;
+  onCreateFacility:() => void;
 }
 
 export function FacilityToolbar({
@@ -19,6 +20,7 @@ export function FacilityToolbar({
   onSearchChange,
   onCategoryChange,
   onStatusChange,
+  onCreateFacility,
 }: FacilityToolbarProps) {
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-center">
@@ -36,9 +38,7 @@ export function FacilityToolbar({
         onExport={() => {
           console.log("Export facility");
         }}
-        onNewFactility={() => {
-          console.log("Create facility");
-        }}
+        onNewFactility={onCreateFacility}
       />
     </div>
   );

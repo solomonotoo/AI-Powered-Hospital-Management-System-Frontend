@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
   Popover,
@@ -15,12 +15,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import * as React from "react";
 import { Control, Controller, FieldPath, FieldValues } from "react-hook-form";
-import { Calendar as CalenderIcon, ChevronDownIcon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
-import { Label } from "@/components/ui/label";
 
 /**
  * AppFormField
@@ -86,8 +84,8 @@ type TextLikeProps<T extends FieldValues> = BaseProps<T> & {
   min?: string | number;
   minDate?: Date;
   maxDate?: Date;
-  startMonth?:Date;
-  endMonth?:Date;
+  startMonth?: Date;
+  endMonth?: Date;
 };
 
 type TextareaProps<T extends FieldValues> = BaseProps<T> & {
@@ -137,6 +135,41 @@ export type AppFormFieldProps<T extends FieldValues> =
 //   );
 // }
 
+
+function FormFieldLabel({
+  htmlFor,
+  label,
+  required,
+  description,
+}: {
+  htmlFor?: string;
+  label: string;
+  required?: boolean;
+  description?: string;
+}) {
+  return (
+    <>
+      <FieldLabel htmlFor={htmlFor}>
+        {label}
+        {required && (
+          <span
+            aria-hidden="true"
+            className="ml-1 text-destructive"
+          >
+            *
+          </span>
+        )}
+      </FieldLabel>
+
+      {description && (
+        <FieldDescription>
+          {description}
+        </FieldDescription>
+      )}
+    </>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // AppFormField
 // ---------------------------------------------------------------------------
@@ -163,13 +196,14 @@ export function AppFormField<T extends FieldValues>(
                 onBlur={field.onBlur}
                 disabled={disabled}
               />
-              <FieldLabel
-                htmlFor={name}
-                required={required}
-                description={description}
-              >
-                {label}
-              </FieldLabel>
+              <div>
+                <FormFieldLabel
+                  htmlFor={name}
+                  label={label}
+                  required={required}
+                  description={description}
+                />
+              </div>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           );
@@ -179,9 +213,11 @@ export function AppFormField<T extends FieldValues>(
         if (props.type === "select") {
           return (
             <Field>
-              <FieldLabel required={required} description={description}>
-                {label}
-              </FieldLabel>
+              <FormFieldLabel
+                label={label}
+                required={required}
+                description={description}
+              />
               <Select
                 value={field.value ?? ""}
                 onValueChange={field.onChange}
@@ -211,9 +247,12 @@ export function AppFormField<T extends FieldValues>(
         if (props.type === "textarea") {
           return (
             <Field>
-              <FieldLabel required={required} description={description}>
-                {label}
-              </FieldLabel>
+              <FormFieldLabel
+                htmlFor={name}
+                label={label}
+                required={required}
+                description={description}
+              />
               <Textarea
                 {...field}
                 value={field.value ?? ""}
@@ -232,9 +271,12 @@ export function AppFormField<T extends FieldValues>(
           const defaultMonth = selectedDate ?? props.minDate ?? new Date();
           return (
             <Field className="mt-1">
-              <FieldLabel required={required} description={description}>
-                {label}
-              </FieldLabel>
+              <FormFieldLabel
+                htmlFor={name}
+                label={label}
+                required={required}
+                description={description}
+              />
 
               <Popover>
                 <PopoverTrigger asChild>
@@ -263,8 +305,8 @@ export function AppFormField<T extends FieldValues>(
                     selected={selectedDate}
                     defaultMonth={defaultMonth}
                     captionLayout="dropdown"
-                    startMonth={props.startMonth ?? new Date(1900,0)}
-                    endMonth={props.endMonth ?? new Date(2100,11)}
+                    startMonth={props.startMonth ?? new Date(1900, 0)}
+                    endMonth={props.endMonth ?? new Date(2100, 11)}
                     // for disabling future date in date of birth and enabling future date in expiring date
                     disabled={(d) =>
                       (props.minDate ? d < props.minDate : false) ||
@@ -283,9 +325,12 @@ export function AppFormField<T extends FieldValues>(
 
         return (
           <Field>
-            <FieldLabel required={required} description={description}>
-              {label}
-            </FieldLabel>
+            <FormFieldLabel
+              htmlFor={name}
+              label={label}
+              required={required}
+              description={description}
+            />
             <Input
               {...field}
               type={props.type ?? "text"}

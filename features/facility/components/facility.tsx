@@ -9,11 +9,15 @@ import { SortState } from "@/features/types/sort-state";
 import { SectionCard } from "@/features/shared-features/section-card";
 import { WorkspaceSection } from "@/features/shared-features/workspace-section";
 import { WorkspacePagination } from "@/features/shared-features/workspace-pagination";
+import { CreateFacilityDialog } from "./create-facility-dialog";
 
 export function Facility() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [status, setStatus] = useState("all");
+
+  //open create facility modal
+  const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
   const summary = FacilitySummaryMock;
   const facilityData = facilities;
@@ -28,7 +32,12 @@ export function Facility() {
     direction: "desc",
   });
 
-  
+  // Handle successful facility creation
+  const handleFacilityCreated = () => {
+    // Refresh your facility list here
+    console.log("Facility created, refreshing list...");
+    // You could refetch data here
+  };
 
   return (
     // <div className="grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 space-y-4 ">
@@ -49,34 +58,43 @@ export function Facility() {
     //     />
     //   </SectionCard>
     // </div>
-    <WorkspaceSection
-      summary={<FacilitySummaryCards summary={summary} />}
-      toolbar={
-        <FacilityToolbar
-          search={search}
-          category={category}
-          status={status}
-          onSearchChange={setSearch}
-          onCategoryChange={setCategory}
-          onStatusChange={setStatus}
-        />
-      }
-      footer={
-        <WorkspacePagination
-          page={10}
-          // totalPages={totalPages}
-          totalPages={50}
-          onPageChange={setPage}
-        />
-      }
-    >
-      <SectionCard>
-        <FacilityTable
-          facilities={facilityData}
-          sort={sort}
-          onSortChange={setSort}
-        />
-      </SectionCard>
-    </WorkspaceSection>
+    <>
+      <WorkspaceSection
+        summary={<FacilitySummaryCards summary={summary} />}
+        toolbar={
+          <FacilityToolbar
+            search={search}
+            category={category}
+            status={status}
+            onSearchChange={setSearch}
+            onCategoryChange={setCategory}
+            onStatusChange={setStatus}
+            onCreateFacility={() => setOpenCreateDialog(true)}
+          />
+        }
+        footer={
+          <WorkspacePagination
+            page={10}
+            // totalPages={totalPages}
+            totalPages={50}
+            onPageChange={setPage}
+          />
+        }
+      >
+        <SectionCard>
+          <FacilityTable
+            facilities={facilityData}
+            sort={sort}
+            onSortChange={setSort}
+          />
+        </SectionCard>
+      </WorkspaceSection>
+
+      <CreateFacilityDialog
+        open={openCreateDialog}
+        onOpenChange={setOpenCreateDialog}
+        onSuccess={handleFacilityCreated}
+      />
+    </>
   );
 }
