@@ -5,7 +5,7 @@
 import { PatientFormValues } from "../schemas/patient-schema";
 import { CreatePatientRequest } from "../types/patient-request";
 
-export function toCreatePatientRequest(values: PatientFormValues):CreatePatientRequest {
+export function toCreatePatientRequest(values: PatientFormValues): CreatePatientRequest {
   return {
     firstName: values.firstName,
     lastName: values.lastName,
@@ -58,7 +58,7 @@ export function toCreatePatientRequest(values: PatientFormValues):CreatePatientR
     // },
 
     consent: {
-      consentToTreate: values.consentToTreat,
+      consentToTreat: values.consentToTreat,
       consentToShareData: values.consentToShareData,
     },
   };

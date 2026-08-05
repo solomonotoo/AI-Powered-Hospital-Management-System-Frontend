@@ -3,7 +3,7 @@ import { FacilityFormValues } from "./facility-schema";
 export const facilityFormDefaultValues: Partial<FacilityFormValues> = {
   code: "",
   name: "",
-  type: "",
+  type: undefined,
   location: {
     line1: "",
     line2: "",
@@ -14,5 +14,5 @@ export const facilityFormDefaultValues: Partial<FacilityFormValues> = {
   },
   contactPhone: "",
   contactEmail: "",
-  status: "",
+  status: undefined,
 };

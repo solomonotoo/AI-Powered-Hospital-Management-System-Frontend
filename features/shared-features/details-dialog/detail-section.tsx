@@ -1,15 +1,15 @@
 
-import { DetailItem as DetailItemType } from "./details-dialog";
+import { DetailItem as DetailItemType } from "./types";
 import { DetailItem } from "./detail-item";
 import React from "react";
 
 interface DetailSectionProps {
   title: string;
-  icon?:React.ReactNode;
+  icon?: React.ReactNode;
   items: DetailItemType[];
 }
 
-export function DetailSection({ title,icon, items, }: DetailSectionProps) {
+export function DetailSection({ title, icon, items, }: DetailSectionProps) {
   return (
     <div className="space-y-3">
       {icon}

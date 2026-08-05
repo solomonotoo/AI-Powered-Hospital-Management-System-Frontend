@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/card";
 import { WorkspacePagination } from "@/features/shared-features/workspace-pagination";
 //import { DataTable } from "@/features/web/data-table";
-import { Patients } from "@/features/web/patient-data";
+//import { Patients } from "@/features/web/patient-data";
 import { columns } from "@/features/web/table-column";
+import { Patients } from "@/features/web/user-data";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -61,12 +62,6 @@ export default function PatientList() {
         <DataTable
           columns={columns}
           data={Patients}
-          pageSize={20}
-          total={200}
-          loading={true}
-          onPageChange={null}
-          onSearch={null}
-          onSort={null}
           onRowClick={(patient) => {
             console.log(patient);
             router.push(`/patients/${patient.id}`);

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Patient } from "./patient-data";
+import { Patients } from "./user-data";
 import { ColumnDef } from "@tanstack/react-table";
 import {
   DropdownMenu,
@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ArrowDown, MoreHorizontal } from "lucide-react";
 import { DataTableColumnHeader } from "@/components/data-table-old/data-table-column-header";
+import { Patient } from "../patients/types/patient";
 
 export const columns: ColumnDef<Patient>[] = [
   // {
@@ -48,8 +49,8 @@ export const columns: ColumnDef<Patient>[] = [
       return (
         <div>
           <div className="font-medium">
-            {patient.name.first}
-            {patient.name.last}
+            {patient.firstName}
+            {patient.lastName}
           </div>
           <div className="text-xs text-muted-foreground">{patient.email}</div>
         </div>

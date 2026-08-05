@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 const styles = {
   ACTIVE: "bg-success text-success-foreground",
   INACTIVE: "bg-destructive-soft text-destructive-soft-foreground",
-  PENDING: "bg-warning text-warning-foreground",
+  PENDING_APPROVAL: "bg-warning text-warning-foreground",
 };
 
 interface FacilityStatusBadgeProps {
@@ -17,7 +17,7 @@ export function FacilityStatusBadge({ status }: FacilityStatusBadgeProps) {
       return <Badge>ACTIVE</Badge>;
     case "INACTIVE":
       return <Badge variant="destructive">INACTIVE</Badge>;
-    case "PENDING":
-      return <Badge variant="secondary">PENDING</Badge>;
+    case "PENDING_APPROVAL":
+      return <Badge variant="secondary">PENDING_APPROVAL</Badge>;
   }
 }

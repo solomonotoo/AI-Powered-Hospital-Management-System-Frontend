@@ -38,9 +38,9 @@ const STATS: Stat[] = [
     label: "Expiring Soon",
     value: "47",
     icon: CalendarClock,
-    delta: "8 pending",
+    delta: "8 PENDING_APPROVAL",
   },
-  { label: "Pending Orders", value: "23m", icon: Activity, delta: "-4m" },
+  { label: "PENDING_APPROVAL Orders", value: "23m", icon: Activity, delta: "-4m" },
 ];
 
 type AdmissionStatus = "Stable" | "Observation" | "Critical";

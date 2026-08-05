@@ -1,11 +1,11 @@
 import React from "react";
 import { FacilityFilter } from "./facility-filter";
 
-interface FacilityFiltersProps{
-  category:string;
-  status:string;
-  onCategoryChange:(value:string) => void;
-  onStatusChange:(value:string) => void;
+interface FacilityFiltersProps {
+  category: string;
+  status: string;
+  onCategoryChange: (value: string) => void;
+  onStatusChange: (value: string) => void;
 }
 
 //category and status dropdown
@@ -24,11 +24,11 @@ const statusOptions = [
   { label: "All Statuses ", value: "all" },
   { label: "Active ", value: "Active" },
   { label: "Inactive ", value: "Inactive" },
-  { label: "Pending ", value: "Pending" },
+  { label: "PENDING_APPROVAL ", value: "PENDING_APPROVAL" },
 ];
 
 export function FacilityFilters({
- 
+
   category,
   status,
   onCategoryChange,

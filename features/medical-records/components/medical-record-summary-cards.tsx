@@ -19,8 +19,8 @@ export function MedicalRecordSummaryCards({
     (record) => record.status == "ARCHIVED"
   ).length;
 
-  const pendingRecords = medicalRecords.filter(
-    (record) => record.status === "PENDING"
+  const PENDING_APPROVALRecords = medicalRecords.filter(
+    (record) => record.status === "PENDING_APPROVAL"
   ).length;
 
   return (
@@ -28,7 +28,7 @@ export function MedicalRecordSummaryCards({
       <MetricCard title="Total Records" value={totalRecords} />
       <MetricCard title="Active Records" value={activeRecords} />
       <MetricCard title="Archive Records" value={archivedRecords} />
-      <MetricCard title="Pending Records" value={pendingRecords} />
+      <MetricCard title="PENDING_APPROVAL Records" value={PENDING_APPROVALRecords} />
     </div>
   );
 }

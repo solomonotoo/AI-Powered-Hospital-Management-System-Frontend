@@ -76,7 +76,7 @@ export const contactInfoSchema = z.object({
   phone: phoneNumber,
   alternatePhone: optionalPhoneNumber,
   address: z.object({
-   
+
     line1: requiredString("Address line 1", 150),
     line2: optionalString(50),
     city: requiredString("City", 80),
@@ -189,7 +189,7 @@ export const patientSchema = z
     }
   });
 
-export type PatientFormValues = z.infer<typeof patientSchema>;
+export type PatientFormValues = z.input<typeof patientSchema>;
 
 // ---------------------------------------------------------------------------
 // schema fields. helper method to get all schema fiels

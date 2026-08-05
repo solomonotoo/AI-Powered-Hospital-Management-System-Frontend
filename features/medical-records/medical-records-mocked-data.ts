@@ -3,279 +3,302 @@ import { MedicalRecord } from "./types/medical-records";
 // export type MedicalRecordStatus = 
 // | "ACTIVE"
 // | "ARCHIVED"
-// | "PENDING";
- 
+// | "PENDING_APPROVAL";
+
 // export type encounterType =
 //     | "OPD"
 //     | "IPD"
 //     | "EMERGENCY";
 export const medicalRecordMockData: MedicalRecord[] = [
-    {
-      "patientId": "P100001",
-      "medicalRecordNumber": "MRN100001",
-      "firstName": "John",
-      "lastName": "Doe",
-      "dateOfBirth": "1985-04-12",
-      "gender": "Male",
-      "phone": "+1-555-123-4567",
-      "email": "john.doe@example.com",
-      "department": "Cardiology",
-      "encounterType": "OPD",
-      "status": "ACTIVE",
-      "visitDate": "2026-07-20T09:30:00Z",
-      "provider": {
-        "id": "DR101",
-        "name": "Dr. Sarah Mitchell",
-        "specialty": "Cardiology"
-      },
-      "chiefComplaint": "Chest pain during exercise",
-      "diagnosis": "Essential Hypertension",
-      "primaryDiagnosis": "Essential Hypertension",
-      "secondaryDiagnoses": ["Hyperlipidemia"],
-      "icd10Code": "I10",
-      "vitals": {
-        "bloodPressure": "145/92",
-        "heartRate": 82,
-        "respiratoryRate": 18,
-        "temperature": 36.8,
-        "oxygenSaturation": 98,
-        "heightCm": 178,
-        "weightKg": 84,
-        "bmi": 26.5
-      },
-      "allergies": ["Penicillin"],
-      "medications": [
-        {
-          "name": "Lisinopril",
-          "dosage": "10 mg",
-          "frequency": "Once daily"
-        },
-        {
-          "name": "Atorvastatin",
-          "dosage": "20 mg",
-          "frequency": "Once daily"
-        }
-      ],
-      "medicalHistory": ["Hypertension", "High Cholesterol"],
-      "familyHistory": ["Father - Heart Disease"],
-      "labResults": [
-        {
-          "test": "Total Cholesterol",
-          "result": "220 mg/dL",
-          "status": "High"
-        }
-      ],
-      "procedures": [],
-      "treatmentPlan": "Continue medication, low-sodium diet, regular exercise.",
-      "followUpDate": "2026-08-20",
-      "notes": "Blood pressure improving with treatment."
+  {
+    "id": "mr-001",
+    "medicalRecordNumber": "MRN-20260001",
+    "patientId": "patient-001",
+    "firstName": "Ama",
+    "lastName": "Mensah",
+    "dateOfBirth": "1990-05-14",
+    "gender": "Female",
+    "phone": "+233241234567",
+    "email": "ama.mensah@example.com",
+    "diagnosis": "Essential Hypertension",
+    "provider": {
+      "id": "prov-001",
+      "name": "Dr. Kwame Asare",
+      "specialty": "Cardiology"
     },
-    {
-      "patientId": "P100002",
-      "medicalRecordNumber": "MRN100002",
-      "firstName": "Emma",
-      "lastName": "Johnson",
-      "dateOfBirth": "1993-09-18",
-      "gender": "Female",
-      "phone": "+1-555-987-6543",
-      "email": "emma.johnson@example.com",
-      "department": "Emergency",
-      "encounterType": "Emergency",
-      "status": "Admitted",
-      "visitDate": "2026-07-23T14:45:00Z",
-      "provider": {
-        "id": "DR205",
-        "name": "Dr. Michael Brown",
-        "specialty": "Emergency Medicine"
-      },
-      "chiefComplaint": "Severe abdominal pain",
-      "diagnosis": "Acute Appendicitis",
-      "primaryDiagnosis": "Acute Appendicitis",
-      "secondaryDiagnoses": [],
-      "icd10Code": "K35.80",
-      "vitals": {
-        "bloodPressure": "122/80",
-        "heartRate": 105,
-        "respiratoryRate": 20,
-        "temperature": 38.4,
-        "oxygenSaturation": 99,
-        "heightCm": 165,
-        "weightKg": 61,
-        "bmi": 22.4
-      },
-      "allergies": [],
-      "medications": [],
-      "medicalHistory": [],
-      "familyHistory": [],
-      "labResults": [
-        {
-          "test": "White Blood Cell Count",
-          "result": "15.8 x10^9/L",
-          "status": "High"
-        }
-      ],
-      "procedures": ["Appendectomy Scheduled"],
-      "treatmentPlan": "Prepare for surgery and administer IV antibiotics.",
-      "followUpDate": null,
-      "notes": "Patient admitted for emergency surgery."
+    "chiefComplaint": "Persistent headaches and elevated blood pressure",
+    "primaryDiagnosis": "Essential Hypertension",
+    "secondaryDiagnoses": [
+      "Hyperlipidemia"
+    ],
+    "attendingDoctor": "Dr. Kwame Asare",
+    "department": "Cardiology",
+    "encounterType": "OPD",
+    "visitDate": "2026-07-15",
+    "status": "ACTIVE",
+    "createdAt": "2026-07-15T09:30:00Z",
+    "updatedAt": "2026-07-15T10:15:00Z"
+  },
+  {
+    "id": "mr-002",
+    "medicalRecordNumber": "MRN-20260002",
+    "patientId": "patient-002",
+    "firstName": "Kofi",
+    "lastName": "Owusu",
+    "dateOfBirth": "1985-11-22",
+    "gender": "Male",
+    "phone": "+233202345678",
+    "email": "kofi.owusu@example.com",
+    "diagnosis": "Type 2 Diabetes Mellitus",
+    "provider": {
+      "id": "prov-002",
+      "name": "Dr. Esi Boateng",
+      "specialty": "Endocrinology"
     },
-    {
-      "patientId": "P100003",
-      "medicalRecordNumber": "MRN100003",
-      "firstName": "David",
-      "lastName": "Wilson",
-      "dateOfBirth": "1976-11-03",
-      "gender": "Male",
-      "phone": "+1-555-345-6789",
-      "email": "david.wilson@example.com",
-      "department": "Orthopedics",
-      "encounterType": "Follow-up",
-      "status": "Completed",
-      "visitDate": "2026-07-22T11:00:00Z",
-      "provider": {
-        "id": "DR302",
-        "name": "Dr. Lisa Carter",
-        "specialty": "Orthopedic Surgery"
-      },
-      "chiefComplaint": "Persistent knee pain",
-      "diagnosis": "Osteoarthritis of the Knee",
-      "primaryDiagnosis": "Osteoarthritis",
-      "secondaryDiagnoses": [],
-      "icd10Code": "M17.9",
-      "vitals": {
-        "bloodPressure": "130/84",
-        "heartRate": 76,
-        "respiratoryRate": 16,
-        "temperature": 36.6,
-        "oxygenSaturation": 98,
-        "heightCm": 180,
-        "weightKg": 92,
-        "bmi": 28.4
-      },
-      "allergies": ["Ibuprofen"],
-      "medications": [
-        {
-          "name": "Acetaminophen",
-          "dosage": "500 mg",
-          "frequency": "Every 6 hours as needed"
-        }
-      ],
-      "medicalHistory": ["Osteoarthritis"],
-      "familyHistory": ["Mother - Arthritis"],
-      "labResults": [],
-      "procedures": ["Knee X-ray"],
-      "treatmentPlan": "Physical therapy and weight management.",
-      "followUpDate": "2026-09-01",
-      "notes": "Recommend low-impact exercise."
+    "chiefComplaint": "Increased thirst and frequent urination",
+    "primaryDiagnosis": "Type 2 Diabetes Mellitus",
+    "secondaryDiagnoses": [
+      "Obesity"
+    ],
+    "attendingDoctor": "Dr. Esi Boateng",
+    "department": "Endocrinology",
+    "encounterType": "OPD",
+    "visitDate": "2026-07-18",
+    "status": "ACTIVE",
+    "createdAt": "2026-07-18T11:00:00Z",
+    "updatedAt": "2026-07-18T12:20:00Z"
+  },
+  {
+    "id": "mr-003",
+    "medicalRecordNumber": "MRN-20260003",
+    "patientId": "patient-003",
+    "firstName": "Yaw",
+    "lastName": "Adjei",
+    "dateOfBirth": "1978-03-09",
+    "gender": "Male",
+    "phone": "+233244567890",
+    "email": "yaw.adjei@example.com",
+    "diagnosis": "Community Acquired Pneumonia",
+    "provider": {
+      "id": "prov-003",
+      "name": "Dr. Michael Osei",
+      "specialty": "Pulmonology"
     },
-    {
-      "patientId": "P100004",
-      "medicalRecordNumber": "MRN100004",
-      "firstName": "Sophia",
-      "lastName": "Taylor",
-      "dateOfBirth": "2000-02-27",
-      "gender": "Female",
-      "phone": "+1-555-555-1122",
-      "email": "sophia.taylor@example.com",
-      "department": "Dermatology",
-      "encounterType": "Outpatient",
-      "status": "Completed",
-      "visitDate": "2026-07-21T10:15:00Z",
-      "provider": {
-        "id": "DR404",
-        "name": "Dr. Kevin Lee",
-        "specialty": "Dermatology"
-      },
-      "chiefComplaint": "Itchy skin rash",
-      "diagnosis": "Atopic Dermatitis",
-      "primaryDiagnosis": "Eczema",
-      "secondaryDiagnoses": [],
-      "icd10Code": "L20.9",
-      "vitals": {
-        "bloodPressure": "118/76",
-        "heartRate": 72,
-        "respiratoryRate": 15,
-        "temperature": 36.7,
-        "oxygenSaturation": 99,
-        "heightCm": 167,
-        "weightKg": 58,
-        "bmi": 20.8
-      },
-      "allergies": ["Peanuts"],
-      "medications": [
-        {
-          "name": "Hydrocortisone Cream",
-          "dosage": "1%",
-          "frequency": "Twice daily"
-        }
-      ],
-      "medicalHistory": ["Seasonal Allergies"],
-      "familyHistory": ["Mother - Eczema"],
-      "labResults": [],
-      "procedures": [],
-      "treatmentPlan": "Use topical steroid and moisturizer daily.",
-      "followUpDate": "2026-08-18",
-      "notes": "Avoid known allergens."
+    "chiefComplaint": "Cough, fever, and difficulty breathing",
+    "primaryDiagnosis": "Community Acquired Pneumonia",
+    "secondaryDiagnoses": [
+      "Fever"
+    ],
+    "attendingDoctor": "Dr. Michael Osei",
+    "department": "Pulmonology",
+    "encounterType": "EMERGENCY",
+    "visitDate": "2026-07-20",
+    "status": "DISCHARGED",
+    "createdAt": "2026-07-20T14:10:00Z",
+    "updatedAt": "2026-07-22T08:00:00Z"
+  },
+  {
+    "id": "mr-004",
+    "medicalRecordNumber": "MRN-20260004",
+    "patientId": "patient-004",
+    "firstName": "Akosua",
+    "lastName": "Amoah",
+    "dateOfBirth": "1995-08-30",
+    "gender": "Female",
+    "phone": "+233551234890",
+    "email": "akosua.amoah@example.com",
+    "diagnosis": "Migraine",
+    "provider": {
+      "id": "prov-004",
+      "name": "Dr. Linda Nyarko",
+      "specialty": "Neurology"
     },
-    {
-      "patientId": "P100005",
-      "medicalRecordNumber": "MRN100005",
-      "firstName": "Michael",
-      "lastName": "Brown",
-      "dateOfBirth": "1969-08-14",
-      "gender": "Male",
-      "phone": "+1-555-888-3344",
-      "email": "michael.brown@example.com",
-      "department": "Endocrinology",
-      "encounterType": "Routine Follow-up",
-      "status": "Completed",
-      "visitDate": "2026-07-19T08:45:00Z",
-      "provider": {
-        "id": "DR510",
-        "name": "Dr. Rachel Green",
-        "specialty": "Endocrinology"
-      },
-      "chiefComplaint": "Routine diabetes review",
-      "diagnosis": "Type 2 Diabetes Mellitus",
-      "primaryDiagnosis": "Type 2 Diabetes Mellitus",
-      "secondaryDiagnoses": ["Obesity"],
-      "icd10Code": "E11.9",
-      "vitals": {
-        "bloodPressure": "138/86",
-        "heartRate": 80,
-        "respiratoryRate": 16,
-        "temperature": 36.5,
-        "oxygenSaturation": 98,
-        "heightCm": 172,
-        "weightKg": 95,
-        "bmi": 32.1
-      },
-      "allergies": ["Sulfa Drugs"],
-      "medications": [
-        {
-          "name": "Metformin",
-          "dosage": "500 mg",
-          "frequency": "Twice daily"
-        }
-      ],
-      "medicalHistory": ["Type 2 Diabetes", "Obesity"],
-      "familyHistory": ["Father - Type 2 Diabetes"],
-      "labResults": [
-        {
-          "test": "HbA1c",
-          "result": "7.3%",
-          "status": "Above Target"
-        },
-        {
-          "test": "Fasting Blood Glucose",
-          "result": "142 mg/dL",
-          "status": "High"
-        }
-      ],
-      "procedures": [],
-      "treatmentPlan": "Continue Metformin, improve diet, increase physical activity.",
-      "followUpDate": "2026-10-19",
-      "notes": "Discussed lifestyle modifications and glucose monitoring."
-    }
-  ]
-  
+    "chiefComplaint": "Recurring severe headaches with nausea",
+    "primaryDiagnosis": "Migraine without aura",
+    "secondaryDiagnoses": [
+      "Photophobia"
+    ],
+    "attendingDoctor": "Dr. Linda Nyarko",
+    "department": "Neurology",
+    "encounterType": "OPD",
+    "visitDate": "2026-07-21",
+    "status": "ACTIVE",
+    "createdAt": "2026-07-21T10:00:00Z",
+    "updatedAt": "2026-07-21T10:45:00Z"
+  },
+  {
+    "id": "mr-005",
+    "medicalRecordNumber": "MRN-20260005",
+    "patientId": "patient-005",
+    "firstName": "Nana",
+    "lastName": "Addo",
+    "dateOfBirth": "1968-12-17",
+    "gender": "Male",
+    "phone": "+233267890123",
+    "email": "nana.addo@example.com",
+    "diagnosis": "Osteoarthritis of Knee",
+    "provider": {
+      "id": "prov-005",
+      "name": "Dr. Samuel Tetteh",
+      "specialty": "Orthopedics"
+    },
+    "chiefComplaint": "Chronic knee pain and reduced mobility",
+    "primaryDiagnosis": "Osteoarthritis of Knee",
+    "secondaryDiagnoses": [
+      "Joint stiffness"
+    ],
+    "attendingDoctor": "Dr. Samuel Tetteh",
+    "department": "Orthopedics",
+    "encounterType": "OPD",
+    "visitDate": "2026-07-23",
+    "status": "ACTIVE",
+    "createdAt": "2026-07-23T13:00:00Z",
+    "updatedAt": "2026-07-23T13:40:00Z"
+  },
+  {
+    "id": "mr-006",
+    "medicalRecordNumber": "MRN-20260006",
+    "patientId": "patient-006",
+    "firstName": "Efua",
+    "lastName": "Asante",
+    "dateOfBirth": "2001-04-25",
+    "gender": "Female",
+    "phone": "+233245678901",
+    "email": "efua.asante@example.com",
+    "diagnosis": "Acute Gastritis",
+    "provider": {
+      "id": "prov-006",
+      "name": "Dr. Richard Amoako",
+      "specialty": "Gastroenterology"
+    },
+    "chiefComplaint": "Abdominal pain and nausea after meals",
+    "primaryDiagnosis": "Acute Gastritis",
+    "secondaryDiagnoses": [
+      "Acid reflux"
+    ],
+    "attendingDoctor": "Dr. Richard Amoako",
+    "department": "Gastroenterology",
+    "encounterType": "OPD",
+    "visitDate": "2026-07-24",
+    "status": "ACTIVE",
+    "createdAt": "2026-07-24T09:15:00Z",
+    "updatedAt": "2026-07-24T10:00:00Z"
+  },
+  {
+    "id": "mr-007",
+    "medicalRecordNumber": "MRN-20260007",
+    "patientId": "patient-007",
+    "firstName": "Kojo",
+    "lastName": "Frimpong",
+    "dateOfBirth": "1992-06-05",
+    "gender": "Male",
+    "phone": "+233208765432",
+    "email": "kojo.frimpong@example.com",
+    "diagnosis": "Urinary Tract Infection",
+    "provider": {
+      "id": "prov-007",
+      "name": "Dr. Patricia Quaye",
+      "specialty": "Urology"
+    },
+    "chiefComplaint": "Painful urination and lower abdominal discomfort",
+    "primaryDiagnosis": "Urinary Tract Infection",
+    "secondaryDiagnoses": [
+      "Dysuria"
+    ],
+    "attendingDoctor": "Dr. Patricia Quaye",
+    "department": "Urology",
+    "encounterType": "OPD",
+    "visitDate": "2026-07-25",
+    "status": "ACTIVE",
+    "createdAt": "2026-07-25T15:20:00Z",
+    "updatedAt": "2026-07-25T16:00:00Z"
+  },
+  {
+    "id": "mr-008",
+    "medicalRecordNumber": "MRN-20260008",
+    "patientId": "patient-008",
+    "firstName": "Adwoa",
+    "lastName": "Darko",
+    "dateOfBirth": "1988-09-12",
+    "gender": "Female",
+    "phone": "+233503456789",
+    "email": "adwoa.darko@example.com",
+    "diagnosis": "Asthma",
+    "provider": {
+      "id": "prov-008",
+      "name": "Dr. Felix Badu",
+      "specialty": "Respiratory Medicine"
+    },
+    "chiefComplaint": "Wheezing and shortness of breath",
+    "primaryDiagnosis": "Bronchial Asthma",
+    "secondaryDiagnoses": [
+      "Seasonal allergies"
+    ],
+    "attendingDoctor": "Dr. Felix Badu",
+    "department": "Respiratory Medicine",
+    "encounterType": "EMERGENCY",
+    "visitDate": "2026-07-26",
+    "status": "DISCHARGED",
+    "createdAt": "2026-07-26T18:00:00Z",
+    "updatedAt": "2026-07-27T09:30:00Z"
+  },
+  {
+    "id": "mr-009",
+    "medicalRecordNumber": "MRN-20260009",
+    "patientId": "patient-009",
+    "firstName": "Kwesi",
+    "lastName": "Agyeman",
+    "dateOfBirth": "1959-01-28",
+    "gender": "Male",
+    "phone": "+233547890123",
+    "email": "kwesi.agyeman@example.com",
+    "diagnosis": "Coronary Artery Disease",
+    "provider": {
+      "id": "prov-009",
+      "name": "Dr. Joseph Appiah",
+      "specialty": "Cardiology"
+    },
+    "chiefComplaint": "Chest pain and shortness of breath during activity",
+    "primaryDiagnosis": "Coronary Artery Disease",
+    "secondaryDiagnoses": [
+      "Hypertension",
+      "High cholesterol"
+    ],
+    "attendingDoctor": "Dr. Joseph Appiah",
+    "department": "Cardiology",
+    "encounterType": "IPD",
+    "visitDate": "2026-07-28",
+    "status": "ACTIVE",
+    "createdAt": "2026-07-28T07:45:00Z",
+    "updatedAt": "2026-07-28T09:00:00Z"
+  },
+  {
+    "id": "mr-010",
+    "medicalRecordNumber": "MRN-20260010",
+    "patientId": "patient-010",
+    "firstName": "Abena",
+    "lastName": "Sarpong",
+    "dateOfBirth": "2010-10-19",
+    "gender": "Female",
+    "phone": "+233556789012",
+    "email": "abena.sarpong@example.com",
+    "diagnosis": "Acute Tonsillitis",
+    "provider": {
+      "id": "prov-010",
+      "name": "Dr. Grace Mensima",
+      "specialty": "Pediatrics"
+    },
+    "chiefComplaint": "Sore throat and difficulty swallowing",
+    "primaryDiagnosis": "Acute Tonsillitis",
+    "secondaryDiagnoses": [
+      "Fever"
+    ],
+    "attendingDoctor": "Dr. Grace Mensima",
+    "department": "Pediatrics",
+    "encounterType": "OPD",
+    "visitDate": "2026-07-30",
+    "status": "COMPLETED",
+    "createdAt": "2026-07-30T12:30:00Z",
+    "updatedAt": "2026-07-30T13:15:00Z"
+  }
+]

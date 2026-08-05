@@ -2,7 +2,7 @@ import { Patient } from "@/features/patients/types/patient";
 
 export const Patients: Patient[] = [
   {
-    id: "1",
+    id: "550e8400-e29b-41d4-a716-446655440001",
     mrn: "MRN000001",
     firstName: "John",
     middleName: "Michael",
@@ -28,10 +28,10 @@ export const Patients: Patient[] = [
     emergencyContactName: "Jane Doe",
     emergencyContactPhone: "+233245555555",
     emergencyContactRelationship: "Sister",
-    patientType: "OUTPATIENT",
+    patientType: "OPD",
   },
   {
-    id: "2",
+    id: "6ba7b810-9dad-41d1-80b4-00c04fd430c8",
     mrn: "MRN000002",
     firstName: "Jane",
     lastName: "Smith",
@@ -51,10 +51,10 @@ export const Patients: Patient[] = [
     genotype: "AS",
     status: "ACTIVE",
     registeredAt: "2024-02-14T08:30:00Z",
-    patientType: "OUTPATIENT",
+    patientType: "OPD",
   },
   {
-    id: "3",
+    id: "7d444840-9dc0-41d1-b245-5ffdce74fad2",
     mrn: "MRN000003",
     firstName: "Bob",
     lastName: "Wilson",
@@ -72,10 +72,10 @@ export const Patients: Patient[] = [
     genotype: "AA",
     status: "INACTIVE",
     registeredAt: "2023-11-12T14:20:00Z",
-    patientType: "INPATIENT",
+    patientType: "IPD",
   },
   {
-    id: "4",
+    id: "16fd2706-8baf-433b-82eb-8c7fada847da",
     mrn: "MRN000004",
     firstName: "Alice",
     lastName: "Brown",
@@ -93,10 +93,10 @@ export const Patients: Patient[] = [
     genotype: "AA",
     status: "ACTIVE",
     registeredAt: "2024-03-01T09:45:00Z",
-    patientType: "OUTPATIENT",
+    patientType: "OPD",
   },
   {
-    id: "5",
+    id: "886313e1-3b8a-4372-9b90-0c9aee199e5d",
     mrn: "MRN000005",
     firstName: "Charlie",
     lastName: "Davis",
@@ -114,10 +114,10 @@ export const Patients: Patient[] = [
     genotype: "AS",
     status: "ACTIVE",
     registeredAt: "2024-04-18T11:15:00Z",
-    patientType: "OUTPATIENT",
+    patientType: "OPD",
   },
   {
-    id: "6",
+    id: "de305d54-75b4-431b-adb2-eb6b9e546014",
     mrn: "MRN000006",
     firstName: "Emily",
     lastName: "Johnson",
@@ -135,9 +135,9 @@ export const Patients: Patient[] = [
     genotype: "AA",
     status: "ACTIVE",
     registeredAt: "2024-05-20T13:10:00Z",
-    patientType: "INPATIENT",
-  },
-];
+    patientType: "IPD",
+  }
+]
 
 
 // user-data.ts

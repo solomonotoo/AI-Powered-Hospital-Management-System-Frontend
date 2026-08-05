@@ -19,7 +19,7 @@ const departmentOptions = [
 const medicalRecordsStatusOptions = [
   { label: "All Statuses", value: "all" },
   { label: "Archive", value: "ARCHIVE" },
-  { label: "Pending", value: "PENDING" },
+  { label: "PENDING_APPROVAL", value: "PENDING_APPROVAL" },
 ];
 
 const medicalRecordsEncounterTypeOptions = [

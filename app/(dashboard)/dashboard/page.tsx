@@ -38,7 +38,7 @@ const STATS: Stat[] = [
     label: "Appointments",
     value: "47",
     icon: CalendarClock,
-    delta: "8 pending",
+    delta: "8 PENDING_APPROVAL",
   },
   { label: "Avg. wait time", value: "23m", icon: Activity, delta: "-4m" },
 ];

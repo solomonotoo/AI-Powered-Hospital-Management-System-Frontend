@@ -39,5 +39,5 @@ export const relationshipEnum = z.enum([
   "GUARDIAN",
   "RELATIVE",
   "FRIEND",
-  "OTHER.",
+  "OTHER",
 ]);

@@ -16,10 +16,10 @@ export const ConsentStep = ({
     ["Gender", v.gender],
     ["Phone", v.phone],
     ["Email", v.email],
-    ["Address", [v.addressLine1, v.city, v.country].filter(Boolean).join(", ")],
-    ["Next of kin", v.nextOfKinName],
-    ["Patient type", v.patientType],
-    ["Insurance", v.insuranceProvider],
+    ["Address", [v.address?.line1, v.address?.city, v.address?.state, v.address?.postalCode, v.address?.country].filter(Boolean).join(", ")],
+    ["Next of kin", v.nextOfKin?.name],
+    ["Patient type", v.insurance?.patientType],
+    ["Insurance", v.insurance?.provider],
   ].filter(([, val]) => val) as [string, string][];
 
   return (
