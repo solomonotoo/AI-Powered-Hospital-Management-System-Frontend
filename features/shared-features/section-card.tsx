@@ -4,11 +4,12 @@ import { ReactNode } from "react";
 interface SectionCardProps {
   title?: string;
   children: ReactNode;
+  className?: string;
 }
 
-export function SectionCard({ title, children }: SectionCardProps) {
+export function SectionCard({ title, children, className }: SectionCardProps) {
   return (
-    <Card>
+    <Card className={className}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>

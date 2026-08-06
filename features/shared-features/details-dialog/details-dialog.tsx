@@ -32,9 +32,9 @@ export function DetailDialog({
 }: DetailsDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader className="text-center bg-red-300">
-          <DialogTitle>{title}</DialogTitle>
+      <DialogContent className="sm:max-w-3xl max-h-[100vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-center text-2xl">{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

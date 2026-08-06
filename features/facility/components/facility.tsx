@@ -81,7 +81,7 @@ export function Facility() {
           />
         }
       >
-        <SectionCard>
+        <SectionCard className="max-w-[85vw] ">
           <FacilityTable
             facilities={facilityData}
             sort={sort}

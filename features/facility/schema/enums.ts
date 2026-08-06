@@ -9,4 +9,4 @@ export const facilityType = z.enum([
   "CHIPS",
 ]);
 
-export const status = z.enum(["ACTIVE", "INACTIVE", "PENDING"]);
+export const status = z.enum(["ACTIVE", "INACTIVE", "PENDING_APPROVAL"]);

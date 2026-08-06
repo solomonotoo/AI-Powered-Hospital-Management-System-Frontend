@@ -1,20 +1,18 @@
-
 import { DetailItem as DetailItemType } from "./details-dialog";
 import { DetailItem } from "./detail-item";
 import React from "react";
 
 interface DetailSectionProps {
   title: string;
-  icon?:React.ReactNode;
+  icon?: React.ReactNode;
   items: DetailItemType[];
 }
 
-export function DetailSection({ title,icon, items, }: DetailSectionProps) {
+export function DetailSection({ title, icon, items }: DetailSectionProps) {
   return (
     <div className="space-y-3">
-      {icon}
-      <h3 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">
-        {title}
+      <h3 className="flex text-sm font-semibold tracking-wide uppercase text-muted-foreground gap-4">
+        {icon} {title}
       </h3>
 
       <div className="rounded-md border p-4">

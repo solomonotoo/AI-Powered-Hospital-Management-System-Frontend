@@ -12,5 +12,5 @@ interface DataTableProps {
   children: ReactNode;
 }
 export function DataTable({ children }: DataTableProps) {
-  return <Table>{children} </Table>;
+  return <Table>{children}</Table>;
 }

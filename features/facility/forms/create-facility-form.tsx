@@ -47,7 +47,7 @@ export const CreateFacilityForm = forwardRef<
   const statusOptions = [
     { label: "Active", value: "ACTIVE" },
     { label: "Inactive", value: "INACTIVE" },
-    { label: "Under Maintenance", value: "UNDER_MAINTENANCE" },
+    { label: "Pending Approval", value: "PENDING_APPROVAL" },
   ];
 
   return (

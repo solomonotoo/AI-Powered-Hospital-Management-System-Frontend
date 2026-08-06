@@ -12,8 +12,6 @@ interface FacilityActionsProps {
 export function FacilityTableRowActions({ facility,onView }: FacilityActionsProps) {
   return (
     //For now it logs the visit ID. Later we'll replace it with Next.js routing to the encounter page.
- 
-
     <DataTableRowActions
       actions={[
         {

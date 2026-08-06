@@ -41,10 +41,10 @@ export function FacilityTable({
     <>
       <DataTable>
         <FacilityTableHeader sort={sort} onSortChange={onSortChange} />
+        {/* check facility-table-old.tsx for the previous code
+          NB we're passing the entire facility, not just its ID. */}
         <TableBody>
           {facilities.map((facility) => (
-            // check facility-table-old.tsx for the previous code
-            //NB we're passing the entire facility, not just its ID.
             <FacilityTableRow
               key={facility.id}
               facility={facility}

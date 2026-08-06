@@ -22,8 +22,8 @@ interface DataTableRowActionsProps {
 export function DataTableRowActions({ actions }: DataTableRowActionsProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button variant="outline" size="sm">
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm" asChild>
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
