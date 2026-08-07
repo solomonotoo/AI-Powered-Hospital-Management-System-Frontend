@@ -19,5 +19,5 @@ export const facilitySchema = z.object({
   status: z.preprocess((v) => (v === "" ? undefined : v), facilityStatus),
 });
 
-export type FacilityFormInput = z.input<typeof facilitySchema>;
+//export type FacilityFormInput = z.input<typeof facilitySchema>;
 export type FacilityFormValues = z.infer<typeof facilitySchema>;

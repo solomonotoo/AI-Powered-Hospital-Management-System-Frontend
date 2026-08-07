@@ -5,7 +5,7 @@ export const API_ROUTES = {
     LOGIN: "/auth/login",
     REFRESH: "/auth/refresh",
   },
-  FACILITY: {
+  FACILITIES: {
     ROOT: "/facilities",
     BY_ID: (id: string) => `/facilities/${id}`,
     SEARCH: "/facilities/search",

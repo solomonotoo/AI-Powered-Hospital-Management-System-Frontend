@@ -16,6 +16,8 @@ import { useRef, useState } from "react";
 import { FacilityFormValues } from "../schema/facility-schema";
 import { toast } from "sonner";
 
+import { useCreateFacility } from "../hook/use-create-facility";
+
 interface FacilityFormProps {
   form: UseFormReturn<Facility>;
 }
@@ -31,25 +33,17 @@ export function CreateFacilityDialog({
   onOpenChange,
   onSuccess,
 }: CreateFacilityDialogProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<{ submit: () => void }>(null);
+  const { mutateAsync: createFacility, isPending: isSubmitting } = useCreateFacility();
 
   const handleSubmit = async (values: FacilityFormValues) => {
     try {
-      setIsSubmitting(true);
-
-      //Here you make your API call
-      console.log("Form Values", values);
-
-      //simulate api call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await createFacility(values);
       toast.success("Facility created successfully");
       onOpenChange(false);
       onSuccess?.();
     } catch (error) {
       toast.error("Failed to create facility");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 

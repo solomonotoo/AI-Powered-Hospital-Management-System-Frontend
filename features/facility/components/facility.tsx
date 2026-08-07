@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { FacilitySummaryCards } from "./facility-summary-cards";
-import { FacilitySummaryMock, facilities } from "@/app/facility-mock-data";
 import { FacilityToolbar } from "./toolbar/facility-toolbar";
 import { FacilityTable } from "./table/facility-table";
 import { SortState } from "@/features/types/sort-state";
@@ -10,6 +9,9 @@ import { SectionCard } from "@/features/shared-features/section-card";
 import { WorkspaceSection } from "@/features/shared-features/workspace-section";
 import { WorkspacePagination } from "@/features/shared-features/workspace-pagination";
 import { CreateFacilityDialog } from "./create-facility-dialog";
+import { useFacilities } from "../hook/use-facilities";
+import { useFacilitySummary } from "../hook/use-facility-summary";
+import { toFacility } from "../api/facility-mapper";
 
 export function Facility() {
   const [search, setSearch] = useState("");
@@ -19,48 +21,39 @@ export function Facility() {
   //open create facility modal
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-  const summary = FacilitySummaryMock;
-  const facilityData = facilities;
-
   const [page, setPage] = useState(1); //page
-  //const [size] = useState(10); //number items per page
   const [pageSize, setPageSize] = useState(10);
 
   //sorting state
   const [sort, setSort] = useState<SortState>({
-    field: "visitDate",
+    field: "code",
     direction: "desc",
   });
 
+  // Fetch real summary data from the API (with fallback to mock data)
+  const { data: summary, isLoading: isSummaryLoading } = useFacilitySummary();
+
+  // Fetch real facilities list from the API based on search, pagination, and sorting
+  const { data: facilitiesPage, isLoading: isListLoading } = useFacilities({
+    page: page - 1, // API pagination is 0-indexed
+    size: pageSize,
+    search: search || undefined,
+    sort: sort.field ? `${sort.field},${sort.direction}` : undefined,
+  });
+
+  // Map API FacilityResponse model to Facility UI model
+  const facilityData = facilitiesPage?.content.map(toFacility) || [];
+  const totalPages = facilitiesPage?.totalPages || 1;
+
   // Handle successful facility creation
   const handleFacilityCreated = () => {
-    // Refresh your facility list here
-    console.log("Facility created, refreshing list...");
-    // You could refetch data here
+    console.log("Facility created, list refreshing automatically via query invalidation...");
   };
 
   return (
-    // <div className="grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 space-y-4 ">
-    //   <FacilitySummaryCards summary={summary} />
-    //   <FacilityToolbar
-    //     search={search}
-    //     category={category}
-    //     status={status}
-    //     onSearchChange={setSearch}
-    //     onCategoryChange={setCategory}
-    //     onStatusChange={setStatus}
-    //   />
-    //   <SectionCard>
-    //     <FacilityTable
-    //       facilities={facilities}
-    //       sort={sort}
-    //       onSortChange={setSort}
-    //     />
-    //   </SectionCard>
-    // </div>
     <>
       <WorkspaceSection
-        summary={<FacilitySummaryCards summary={summary} />}
+        summary={summary ? <FacilitySummaryCards summary={summary} /> : null}
         toolbar={
           <FacilityToolbar
             search={search}
@@ -74,19 +67,24 @@ export function Facility() {
         }
         footer={
           <WorkspacePagination
-            page={10}
-            // totalPages={totalPages}
-            totalPages={50}
+            page={page}
+            totalPages={totalPages}
             onPageChange={setPage}
           />
         }
       >
         <SectionCard className="max-w-[85vw] ">
-          <FacilityTable
-            facilities={facilityData}
-            sort={sort}
-            onSortChange={setSort}
-          />
+          {isListLoading ? (
+            <div className="flex h-48 items-center justify-center text-muted-foreground">
+              Loading facilities...
+            </div>
+          ) : (
+            <FacilityTable
+              facilities={facilityData}
+              sort={sort}
+              onSortChange={setSort}
+            />
+          )}
         </SectionCard>
       </WorkspaceSection>
 
