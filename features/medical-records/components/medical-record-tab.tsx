@@ -8,11 +8,15 @@ import { SortState } from "@/features/types/sort-state";
 import { SectionCard } from "@/features/shared-features/section-card";
 import { WorkspaceSection } from "@/features/shared-features/workspace-section";
 
+import { Patient } from "@/features/patients/types/patient";
+
 interface MedicalRecordTabProps {
-  medicalRecords: MedicalRecord;
+  // medicalRecords: MedicalRecord;
+  patient: Patient;
 }
 
-export function MedicalRecordTab({ medicalRecords }: MedicalRecordTabProps) {
+//export function MedicalRecordTab({ medicalRecords }: MedicalRecordTabProps) {
+export function MedicalRecordTab({ patient }: MedicalRecordTabProps) {
   const [search, setSearch] = useState("");
   const [encounterType, setEncounterType] = useState("all");
   const [medicalStatus, setMedicalStatus] = useState("all");
@@ -23,8 +27,8 @@ export function MedicalRecordTab({ medicalRecords }: MedicalRecordTabProps) {
 
   const records = medicalRecordMockData;
 
-   //sorting state
-   const [sort, setSort] = useState<SortState>({
+  //sorting state
+  const [sort, setSort] = useState<SortState>({
     field: "visitDate",
     direction: "desc",
   });
@@ -67,9 +71,9 @@ export function MedicalRecordTab({ medicalRecords }: MedicalRecordTabProps) {
         />
       }
     >
-      
+
       <SectionCard title="Patient Medical Records">
-      <MedicalRecordTable records={filteredMedicalRecord} sort={sort} onSortChange={setSort} />
+        <MedicalRecordTable records={filteredMedicalRecord} sort={sort} onSortChange={setSort} />
       </SectionCard>
     </WorkspaceSection>
   );

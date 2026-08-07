@@ -1,3 +1,5 @@
+import { Facility } from "@/features/facility/types";
+
 const facility = [
   {
     country: "Ghana",
@@ -278,7 +280,7 @@ export const facilities = [
     "code": "FAC-003",
     "name": "Tamale Teaching Hospital",
     "type": "TEACHING_HOSPITAL",
-    "status": "PENDING",
+    "status": "PENDING_APPROVAL",
     "location": {
       "line1": "Hospital Road",
       "line2": "",
@@ -396,8 +398,8 @@ export const facilities = [
     "id": "550e8400-e29b-41d4-a716-446655440009",
     "code": "FAC-010",
     "name": "East Legon Family Clinic",
-    "type": "CLINIC",
-    "status": "PENDING",
+    "type": "POLYCLINIC",
+    "status": "PENDING_APPROVAL",
     "location": {
       "line1": "Boundary Road",
       "line2": "",
@@ -668,7 +670,7 @@ export const facilities = [
     "id": "550e8400-e29b-41d4-a716-446655440025",
     "code": "FAC-026",
     "name": "Shama Health Centre",
-    "type": "CLINIC",
+    "type": "POLYCLINIC",
     "status": "ACTIVE",
     "location": {
       "line1": "Shama Junction",
@@ -686,7 +688,7 @@ export const facilities = [
     "code": "FAC-027",
     "name": "Ankaful Psychiatric Hospital",
     "type": "SPECIALIST_HOSPITAL",
-    "status": "PENDING",
+    "status": "PENDING_APPROVAL",
     "location": {
       "line1": "Ankaful Road",
       "line2": "",
@@ -940,7 +942,7 @@ export const facilities = [
     "id": "550e8400-e29b-41d4-a716-446655440041",
     "code": "FAC-042",
     "name": "Ghana Red Cross Clinic - Makola",
-    "type": "CLINIC",
+    "type": "POLYCLINIC",
     "status": "ACTIVE",
     "location": {
       "line1": "Makola Shopping Mall",
@@ -1059,7 +1061,7 @@ export const facilities = [
     "id": "550e8400-e29b-41d4-a716-446655440048",
     "code": "FAC-049",
     "name": "Tolon Health Centre",
-    "type": "CLINIC",
+    "type": "POLYCLINIC",
     "status": "ACTIVE",
     "location": {
       "line1": "Tolon-Tamale Road",
@@ -1089,7 +1091,7 @@ export const facilities = [
     "contactPhone": "+233332077788",
     "contactEmail": "info@swedruhospital.gov.gh"
   }
-]
+] satisfies Facility[];
 
 const categoryStatistics = [
   {

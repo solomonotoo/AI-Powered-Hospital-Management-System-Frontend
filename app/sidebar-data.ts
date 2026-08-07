@@ -1,3 +1,4 @@
+import { SidebarSection } from "@/features/layout/sidebar-types";
 import {
   Activity,
   BarChart3,
@@ -17,7 +18,7 @@ import {
   Users,
 } from "lucide-react";
 
-export const sidebarItems = [
+export const sidebarItems: SidebarSection[] = [
   {
     group: "",
     menus: [
@@ -44,7 +45,7 @@ export const sidebarItems = [
     // around them, and the three care settings they move through (OPD,
     // IPD, theater). Doctors and Appointments stay separate from
     // OPD/IPD rather than folded into them, because both are resources
-    // used across *all* care settings, not just outpatient.
+    // used across *all* care settings, not just opd.
     group: "Clinical",
     menus: [
       {

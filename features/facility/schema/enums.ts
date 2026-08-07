@@ -7,6 +7,7 @@ export const facilityType = z.enum([
   "POLYCLINIC",
   "HEALTH_CENTRE",
   "CHIPS",
+  "SPECIALIST_HOSPITAL",
 ]);
 
-export const status = z.enum(["ACTIVE", "INACTIVE", "PENDING_APPROVAL"]);
+export const facilityStatus = z.enum(["ACTIVE", "INACTIVE", "PENDING_APPROVAL"]);

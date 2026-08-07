@@ -1,4 +1,4 @@
-import { DetailItem as DetailItemType } from "./details-dialog";
+import { DetailItem as DetailItemType } from "./types";
 import { DetailItem } from "./detail-item";
 import React from "react";
 

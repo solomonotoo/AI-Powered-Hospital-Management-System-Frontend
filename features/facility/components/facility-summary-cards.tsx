@@ -36,7 +36,7 @@ export function FacilitySummaryCards({ summary }: FacilityCardProps) {
       icon: ActivitySquare,
     },
     {
-      title: "Pending Facilities",
+      title: "PENDING_APPROVAL Facilities",
       value: summary.referralPipeline,
       icon: Timer,
     },

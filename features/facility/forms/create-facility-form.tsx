@@ -42,6 +42,7 @@ export const CreateFacilityForm = forwardRef<
     { label: "Polyclinic", value: "POLYCLINIC" },
     { label: "Health Centre", value: "HEALTH_CENTRE" },
     { label: "Chips", value: "CHIPS" },
+    { label: "Specialist Hospital", value: "SPECIALIST_HOSPITAL" },
   ];
 
   const statusOptions = [

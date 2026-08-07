@@ -5,11 +5,16 @@ export const API_ROUTES = {
     LOGIN: "/auth/login",
     REFRESH: "/auth/refresh",
   },
+  FACILITY: {
+    ROOT: "/facilities",
+    BY_ID: (id: string) => `/facilities/${id}`,
+    SEARCH: "/facilities/search",
+  },
   PATIENTS: {
     ROOT: "/patients",
     BY_ID: (id: string) => `/patients/${id}`,
     SEARCH: "/patients/search",
-    VISITS: (id:string) => `/patients/${id}/visits`
+    VISITS: (id: string) => `/patients/${id}/visits`,
   },
   VISITS: {
     ROOT: "/visits",
@@ -20,9 +25,9 @@ export const API_ROUTES = {
   LABS: {
     ROOT: "/labs",
   },
-  MEDICAL_RECORDS:{
+  MEDICAL_RECORDS: {
     ROOT: "/medical-records",
-  }
+  },
 } as const;
 
 //now the service method becomes much cleaner

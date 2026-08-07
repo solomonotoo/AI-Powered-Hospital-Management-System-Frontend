@@ -84,20 +84,17 @@ export function AppSidebar() {
               <SidebarMenu>
                 {section.menus.map((menu) => {
                   const Icon = menu.icon;
-                  const hasChildren = Boolean(menu.items);
-                  const isChildActive = menu.items?.some(
-                    (item) => pathname === item.url
-                  );
-                  const isDirectActive = !hasChildren && pathname === menu.url;
+
+                  const hasChildren = "items" in menu;
 
                   if (!hasChildren) {
+                    const isDirectActive = pathname === menu.url;
+
                     return (
                       <SidebarMenuItem key={menu.title}>
                         <SidebarMenuButton
                           asChild
                           isActive={isDirectActive}
-                          tooltip={menu.title}
-                          className="relative data-[active=true]:before:absolute data-[active=true]:before:inset-y-1 data-[active=true]:before:left-0 data-[active=true]:before:w-0.5 data-[active=true]:before:rounded-full data-[active=true]:before:bg-sidebar-primary"
                         >
                           <Link href={menu.url}>
                             <Icon />
@@ -108,24 +105,24 @@ export function AppSidebar() {
                     );
                   }
 
+                  const isChildActive = menu.items.some(
+                    (item) => pathname === item.url
+                  );
+
                   return (
                     <Collapsible
                       key={menu.title}
-                      asChild
                       defaultOpen={isChildActive}
                       className="group/collapsible"
                     >
                       <SidebarMenuItem>
-                        <CollapsibleTrigger asChild className="my-1">
-                          <SidebarMenuButton
-                            tooltip={menu.title}
-                            isActive={isChildActive}
-                          >
+                        <CollapsibleTrigger asChild>
+                          <SidebarMenuButton isActive={isChildActive}>
                             <Icon />
                             <span>{menu.title}</span>
-                            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                           </SidebarMenuButton>
                         </CollapsibleTrigger>
+
                         <CollapsibleContent>
                           <SidebarMenuSub>
                             {menu.items.map((item) => (
@@ -135,7 +132,7 @@ export function AppSidebar() {
                                   isActive={pathname === item.url}
                                 >
                                   <Link href={item.url}>
-                                    <span>{item.title}</span>
+                                    {item.title}
                                   </Link>
                                 </SidebarMenuSubButton>
                               </SidebarMenuSubItem>
