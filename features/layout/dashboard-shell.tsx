@@ -4,6 +4,7 @@ import { AppSidebar } from "@/features/layout/app-sidebar";
 import { AppNavbar } from "@/features/layout/app-navbar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { DashboardShellClient } from "./dashboardShellClient";
 
 interface DashboardShellProps {
   children: React.ReactNode;
@@ -24,22 +25,16 @@ interface DashboardShellProps {
  *   than fully expanded, while desktop users who prefer it open just need
  *   to toggle it once and it's remembered from then on.
  */
+
+//server component wrapper
 export async function DashboardShell({ children, title }: DashboardShellProps) {
   const cookieStore = await cookies();
   const savedState = cookieStore.get("sidebar_state")?.value;
   const defaultOpen = savedState ? savedState === "true" : false;
 
   return (
-    <TooltipProvider delayDuration={0}>
-      <SidebarProvider defaultOpen={defaultOpen}>
-        <AppSidebar />
-        <SidebarInset className="min-w-0 overflow-x-hidden">
-          <AppNavbar title={title} />
-          <main className="grid grid-cols-1 gap-4 p-4 md:gap-6 md:p-6 bg-blue-100/20 w-full overflow-x-hidden">
-            {children}
-          </main>
-        </SidebarInset>
-      </SidebarProvider>
-    </TooltipProvider>
+    <DashboardShellClient defaultOpen={defaultOpen} title={title}>
+      {children}
+    </DashboardShellClient>
   );
 }

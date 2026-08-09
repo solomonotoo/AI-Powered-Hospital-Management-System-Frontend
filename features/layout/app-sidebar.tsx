@@ -74,14 +74,14 @@ export function AppSidebar() {
       </SidebarHeader>
 
       {/* Content: the ONLY scrolling region in the sidebar. */}
-      <SidebarContent className="gap-0">
+      <SidebarContent>
         {sidebarItems.map((section, idx) => (
           <SidebarGroup key={section.group || `section-${idx}`}>
             {section.group && (
               <SidebarGroupLabel>{section.group}</SidebarGroupLabel>
             )}
             <SidebarGroupContent>
-              <SidebarMenu>
+              <SidebarMenu className="space-y-2.5">
                 {section.menus.map((menu) => {
                   const Icon = menu.icon;
 
@@ -91,11 +91,8 @@ export function AppSidebar() {
                     const isDirectActive = pathname === menu.url;
 
                     return (
-                      <SidebarMenuItem key={menu.title}>
-                        <SidebarMenuButton
-                          asChild
-                          isActive={isDirectActive}
-                        >
+                      <SidebarMenuItem key={menu.title} >
+                        <SidebarMenuButton asChild isActive={isDirectActive} >
                           <Link href={menu.url}>
                             <Icon />
                             <span>{menu.title}</span>
@@ -131,9 +128,7 @@ export function AppSidebar() {
                                   asChild
                                   isActive={pathname === item.url}
                                 >
-                                  <Link href={item.url}>
-                                    {item.title}
-                                  </Link>
+                                  <Link href={item.url}>{item.title}</Link>
                                 </SidebarMenuSubButton>
                               </SidebarMenuSubItem>
                             ))}

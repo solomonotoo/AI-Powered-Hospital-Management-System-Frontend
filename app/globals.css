@@ -90,7 +90,9 @@ main {
 
   /* Reserved for active-state indicators only — see app-sidebar.tsx active bar */
   --signal: oklch(0.6 0.13 60); /* signal-amber #C2750C */
+
 }
+
 
 .dark {
   --background: oklch(0.16 0.01 175); /* ink #10171A */
