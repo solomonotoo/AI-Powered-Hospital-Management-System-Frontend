@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { authService } from "../api/auth.service";
 import { setAccessToken, setCurrentUser } from "@/lib/auth";
-import { LoginRequest, CreateCredentialRequest } from "../types/auth";
+import { LoginRequest, CreateCredentialRequest } from "../types/login-response";
 
 export function useLogin() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export function useLogin() {
       });
 
       toast.success(`Welcome back, ${data.fullName}!`);
-      
+
       // Navigate to dashboard
       router.push("/dashboard");
     },

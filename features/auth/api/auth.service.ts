@@ -1,7 +1,11 @@
 import { api } from "@/lib/axios";
 import { API_ROUTES } from "@/lib/api-routes";
 import { ApiResponse } from "@/features/types/api-response";
-import { LoginRequest, LoginResponse, CreateCredentialRequest } from "../types/auth";
+import {
+  LoginRequest,
+  LoginResponse,
+  CreateCredentialRequest,
+} from "../types/login-response";
 
 class AuthService {
   async login(data: LoginRequest): Promise<LoginResponse> {
@@ -24,10 +28,7 @@ class AuthService {
   }
 
   async createCredentials(data: CreateCredentialRequest): Promise<void> {
-    await api.post(
-      API_ROUTES.AUTH.CREDENTIALS,
-      data
-    );
+    await api.post(API_ROUTES.AUTH.CREDENTIALS, data);
   }
 }
 

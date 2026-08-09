@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: z.email("Invalid email address"),
   password: z
     .string()
     .min(8, "Password must have at least 8 characters")
@@ -9,7 +9,7 @@ export const loginSchema = z.object({
 });
 
 export const signupSchema = z.object({
-  staffId: z.string().uuid("Invalid Staff ID (must be a valid UUID)"),
+  staffId: z.uuid("Invalid Staff ID (must be a valid UUID)"),
   loginEmail: z.string().email("Invalid email address"),
   temporaryPassword: z
     .string()
