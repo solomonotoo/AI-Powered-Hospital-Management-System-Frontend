@@ -21,8 +21,8 @@ export function Facility() {
   //open create facility modal
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-  const [page, setPage] = useState(1); //page
   const [pageSize, setPageSize] = useState(10);
+  const [page, setPage] = useState(1); //page
 
   //sorting state
   const [sort, setSort] = useState<SortState>({
@@ -35,19 +35,22 @@ export function Facility() {
 
   // Fetch real facilities list from the API based on search, pagination, and sorting
   const { data: facilitiesPage, isLoading: isListLoading } = useFacilities({
-    page: page - 1, // API pagination is 0-indexed
+    page: page - 1, // API pagination is 0-indexed,  UI uses 1-indexed
     size: pageSize,
     search: search || undefined,
     sort: sort.field ? `${sort.field},${sort.direction}` : undefined,
   });
 
+  //Transform the data
   // Map API FacilityResponse model to Facility UI model
   const facilityData = facilitiesPage?.content.map(toFacility) || [];
   const totalPages = facilitiesPage?.totalPages || 1;
 
   // Handle successful facility creation
   const handleFacilityCreated = () => {
-    console.log("Facility created, list refreshing automatically via query invalidation...");
+    console.log(
+      "Facility created, list refreshing automatically via query invalidation..."
+    );
   };
 
   return (
@@ -73,7 +76,7 @@ export function Facility() {
           />
         }
       >
-        <SectionCard className="max-w-[85vw] ">
+        <SectionCard className="grid grid-cols-1 ">
           {isListLoading ? (
             <div className="flex h-48 items-center justify-center text-muted-foreground">
               Loading facilities...

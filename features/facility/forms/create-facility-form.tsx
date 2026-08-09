@@ -2,14 +2,22 @@ import { UseFormReturn, useForm } from "react-hook-form";
 import { Facility } from "../types";
 import { FieldError, FieldGroup } from "@/components/ui/field";
 import { AppFormField } from "@/features/forms/fields/app-form-field";
-import { FacilityFormValues, facilitySchema } from "../schema/facility-schema";
+import {
+  FacilityFormInput,
+  FacilityFormValues,
+  facilitySchema,
+} from "../schema/facility-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { facilityFormDefaultValues } from "../schema/facility-default-values";
 import { forwardRef, useImperativeHandle } from "react";
 
+// Your current form needs to tell React Hook Form:
+// "My fields receive FacilityFormInput, but after the resolver runs, the submitted value is FacilityFormValues."
+// Use React Hook Form's three generic parameters.
+
 interface CreateFacilityFormProps {
   onSubmit: (values: FacilityFormValues) => void | Promise<void>;
-  defaultValues?: Partial<FacilityFormValues>;
+  defaultValues?: Partial<FacilityFormInput>;
 }
 
 //NB use forwardRef to expose the form's submit function
@@ -17,7 +25,7 @@ export const CreateFacilityForm = forwardRef<
   { submit: () => void }, //what we expose to parent
   CreateFacilityFormProps
 >(({ onSubmit, defaultValues }, ref) => {
-  const form = useForm<FacilityFormValues>({
+  const form = useForm<FacilityFormInput, unknown, FacilityFormValues>({
     resolver: zodResolver(facilitySchema),
     defaultValues: {
       ...facilityFormDefaultValues,

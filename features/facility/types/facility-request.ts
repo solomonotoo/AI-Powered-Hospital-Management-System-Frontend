@@ -16,4 +16,5 @@ export interface CreateFacilityRequest {
   };
   contactPhone: string;
   contactEmail: string;
+  status:string;
 }

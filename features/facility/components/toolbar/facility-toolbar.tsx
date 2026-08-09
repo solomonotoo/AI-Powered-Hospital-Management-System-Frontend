@@ -10,7 +10,7 @@ interface FacilityToolbarProps {
   onSearchChange: (value: string) => void;
   onCategoryChange: (value: string) => void;
   onStatusChange: (value: string) => void;
-  onCreateFacility:() => void;
+  onCreateFacility: () => void;
 }
 
 export function FacilityToolbar({
@@ -23,7 +23,7 @@ export function FacilityToolbar({
   onCreateFacility,
 }: FacilityToolbarProps) {
   return (
-    <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-center">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 items-center justify-center">
       <FacilitySearch value={search} onChange={onSearchChange} />
       <FacilityFilters
         category={category}

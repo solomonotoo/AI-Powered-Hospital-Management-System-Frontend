@@ -20,18 +20,38 @@
     signal-amber   #E0962B  — brightened for dark-mode contrast
 */
 
+/* Prevent horizontal scroll on the entire page */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* Fix for the main content area */
+[data-sidebar="inset"] {
+  overflow-x: hidden;
+  min-width: 0; /* Prevents flex item from overflowing */
+}
+
+/* Ensure the main content doesn't exceed container width */
+main {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 :root {
   --radius: 0.625rem;
 
-  --background: oklch(0.98 0.004 75);        /* paper #F7F5F1 */
-  --foreground: oklch(0.2 0.02 175);          /* ink, teal-leaning near-black */
+  --background: oklch(0.98 0.004 75); /* paper #F7F5F1 */
+  --foreground: oklch(0.2 0.02 175); /* ink, teal-leaning near-black */
 
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.2 0.02 175);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2 0.02 175);
 
-  --primary: oklch(0.45 0.08 167);            /* clinical-teal #0F6E5C */
+  --primary: oklch(0.45 0.08 167); /* clinical-teal #0F6E5C */
   --primary-foreground: oklch(0.98 0.004 75);
 
   --secondary: oklch(0.95 0.01 167);
@@ -57,29 +77,31 @@
   /* Sidebar: dark surface even in light mode — intentional, the sidebar
      is meant to read as a distinct navigation "instrument panel" rather
      than blend into the page canvas. */
-  --sidebar: oklch(0.19 0.015 175);            /* ink #15211F */
-  --sidebar-foreground: oklch(0.92 0.005 75);  /* paper, slightly dimmed */
-  --sidebar-primary: oklch(0.5 0.1 167);        /* clinical-teal, brightened for dark surface */
+  --sidebar: oklch(0.19 0.015 175); /* ink #15211F */
+  --sidebar-foreground: oklch(0.92 0.005 75); /* paper, slightly dimmed */
+  --sidebar-primary: oklch(
+    0.5 0.1 167
+  ); /* clinical-teal, brightened for dark surface */
   --sidebar-primary-foreground: oklch(0.98 0.004 75);
-  --sidebar-accent: oklch(0.27 0.02 175);       /* hover/active row */
+  --sidebar-accent: oklch(0.27 0.02 175); /* hover/active row */
   --sidebar-accent-foreground: oklch(0.95 0.005 75);
   --sidebar-border: oklch(1 0 0 / 8%);
   --sidebar-ring: oklch(0.5 0.1 167);
 
   /* Reserved for active-state indicators only — see app-sidebar.tsx active bar */
-  --signal: oklch(0.6 0.13 60);                /* signal-amber #C2750C */
+  --signal: oklch(0.6 0.13 60); /* signal-amber #C2750C */
 }
 
 .dark {
-  --background: oklch(0.16 0.01 175);          /* ink #10171A */
-  --foreground: oklch(0.93 0.005 75);          /* paper-dark #E9EDEC */
+  --background: oklch(0.16 0.01 175); /* ink #10171A */
+  --foreground: oklch(0.93 0.005 75); /* paper-dark #E9EDEC */
 
   --card: oklch(0.19 0.012 175);
   --card-foreground: oklch(0.93 0.005 75);
   --popover: oklch(0.19 0.012 175);
   --popover-foreground: oklch(0.93 0.005 75);
 
-  --primary: oklch(0.68 0.13 167);             /* clinical-teal-bright #2BB89A */
+  --primary: oklch(0.68 0.13 167); /* clinical-teal-bright #2BB89A */
   --primary-foreground: oklch(0.15 0.01 175);
 
   --secondary: oklch(0.25 0.015 175);
@@ -113,7 +135,7 @@
   --sidebar-border: oklch(1 0 0 / 8%);
   --sidebar-ring: oklch(0.68 0.13 167);
 
-  --signal: oklch(0.68 0.15 60);               /* brightened signal-amber */
+  --signal: oklch(0.68 0.15 60); /* brightened signal-amber */
 }
 
 @theme inline {

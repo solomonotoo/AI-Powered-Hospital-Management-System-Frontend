@@ -1,9 +1,12 @@
-import { FacilityFormValues } from "./facility-schema";
+import { FacilityFormInput, FacilityFormValues } from "./facility-schema";
 
-export const facilityFormDefaultValues: Partial<FacilityFormValues> = {
+
+// facility-default-values.ts should ideally use the input type because these values
+// are being passed into React Hook Form.
+export const facilityFormDefaultValues: Partial<FacilityFormInput> = {
   code: "",
   name: "",
-  type: undefined,
+  type: "DISTRICT_HOSPITAL",
   location: {
     line1: "",
     line2: "",
@@ -14,5 +17,5 @@ export const facilityFormDefaultValues: Partial<FacilityFormValues> = {
   },
   contactPhone: "",
   contactEmail: "",
-  status: undefined,
+  status: "ACTIVE",
 };

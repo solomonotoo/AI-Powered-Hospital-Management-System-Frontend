@@ -17,6 +17,7 @@ import { FacilityFormValues } from "../schema/facility-schema";
 import { toast } from "sonner";
 
 import { useCreateFacility } from "../hook/use-create-facility";
+import { toCreateFacilityRequest } from "../api/facility-mapper";
 
 interface FacilityFormProps {
   form: UseFormReturn<Facility>;
@@ -34,11 +35,14 @@ export function CreateFacilityDialog({
   onSuccess,
 }: CreateFacilityDialogProps) {
   const formRef = useRef<{ submit: () => void }>(null);
-  const { mutateAsync: createFacility, isPending: isSubmitting } = useCreateFacility();
+  const { mutateAsync: createFacility, isPending: isSubmitting } =
+    useCreateFacility();
 
   const handleSubmit = async (values: FacilityFormValues) => {
     try {
-      await createFacility(values);
+      // Transform the form values to match the API request
+      const requestData = toCreateFacilityRequest(values);
+      await createFacility(requestData);
       toast.success("Facility created successfully");
       onOpenChange(false);
       onSuccess?.();

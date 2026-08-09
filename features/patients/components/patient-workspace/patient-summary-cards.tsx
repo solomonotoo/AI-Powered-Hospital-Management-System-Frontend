@@ -53,9 +53,9 @@ export function PatientSummaryCards({ summary }: PatientSummaryCardsProps) {
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-5 xl:grid-cols-6">
+    <div className="grid cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-6">
       {cards.map(({ title, value, icon: Icon }) => (
-        //Instead of rendering a Card directly in the cards.map (...) 
+        //Instead of rendering a Card directly in the cards.map (...)
         //we will replace with metric card from /shared/metric-card.tsx
         // <Card
         //   key={title}

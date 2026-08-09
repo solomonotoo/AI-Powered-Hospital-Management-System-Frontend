@@ -43,7 +43,7 @@ export function FacilitySummaryCards({ summary }: FacilityCardProps) {
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-5 xl:grid-cols-6">
+    <div className="grid grid-cols-1 gap-4 sm:grid-4 md:grid-cols-4 lg:grid-cols-4">
       {facilityCards.map(({ title, value, icon: Icon }) => (
         <MetricCard key={title} title={title} value={value} icon={Icon} />
       ))}

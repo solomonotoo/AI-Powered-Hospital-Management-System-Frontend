@@ -162,8 +162,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="ring-0
-        ">
+        <Card className="ring-0">
           <CardHeader>
             <CardTitle>Bed availability</CardTitle>
             <CardDescription>By department</CardDescription>

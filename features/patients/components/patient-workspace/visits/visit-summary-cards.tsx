@@ -6,7 +6,7 @@ interface VisitSummaryCardsProps {
 }
 
 export function VisitSummaryCards({ visits }: VisitSummaryCardsProps) {
-  const totalVisits = visits.length;//later will be replaced with summery.totalVisits from the backend
+  const totalVisits = visits.length; //later will be replaced with summery.totalVisits from the backend
 
   const opdVisits = visits.filter((visit) => visit.visitType === "OPD").length;
   const ipdVisits = visits.filter((visit) => visit.visitType === "IPD").length;
@@ -14,7 +14,7 @@ export function VisitSummaryCards({ visits }: VisitSummaryCardsProps) {
     (visit) => visit.visitType === "EMERGENCY"
   ).length;
   return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4">
       <MetricCard title="Total Visits" value={totalVisits} />
       <MetricCard title="OPD Visits" value={opdVisits} />
       <MetricCard title="IPD Visits" value={ipdVisits} />

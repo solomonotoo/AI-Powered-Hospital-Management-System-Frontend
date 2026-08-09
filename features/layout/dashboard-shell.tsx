@@ -33,9 +33,9 @@ export async function DashboardShell({ children, title }: DashboardShellProps) {
     <TooltipProvider delayDuration={0}>
       <SidebarProvider defaultOpen={defaultOpen}>
         <AppSidebar />
-        <SidebarInset>
+        <SidebarInset className="min-w-0 overflow-x-hidden">
           <AppNavbar title={title} />
-          <main className="flex flex-1 flex-col gap-4 p-4 md:gap-6 md:p-6 bg-blue-100/20">
+          <main className="grid grid-cols-1 gap-4 p-4 md:gap-6 md:p-6 bg-blue-100/20 w-full overflow-x-hidden">
             {children}
           </main>
         </SidebarInset>

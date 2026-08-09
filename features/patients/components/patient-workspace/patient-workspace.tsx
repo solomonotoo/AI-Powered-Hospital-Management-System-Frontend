@@ -14,7 +14,7 @@ export function PatientWorkspace() {
   const summary = PatientSummaryMock; //mocked data it will later be replaced
   const [activeTab, setActiveTab] = useState("overview");
   return (
-    <div className="space-y-6">
+    <div className="mx-0 space-y-6">
       <PatientHeader patient={patient} />
 
       <PatientSummaryCards summary={summary} />

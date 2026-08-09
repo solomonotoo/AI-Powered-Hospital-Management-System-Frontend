@@ -2,23 +2,25 @@
 
 import { ReactNode } from "react";
 
-interface WorkspaceSectionProps{
-    summary?: ReactNode; //optional 
-    toolbar?: ReactNode; //optional
-    children: ReactNode; //required
-    footer?: ReactNode; //optional
+interface WorkspaceSectionProps {
+  summary?: ReactNode; //optional
+  toolbar?: ReactNode; //optional
+  children: ReactNode; //required
+  footer?: ReactNode; //optional
 }
 
-
 export function WorkspaceSection({
-    summary, toolbar, children, footer,
-}:WorkspaceSectionProps){
-    return(
-        <div className="space-y-6">
-            {summary}
-            {toolbar}
-            {children}
-            {footer}
-        </div>
-    )
+  summary,
+  toolbar,
+  children,
+  footer,
+}: WorkspaceSectionProps) {
+  return (
+    <div className="space-y-6">
+      {summary}
+      {toolbar}
+      {children}
+      {footer}
+    </div>
+  );
 }

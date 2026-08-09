@@ -25,7 +25,7 @@ export function VisitToolbar({
   //   const [search, setSearch] = useState(""); //moved to visit-tab.tsx
 
   return (
-    <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 items-center justify-center">
       <VisitSearch value={search} onChange={onSearchChange} />
 
       <div className="flex items-center gap-2">
@@ -36,11 +36,16 @@ export function VisitToolbar({
           onVisitStatusChange={onVisitStatusChange}
         />
 
-        <VisitToolbarActions 
-          onRefresh={()=>{console.log("Refresh visits")}}
-          onExport={()=>{console.log("Export visits")}}
-          onNewVisit={()=>{console.log("Create visits")}}
-        
+        <VisitToolbarActions
+          onRefresh={() => {
+            console.log("Refresh visits");
+          }}
+          onExport={() => {
+            console.log("Export visits");
+          }}
+          onNewVisit={() => {
+            console.log("Create visits");
+          }}
         />
       </div>
     </div>
