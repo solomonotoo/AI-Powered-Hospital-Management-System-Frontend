@@ -5,8 +5,10 @@ import { AppNavbar } from "@/features/layout/app-navbar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useEffect, useState } from "react";
+import { getAccessToken } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
-//client component for dynamic heigh
+//client component for dynamic height and route protection
 export function DashboardShellClient({
   children,
   title,
@@ -16,12 +18,18 @@ export function DashboardShellClient({
   title?: string;
   defaultOpen: boolean;
 }) {
-  const [height, setHeight] = useState<number>(() => {
-    if (typeof window !== "undefined") {
-      return window.innerHeight;
+  const [height, setHeight] = useState<number>(0);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = getAccessToken();
+    if (!token) {
+      router.replace("/auth/login");
+    } else {
+      setIsAuthenticated(true);
     }
-    return 0;
-  });
+  }, [router]);
 
   useEffect(() => {
     //update height on resize and orientation change
@@ -44,6 +52,16 @@ export function DashboardShellClient({
       window.removeEventListener("orientationchange", updateHeight);
     };
   }, []);
+
+  if (isAuthenticated === null) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center bg-background text-foreground">
+        <div className="text-sm font-medium animate-pulse text-muted-foreground">
+          Verifying session...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <TooltipProvider delayDuration={0}>

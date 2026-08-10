@@ -4,6 +4,7 @@ export const API_ROUTES = {
   AUTH: {
     LOGIN: "/auth/login",
     REFRESH: "/auth/refresh",
+    CREDENTIALS: "/auth/credentials",
   },
   FACILITIES: {
     ROOT: "/facilities",

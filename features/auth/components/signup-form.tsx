@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -14,7 +13,6 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -23,22 +21,30 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import signupImage from "@/public/images/signup1.jpg";
-import { signupSchema } from "../auth";
+import { signupSchema } from "../schema/auth";
+import { useCreateCredentials } from "../hook/use-auth";
 import ReusableImage from "@/features/web/reusable-image";
 
+type CreateCredentialsValues = z.infer<typeof signupSchema>;
+
 export default function SignupForm() {
-  const formValidation = useForm<z.infer<typeof signupSchema>>({
+  const { mutate, isPending } = useCreateCredentials();
+
+  const formValidation = useForm<CreateCredentialsValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      phoneNumber: "",
+      staffId: "",
+      loginEmail: "",
+      temporaryPassword: "",
     },
   });
 
-  const onSubmit = (data: z.infer<typeof signupSchema>) => {
-    // TODO: wire up to actual signup API call
-    console.log(data);
+  const onSubmit = (data: CreateCredentialsValues) => {
+    mutate(data, {
+      onSuccess: () => {
+        formValidation.reset();
+      },
+    });
   };
 
   return (
@@ -57,12 +63,12 @@ export default function SignupForm() {
         </div>
         <CardContent className="p-6 md:p-8 lg:p-10 space-y-6">
           <CardHeader>
-            <CardTitle className="flex items-center justify-center text-5xl font-bold">
-              Signup Form
+            <CardTitle className="flex items-center justify-center text-4xl font-bold text-center">
+              Create Credentials
             </CardTitle>
           </CardHeader>
           <CardDescription className="text-center">
-            Create an account to get started
+            Register temporary login credentials for a staff member.
           </CardDescription>
 
           <form
@@ -72,16 +78,16 @@ export default function SignupForm() {
           >
             <FieldGroup className="space-y-5">
               <Controller
-                name="email"
+                name="staffId"
                 control={formValidation.control}
                 render={({ field, fieldState }) => (
                   <Field>
-                    <FieldLabel>Email</FieldLabel>
+                    <FieldLabel>Staff Member ID (UUID)</FieldLabel>
                     <Input
                       {...field}
-                      type="email"
-                      placeholder="johndoe@example.com"
-                      autoComplete="email"
+                      placeholder="e.g. 123e4567-e89b-12d3-a456-426614174000"
+                      autoComplete="off"
+                      disabled={isPending}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -90,34 +96,36 @@ export default function SignupForm() {
                 )}
               />
               <Controller
-                name="password"
+                name="loginEmail"
                 control={formValidation.control}
                 render={({ field, fieldState }) => (
                   <Field>
-                    <FieldLabel>Password</FieldLabel>
+                    <FieldLabel>Login Email Address</FieldLabel>
+                    <Input
+                      {...field}
+                      type="email"
+                      placeholder="staff@hospital.com"
+                      autoComplete="email"
+                      disabled={isPending}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="temporaryPassword"
+                control={formValidation.control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel>Temporary Password</FieldLabel>
                     <Input
                       {...field}
                       type="password"
                       placeholder="********"
                       autoComplete="new-password"
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-              <Controller
-                name="phoneNumber"
-                control={formValidation.control}
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel>Phone number</FieldLabel>
-                    <Input
-                      {...field}
-                      type="tel"
-                      placeholder="+233 24 000 0000"
-                      autoComplete="tel"
+                      disabled={isPending}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -126,8 +134,8 @@ export default function SignupForm() {
                 )}
               />
               <Field orientation="horizontal">
-                <Button type="submit" className="w-full">
-                  Signup
+                <Button type="submit" className="w-full" disabled={isPending}>
+                  {isPending ? "Creating..." : "Create Credentials"}
                 </Button>
               </Field>
             </FieldGroup>
