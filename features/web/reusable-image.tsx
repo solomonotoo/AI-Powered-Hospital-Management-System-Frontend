@@ -11,7 +11,7 @@ type ReusableImageProps = {
   priority?: boolean;
   quality?: number;
   sizes?: string;
-
+  loading?: "eager" | "lazy";
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
 
   rounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
@@ -32,6 +32,7 @@ export default function ReusableImage({
   objectFit = "cover",
   rounded = "lg",
   className = "",
+  loading = "lazy",
   containerClassName = "",
 }: ReusableImageProps) {
 

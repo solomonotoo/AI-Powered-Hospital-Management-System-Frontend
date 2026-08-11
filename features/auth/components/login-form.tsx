@@ -54,6 +54,7 @@ export default function LoginForm() {
             fill
             width={160}
             height={60}
+            quality={75}
             objectFit="cover"
             rounded="lg"
             alt="Hospital interior illustration"

@@ -57,8 +57,10 @@ export default function SignupForm() {
             fill
             width={160}
             height={60}
-            objectFit="cover"
+            quality={75}
+            objectFit="contain"
             rounded="lg"
+
           />
         </div>
         <CardContent className="p-6 md:p-8 lg:p-10 space-y-6">
