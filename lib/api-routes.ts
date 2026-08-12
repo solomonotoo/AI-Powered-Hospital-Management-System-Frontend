@@ -6,6 +6,11 @@ export const API_ROUTES = {
     REFRESH: "/auth/refresh",
     CREDENTIALS: "/auth/credentials",
   },
+  STAFF: {
+    ROOT: "/staff",
+    BY_ID: (id: string) => `/staff/${id}`,
+    SEARCH: "/staff/search",
+  },
   FACILITIES: {
     ROOT: "/facilities",
     BY_ID: (id: string) => `/facilities/${id}`,

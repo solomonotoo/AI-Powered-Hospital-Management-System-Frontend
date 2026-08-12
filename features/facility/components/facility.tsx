@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FacilitySummaryCards } from "./facility-summary-cards";
-import { FacilitySummaryMock, facilities } from "@/app/facility-mock-data";
+import { FacilitySummaryMock } from "@/app/facility-mock-data";
 import { FacilityToolbar } from "./toolbar/facility-toolbar";
 import { FacilityTable } from "./table/facility-table";
 import { SortState } from "@/features/types/sort-state";
@@ -10,6 +10,9 @@ import { SectionCard } from "@/features/shared-features/section-card";
 import { WorkspaceSection } from "@/features/shared-features/workspace-section";
 import { WorkspacePagination } from "@/features/shared-features/workspace-pagination";
 import { CreateFacilityDialog } from "./create-facility-dialog";
+import { useFacilities } from "../hook/use-facilities";
+import { toFacility } from "../mapper/facility-mapper";
+import { FacilityQuery } from "../types/facility-query";
 
 export function Facility() {
   const [search, setSearch] = useState("");
@@ -19,18 +22,39 @@ export function Facility() {
   //open create facility modal
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
-  const summary = FacilitySummaryMock;
-  const facilityData = facilities;
-
   const [page, setPage] = useState(1); //page
   //const [size] = useState(10); //number items per page
   const [pageSize, setPageSize] = useState(10);
 
   //sorting state
   const [sort, setSort] = useState<SortState>({
-    field: "visitDate",
-    direction: "desc",
+    field: "name",
+    direction: "asc",
   });
+
+  //NB you can check api.query.ts
+  //query for pagination and filtering of the API
+  //page: page number (0-indexed)
+  //size: number of items per page
+  //sort: sort field
+  //search: search query  
+  const query: FacilityQuery = {
+    page: page - 1,
+    size: pageSize,
+    search: search || undefined,
+    sort: `${sort.field},${sort.direction}`,
+    category: category !== "all" ? category : undefined,
+    status: status !== "all" ? status : undefined,
+  }
+
+  const { data: facilities, isLoading } = useFacilities(query);
+  const summary = FacilitySummaryMock;
+
+  const facilityData = facilities?.content.map(toFacility) ?? [];
+
+  console.log("Facility query:", query);
+  console.log("Facility API response:", facilities);
+  console.log("Facility table data:", facilityData);
 
   // Handle successful facility creation
   const handleFacilityCreated = () => {
@@ -74,9 +98,8 @@ export function Facility() {
         }
         footer={
           <WorkspacePagination
-            page={10}
-            // totalPages={totalPages}
-            totalPages={50}
+            page={page}
+            totalPages={facilities?.totalPages ?? 0}
             onPageChange={setPage}
           />
         }

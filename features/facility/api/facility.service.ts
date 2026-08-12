@@ -10,11 +10,11 @@
 import { api } from "@/lib/axios";
 import { API_ROUTES } from "@/lib/api-routes";
 import { ApiResponse } from "@/features/types/api-response";
-import { PageQuery } from "@/features/types/api-query";
 import { CreateFacilityRequest } from "../types/facility-request";
 import { FacilityResponse } from "../types/facility-response";
 import { PageResponse } from "@/features/types/page-response";
 import { FacilityWorkSpaceSummary } from "../components/facility-workspace-summary";
+import { FacilityQuery } from "../types/facility-query";
 
 class FacilityService {
   //create a new facility
@@ -27,12 +27,16 @@ class FacilityService {
   }
   // GET /facilities?page=0&size=10&search=hospital&sort=code,desc
   async getFacilities(
-    query: PageQuery
+    query: FacilityQuery
   ): Promise<PageResponse<FacilityResponse>> {
     const response = await api.get<ApiResponse<PageResponse<FacilityResponse>>>(
       API_ROUTES.FACILITIES.ROOT, // "/facilities"
       { params: query } // Query parameters
     );
+
+    console.log("RAW FACILITY API RESPONSE:", response);
+    console.log("RAW FACILITY API DATA:", response.data);
+
     return response.data.data; // Extracts the actual data from wrapper
   }
   //get facility by id

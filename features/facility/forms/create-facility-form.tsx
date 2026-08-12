@@ -1,5 +1,5 @@
 import { UseFormReturn, useForm } from "react-hook-form";
-import { Facility } from "../types";
+import { Facility } from "../types/types";
 import { FieldError, FieldGroup } from "@/components/ui/field";
 import { AppFormField } from "@/features/forms/fields/app-form-field";
 import {

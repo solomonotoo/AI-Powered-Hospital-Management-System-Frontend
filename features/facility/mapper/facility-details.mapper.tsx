@@ -1,6 +1,6 @@
 import { Building2, MapPin, Phone } from "lucide-react";
-import { DetailSection } from "../shared-features/details-dialog/types";
-import { Facility } from "./types";
+import { DetailSection } from "../../shared-features/details-dialog/types";
+import { Facility } from "../types/types";
 
 export function createFacilitySections(facility: Facility): DetailSection[] {
   return [

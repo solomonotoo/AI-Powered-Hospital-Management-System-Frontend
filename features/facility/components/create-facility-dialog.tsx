@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { FieldGroup } from "@/components/ui/field";
 import { AppFormField } from "@/features/forms/fields/app-form-field";
-import { Facility } from "../types";
+import { Facility } from "../types/types";
 import { UseFormReturn } from "react-hook-form";
 import { CreateFacilityForm } from "../forms/create-facility-form";
 import { useRef, useState } from "react";
@@ -17,7 +17,7 @@ import { FacilityFormValues } from "../schema/facility-schema";
 import { toast } from "sonner";
 
 import { useCreateFacility } from "../hook/use-create-facility";
-import { toCreateFacilityRequest } from "../api/facility-mapper";
+import { toCreateFacilityRequest } from "../mapper/facility-mapper";
 
 interface FacilityFormProps {
   form: UseFormReturn<Facility>;

@@ -7,3 +7,17 @@ export const genderEnum = z.enum([
     "PREFER_NOT_TO_SAY",
 ]);
 
+export const statusEnum = z.enum([
+    "ACTIVE",
+    "INACTIVE",
+    // "RESIGNED",
+    // "TERMINATED",
+    // "LEAVE"
+]);
+
+export const roleEnum = z.enum([
+    "DOCTOR", "NURSE", "ADMIN", "BILLING_STAFF",
+    "RECEPTIONIST", "WARD_MANAGER", "LAB_TECH",
+    "PHARMACIST", "RADIOLOGIST", "SUPER_ADMIN",
+    "ADMINSTRATIVE"
+]);

@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useEffect, useState } from "react";
 import { getAccessToken } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import { env } from "@/lib/env";
 
 //client component for dynamic height and route protection
 export function DashboardShellClient({
@@ -22,14 +23,32 @@ export function DashboardShellClient({
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const token = getAccessToken();
-    if (!token) {
-      router.replace("/auth/login");
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, [router]);
+  //uncomment this useEffect when working in the office
+  // useEffect(() => {
+  //   const token = getAccessToken();
+  //   if (!token) {
+  //     router.replace("/auth/login");
+  //   } else {
+  //     setIsAuthenticated(true);
+  //   }
+  // }, [router]);
+
+  //remove this useEffect when working on it in the office
+ useEffect(() => {
+  if (env.BYPASS_AUTH) {
+    setIsAuthenticated(true);
+    return;
+  }
+
+  const token = getAccessToken();
+
+  if (!token) {
+    router.replace("/auth/login");
+    return;
+  }
+
+  setIsAuthenticated(true);
+}, [router]);
 
   useEffect(() => {
     //update height on resize and orientation change

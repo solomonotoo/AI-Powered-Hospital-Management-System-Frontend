@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Facility } from "../types";
+import { Facility } from "../types/types";
 import { cn } from "@/lib/utils";
 
 const styles = {

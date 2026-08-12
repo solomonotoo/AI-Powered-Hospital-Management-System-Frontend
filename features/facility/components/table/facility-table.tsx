@@ -1,13 +1,13 @@
 import { DataTable } from "@/features/shared-features/data-table/data-table";
 import React, { useState } from "react";
 import FacilityTableHeader from "./facility-table-header";
-import { Facility } from "../../types";
+import { Facility } from "../../types/types";
 import { SortState } from "@/features/types/sort-state";
 import { FacilityTableRow } from "./facility-table-row";
 import { TableBody } from "@/components/ui/table";
 import { DetailDialog } from "@/features/shared-features/details-dialog";
 import { useEntityDetails } from "@/hooks/use-entity-details";
-import { createFacilitySections } from "../../facility-details.mapper";
+import { createFacilitySections } from "../../mapper/facility-details.mapper";
 
 interface FacilityTableProps {
   facilities: Facility[];

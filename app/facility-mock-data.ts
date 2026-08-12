@@ -1,4 +1,4 @@
-import { Facility } from "@/features/facility/types";
+import { Facility } from "@/features/facility/types/types";
 
 const facility = [
   {

@@ -23,8 +23,9 @@ export function DataTableRowActions({ actions }: DataTableRowActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" asChild>
-          <MoreHorizontal className="h-4 w-4" />
+        <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+          <MoreHorizontal className="h-8 w-8 text-muted-foreground" />
+
         </Button>
       </DropdownMenuTrigger>
 

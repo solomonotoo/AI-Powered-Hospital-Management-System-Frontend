@@ -1,20 +1,20 @@
 
 export interface FacilityResponse {
-    id: string;
+    facilityId: string;
     code: string;
     name: string;
     type: string;
+    status: string;
     location: {
         line1: string;
         line2?: string;
         city: string;
-        stateOrRegion: string;
-        country: string;
+        state: string;
         postalCode?: string;
+        country: string;
     };
-    contactPhone: string;
     contactEmail: string;
-    status: string;
+    contactPhone: string;
     createdAt: string;
     updatedAt: string;
 }

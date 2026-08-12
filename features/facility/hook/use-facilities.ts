@@ -2,10 +2,11 @@ import { PageQuery } from "@/features/types/api-query";
 import { useQuery } from "@tanstack/react-query";
 import { facilityService } from "../api/facility.service";
 import { FACILITY_KEYS } from "../api/facility.keys";
+import { FacilityQuery } from "../types/facility-query";
 
 
 //Fetch Facilities Hook
-export function useFacilities(query: PageQuery) {
+export function useFacilities(query: FacilityQuery) {
   return useQuery({
     queryKey: FACILITY_KEYS.list(query),  // ["facilities", "list", {page:0, size:10}]
     queryFn: async () => facilityService.getFacilities(query),

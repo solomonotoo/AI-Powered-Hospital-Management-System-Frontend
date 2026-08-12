@@ -1,5 +1,5 @@
 import z from "zod";
-import { facilityStatus, facilityType } from "./schema/enums";
+import { facilityStatus, facilityType } from "../schema/enums";
 
 export type FacilityType = z.infer<typeof facilityType>;
 export type FacilityStatus = z.infer<typeof facilityStatus>;
@@ -22,10 +22,4 @@ export interface Facility {
   status: FacilityStatus;
 }
 
-// export interface Facility {
-//   id: string;
-//   facilityName: string;
-//   category: string;
-//   region: string;
-//   status: string;
-// }
+

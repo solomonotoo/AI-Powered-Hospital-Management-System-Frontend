@@ -14,10 +14,18 @@ export function StaffProfile() {
     const staff = staffDataMock;
 
     const [search, setSearch] = useState("");
+    const [department, setDepartment] = useState("all");
+    const [role, setRole] = useState("all");
+    const [status, setStatus] = useState("all");
     return (
         <WorkspaceSection
             summary={<StaffSummaryCards summary={staffSummary} />}
-            toolbar={<StaffToolbar search={search} onSearchChange={setSearch} />}>
+            toolbar={<StaffToolbar search={search} onSearchChange={setSearch}
+                department={department} onDepartmentChange={setDepartment}
+                role={role} onRoleChange={setRole}
+                status={status} onStatusChange={setStatus}
+            />}
+        >
 
             <SectionCard>
                 <StaffTable staff={staff} />

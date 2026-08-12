@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Facility } from "../../types";
+import { Facility } from "../../types/types";
 import { FacilityTableRowActions } from "../facility-table-row-actions";
 import { FacilityStatusBadge } from "../facility-status-badge";
 

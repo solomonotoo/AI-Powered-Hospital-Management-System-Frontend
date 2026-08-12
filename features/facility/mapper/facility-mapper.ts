@@ -1,7 +1,7 @@
 import { FacilityFormValues } from "../schema/facility-schema";
 import { CreateFacilityRequest } from "../types/facility-request";
 import { FacilityResponse } from "../types/facility-response";
-import { Facility } from "../types";
+import { Facility } from "../types/types";
 
 //Data Transformation- data mapping
 //Thus maps API field to UI field
@@ -34,7 +34,7 @@ export function toCreateFacilityRequest(
 //Thus maps API field to UI field
 export function toFacility(response: FacilityResponse): Facility {
   return {
-    id: response.id,
+    id: response.facilityId,
     code: response.code,
     name: response.name,
     type: response.type as any,
@@ -43,11 +43,11 @@ export function toFacility(response: FacilityResponse): Facility {
       line1: response.location.line1,
       line2: response.location.line2 ?? "",
       city: response.location.city,
-      state: response.location.stateOrRegion,
+      state: response.location.state,
       country: response.location.country,
       postalCode: response.location.postalCode,
     },
     contactPhone: response.contactPhone,
-    contactEmail: response.contactEmail,
+    contactEmail: response.contactEmail ?? "",
   };
 }
