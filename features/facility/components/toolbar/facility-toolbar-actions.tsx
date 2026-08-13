@@ -17,15 +17,29 @@ export default function FacilityToolbarActions({
 }: FacilityToolbarActionsProps) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <Button variant="outline" onClick={onRefresh} size="sm">
+      <Button
+        variant="outline"
+        onClick={onRefresh}
+        size="sm"
+        className="hover:cursor-pointer"
+      >
         <RefreshCw className="w-4 h-4 mr-4" />
         Refresh
       </Button>
-      <Button variant="outline" onClick={onExport} size="sm">
+      <Button
+        variant="outline"
+        onClick={onExport}
+        size="sm"
+        className="hover:cursor-pointer"
+      >
         <Download className="w-4 h-4 mr-4" />
         Export
       </Button>
-      <Button onClick={onNewFactility} size="sm">
+      <Button
+        onClick={onNewFactility}
+        size="sm"
+        className="hover:cursor-pointer"
+      >
         <Plus className="w-4 h-4 mr-4" />
         Create New
       </Button>

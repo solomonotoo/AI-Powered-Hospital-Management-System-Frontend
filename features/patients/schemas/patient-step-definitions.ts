@@ -3,10 +3,10 @@
 // ---------------------------------------------------------------------------
 // Step registry — drives the wizard's progress bar, validation-per-step,
 // and the field list each step is responsible for.
+// ---------------------------------------------------------------------------
 
 import { consentSchema, contactInfoSchema, insuraceFieldsSchema, nextOfKinSchema, personalInfoSchema } from "./patient-schema";
 
-// ---------------------------------------------------------------------------
 export const stepDefinitions = {
     personal: {
       id: "personal",

@@ -52,10 +52,6 @@ export function Facility() {
 
   const facilityData = facilities?.content.map(toFacility) ?? [];
 
-  console.log("Facility query:", query);
-  console.log("Facility API response:", facilities);
-  console.log("Facility table data:", facilityData);
-
   // Handle successful facility creation
   const handleFacilityCreated = () => {
     // Refresh your facility list here

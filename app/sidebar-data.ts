@@ -124,10 +124,7 @@ const allowedDoctorViewRoles: UserRole[] = [
   "department_head",
 ];
 
-const allowedDoctorManagementRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-];
+const allowedDoctorManagementRoles: UserRole[] = ["admin", "super_admin"];
 
 const allowedDoctorScheduleRoles: UserRole[] = [
   "admin",
@@ -372,11 +369,7 @@ const allowedRadiologyReportRoles: UserRole[] = [
    PHARMACY
    ========================================================= */
 
-const allowedPharmacyRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "pharmacist",
-];
+const allowedPharmacyRoles: UserRole[] = ["admin", "super_admin", "pharmacist"];
 
 const allowedPrescriptionRoles: UserRole[] = [
   "admin",
@@ -484,23 +477,13 @@ const allowedAppointmentAnalyticsRoles: UserRole[] = [
    ADMINISTRATION
    ========================================================= */
 
-const allowedUserManagementRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-];
+const allowedUserManagementRoles: UserRole[] = ["admin", "super_admin"];
 
-const allowedRoleManagementRoles: UserRole[] = [
-  "super_admin",
-];
+const allowedRoleManagementRoles: UserRole[] = ["super_admin"];
 
-const allowedHospitalSettingsRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-];
+const allowedHospitalSettingsRoles: UserRole[] = ["admin", "super_admin"];
 
-const allowedSystemSettingsRoles: UserRole[] = [
-  "super_admin",
-];
+const allowedSystemSettingsRoles: UserRole[] = ["super_admin"];
 
 /* =========================================================
    SIDEBAR
@@ -513,7 +496,7 @@ export const sidebarItems: SidebarSection[] = [
       {
         title: "Dashboard",
         url: "/dashboard",
-        icon: LayoutDashboard,//Everyone can access
+        icon: LayoutDashboard, //Everyone can access
       },
     ],
   },

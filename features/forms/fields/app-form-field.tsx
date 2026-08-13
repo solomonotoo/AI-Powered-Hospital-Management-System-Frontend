@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
   Popover,
@@ -78,7 +83,7 @@ type BaseProps<T extends FieldValues> = {
 };
 
 type TextLikeProps<T extends FieldValues> = BaseProps<T> & {
-  type?: "text" | "email" | "tel" | "number" | "date" | "password";
+  type?: "text" | "email" | "tel" | "number" | "date" | "time" | "password";
   autoComplete?: string;
   max?: string | number;
   min?: string | number;
@@ -107,8 +112,6 @@ type CheckboxProps<T extends FieldValues> = BaseProps<T> & {
   //checkboxLabel?: React.ReactNode;
 };
 
-
-
 export type AppFormFieldProps<T extends FieldValues> =
   | TextLikeProps<T>
   | TextareaProps<T>
@@ -135,7 +138,6 @@ export type AppFormFieldProps<T extends FieldValues> =
 //   );
 // }
 
-
 function FormFieldLabel({
   htmlFor,
   label,
@@ -152,20 +154,13 @@ function FormFieldLabel({
       <FieldLabel htmlFor={htmlFor}>
         {label}
         {required && (
-          <span
-            aria-hidden="true"
-            className="ml-1 text-destructive"
-          >
+          <span aria-hidden="true" className="ml-1 text-destructive">
             *
           </span>
         )}
       </FieldLabel>
 
-      {description && (
-        <FieldDescription>
-          {description}
-        </FieldDescription>
-      )}
+      {description && <FieldDescription>{description}</FieldDescription>}
     </>
   );
 }
