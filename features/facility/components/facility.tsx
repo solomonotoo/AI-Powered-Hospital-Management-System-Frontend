@@ -13,6 +13,7 @@ import { CreateFacilityDialog } from "./create-facility-dialog";
 import { useFacilities } from "../hook/use-facilities";
 import { toFacility } from "../mapper/facility-mapper";
 import { FacilityQuery } from "../types/facility-query";
+import { useFacilitySummary } from "../hook/use-facility-summary";
 
 export function Facility() {
   const [search, setSearch] = useState("");
@@ -48,7 +49,8 @@ export function Facility() {
   }
 
   const { data: facilities, isLoading } = useFacilities(query);
-  const summary = FacilitySummaryMock;
+  const { data: summary } = useFacilitySummary();
+  // const summary = FacilitySummaryMock;
 
   const facilityData = facilities?.content.map(toFacility) ?? [];
 

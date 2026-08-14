@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { staffFormDefaultValues } from "../../schema/staff-form-default-values";
 import {
   StaffFormInput,
   StaffFormValues,
   staffSchema,
 } from "../../schema/staff-schema";
-import { BasicInfoStep } from "./steps/basic-info-step";
-import { wizardSteps } from "./wizard-steps";
-import { WizardProgressBar } from "./wizard-progress-bar";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { staffFormDefaultValues } from "../../schema/staff-form-default-values";
 import { WizardNavigation } from "./wizard-navigation";
+import { WizardProgressBar } from "./wizard-progress-bar";
+import { wizardSteps } from "./wizard-steps";
 
 interface CreateStaffFormProps {
   onSubmit: (values: StaffFormValues) => void | Promise<void>;
@@ -42,11 +41,6 @@ export function CreateStaffForm({
   });
 
   async function next() {
-    // const ok = await form.trigger(fields, { shouldFocus: true });
-    // if (ok) setStepIndex((i) => i + 1);
-    if (isLast) {
-      return;
-    }
 
     if (step.schema) {
       const fields = Object.keys(step.schema.shape) as (keyof StaffFormInput)[];
@@ -54,7 +48,6 @@ export function CreateStaffForm({
       const isValid = await form.trigger(fields, {
         shouldFocus: true,
       });
-
       if (!isValid) {
         return;
       }
@@ -66,20 +59,29 @@ export function CreateStaffForm({
   async function submit(values: StaffFormValues) {
     await onSubmit(values);
   }
+
+  async function registerStaff() {
+    await form.handleSubmit(submit)();
+  }
   return (
     <div>
       <WizardProgressBar steps={wizardSteps} activeIndex={stepIndex} />
 
       <div>
-        <form onSubmit={form.handleSubmit(submit)}>
+        <form onSubmit={(event) => {
+          event.preventDefault();
+        }}>
           <StepPanel form={form} />
 
           <WizardNavigation
             isFirst={stepIndex === 0}
             isLast={isLast}
             loading={form.formState.isSubmitting}
-            onBack={() => setStepIndex((i) => i - 1)}
+            onBack={() =>
+              setStepIndex((current) => Math.max(current - 1, 0))
+            }
             onNext={next}
+            onSubmit={registerStaff}
           />
         </form>
       </div>

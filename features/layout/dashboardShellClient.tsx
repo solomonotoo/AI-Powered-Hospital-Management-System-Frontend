@@ -33,7 +33,7 @@ export function DashboardShellClient({
   //   }
   // }, [router]);
 
-  //remove this useEffect when working on it in the office
+  // remove this useEffect when working on it in the office
   useEffect(() => {
     if (env.BYPASS_AUTH) {
       setIsAuthenticated(true);
