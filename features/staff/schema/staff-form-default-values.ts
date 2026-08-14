@@ -5,7 +5,7 @@ import { StaffFormValues } from "./staff-schema";
 
 // from the start (avoids React's uncontrolled -> controlled input warning).
 export const staffFormDefaultValues: Partial<StaffFormValues> = {
-  employmentNumber: "",
+  employeeId: "",
   firstName: "",
   lastName: "",
   workEmail: "",

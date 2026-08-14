@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { PatientWorkspaceTab } from "../../types/patient-workspace-tab";
+import { WorkspaceTab } from "../../../shared-features/workspace-tab";
 import { Activity, ClipboardList, CreditCard, FileText, FlaskConical, LayoutDashboard, Pill, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,7 +23,7 @@ export function PatientNaviation({activeTab,onTabChange}:PatientNavigationProps)
 
     // const [activeTab,setActiveTab] = useState("overview"); //moved to patient-workspace.tsx
 
-    const tabs: PatientWorkspaceTab[] =[
+    const tabs: WorkspaceTab[] =[
         {id:"overview",label:"Overview",icon:LayoutDashboard},
         {id:"visits",label:"Visits",icon:Activity},
         {id:"medical-record",label:"Medical Record",icon:ClipboardList},

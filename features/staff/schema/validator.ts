@@ -61,10 +61,12 @@ export const isoTime = z
   .string()
   .regex(/^([01]\d|2[0-3]):[0-5]\d$/, "Invalid time format. Expected HH:MM");
 
-export const bigDecimal = z
+  export const bigDecimal = z
   .string()
   .trim()
-  // Regex for valid decimal numbers (e.g., "123.45", "-0.5", "1000")
-  .regex(/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/, {
-    message: "Please enter a valid decimal number",
-  });
+  .refine(
+    (val) => val === "" || /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(val),
+    { message: "Please enter a valid decimal number" }
+  )
+  .transform((val) => (val === "" ? undefined : val))
+  .optional();

@@ -30,21 +30,21 @@ export function StaffTableRow({
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        {staff.personalInfo.fullName}
+        {staff.firstName}  {staff.lastName}
       </TableCell>
       <TableCell className="font-medium">
-        {staff.employmentInfo.employeeId}
+        {staff.employeeId}
       </TableCell>
       <TableCell className="font-medium">
-        {staff.employmentInfo.department}
+        {staff.department}
       </TableCell>
       <TableCell className="font-medium">
-        {staff.employmentInfo.position}
+        {staff.role}
       </TableCell>
       <TableCell className="font-medium">
-        {staff.employmentInfo.employmentStatus}
+        {staff.status}
       </TableCell>
-      <TableCell className="font-medium">{staff.contactInfo.phone}</TableCell>
+      <TableCell className="font-medium">{staff.phoneNumber}</TableCell>
       <TableCell className="text-medium">
         <StaffTableRowActions
           staff={staff}

@@ -32,12 +32,12 @@ export function FacilitySummaryCards({ summary }: FacilityCardProps) {
     },
     {
       title: "Inactive Facilities",
-      value: summary.inActiveFacilities,
+      value: summary.inactiveFacilities,
       icon: ActivitySquare,
     },
     {
       title: "PENDING_APPROVAL Facilities",
-      value: summary.referralPipeline,
+      value: summary.pendingFacilities,
       icon: Timer,
     },
   ];

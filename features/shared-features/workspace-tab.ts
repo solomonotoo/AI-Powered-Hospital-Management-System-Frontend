@@ -4,7 +4,7 @@
 
 import { LucideIcon } from "lucide-react";
 
-export interface PatientWorkspaceTab{
+export interface WorkspaceTab{
     id:string;
     label:string;
     icon: LucideIcon;

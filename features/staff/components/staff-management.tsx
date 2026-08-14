@@ -8,7 +8,7 @@ import { StaffToolbar } from "./toolbar/staff-toolbar";
 import StaffTable from "./table/staff-table";
 import { CreateStaffDialog } from "./create-staff-dialog";
 
-export function StaffOverview() {
+export function StaffManagement() {
   const staffSummary = StaffSummaryMock;
   const staff = staffDataMock;
 

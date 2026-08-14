@@ -40,4 +40,8 @@ export const departmentEnum = z.enum([
   "OTOLARYNGOLOGY",
   "OPHTHALMOLOGY",
   "UROLOGY",
+  "SURGERY",
+  "EMERGENCY",
+  "PHARMACY",
+  "OPD",
 ]);

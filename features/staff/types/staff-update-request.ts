@@ -1,6 +1,4 @@
-//this is what the backend expect when create a post request
-export interface CreateStaffRequest {
-  employeeNumber: string;
+export interface UpdateStaffRequest {
   firstName: string;
   lastName: string;
   role: string;
@@ -8,9 +6,8 @@ export interface CreateStaffRequest {
   department: string;
   workEmail: string;
   phone: string;
-  qualification: string;
+  qualifiction: string;
   licenseNumber: string;
-  joiningDate: Date;
   workingHours: string;
   consultationFee: string;
 }
