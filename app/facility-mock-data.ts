@@ -236,8 +236,8 @@ const facility = [
 export const FacilitySummaryMock = {
   totalFacilities: 25,
   activeFacilities: 22,
-  inActiveFacilities: 3,
-  referralPipeline: 5,
+  inactiveFacilities: 3,
+
 };
 
 export const facilities = [

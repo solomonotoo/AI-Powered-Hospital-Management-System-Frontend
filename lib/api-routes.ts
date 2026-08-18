@@ -14,7 +14,8 @@ export const API_ROUTES = {
   FACILITIES: {
     ROOT: "/facilities",
     BY_ID: (id: string) => `/facilities/${id}`,
-    SEARCH: "/facilities/search",
+    // SEARCH: "/facilities/search",
+    SUMMARY: "/facilities/summary"
   },
   PATIENTS: {
     ROOT: "/patients",

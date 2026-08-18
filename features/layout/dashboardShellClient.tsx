@@ -24,31 +24,31 @@ export function DashboardShellClient({
   const router = useRouter();
 
   //uncomment this useEffect when working in the office
-  // useEffect(() => {
-  //   const token = getAccessToken();
-  //   if (!token) {
-  //     router.replace("/auth/login");
-  //   } else {
-  //     setIsAuthenticated(true);
-  //   }
-  // }, [router]);
-
-  // remove this useEffect when working on it in the office
   useEffect(() => {
-    if (env.BYPASS_AUTH) {
-      setIsAuthenticated(true);
-      return;
-    }
-
     const token = getAccessToken();
-
     if (!token) {
       router.replace("/auth/login");
-      return;
+    } else {
+      setIsAuthenticated(true);
     }
-
-    setIsAuthenticated(true);
   }, [router]);
+
+  // remove this useEffect when working on it in the office
+  // useEffect(() => {
+  //   if (env.BYPASS_AUTH) {
+  //     setIsAuthenticated(true);
+  //     return;
+  //   }
+
+  //   const token = getAccessToken();
+
+  //   if (!token) {
+  //     router.replace("/auth/login");
+  //     return;
+  //   }
+
+  //   setIsAuthenticated(true);
+  // }, [router]);
 
   useEffect(() => {
     //update height on resize and orientation change

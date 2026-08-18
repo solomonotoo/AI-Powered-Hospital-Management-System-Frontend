@@ -1,3 +1,4 @@
+import { FacilityWorkSpaceSummary } from "../components/facility-workspace-summary";
 import { FacilityFormValues } from "../schema/facility-schema";
 import { CreateFacilityRequest } from "../types/facility-request";
 import { FacilityResponse } from "../types/facility-response";
@@ -51,3 +52,13 @@ export function toFacility(response: FacilityResponse): Facility {
     contactEmail: response.contactEmail ?? "",
   };
 }
+
+export function toWorkSpaceSummary(response: FacilityWorkSpaceSummary) {
+  return {
+    totalFacilities: response.totalFacilities,
+    activeFacilities: response.activeFacilities,
+    inactiveFacilities: response.inactiveFacilities,
+    pendingFacilities: response.pendingFacilities,
+    countType: response.countType,
+  };
+} 

@@ -15,6 +15,13 @@ export const api = axios.create({
 //request interceptors- Adds JWT token to every request
 api.interceptors.request.use((config) => {
   const token = getAccessToken(); // Gets the stored JWT
+  // console.log("========== API REQUEST ==========");
+  // console.log("METHOD:", config.method?.toUpperCase());
+  // console.log("URL:", config.url);
+  // console.log("BASE URL:", config.baseURL);
+  // console.log("FULL URL:", `${config.baseURL ?? ""}${config.url ?? ""}`);
+  // console.log("HAS TOKEN:", !!token);
+  // console.log("=================================");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`; // Adds to header
   }

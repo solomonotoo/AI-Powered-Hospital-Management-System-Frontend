@@ -2,7 +2,6 @@
 //React Query Hooks.  
 //Cache keys. React Query uses these keys to cache data. When you change a facility, 
 
-import { PageQuery } from "@/features/types/api-query";
 import { FacilityQuery } from "../types/facility-query";
 
 //you can invalidate all ["facilities"] keys to refetch fresh data
@@ -13,4 +12,6 @@ export const FACILITY_KEYS = {
     // a strongly typed 
     list: (query: FacilityQuery) => [...FACILITY_KEYS.all, "list", query], //for list
     detail: (id: string) => [...FACILITY_KEYS.all, "detail", id], //for single item
+    summary: () =>
+        [...FACILITY_KEYS.all, "summary"],
 } as const; 

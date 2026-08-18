@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { FacilitySummaryCards } from "./facility-summary-cards";
-import { FacilitySummaryMock } from "@/app/facility-mock-data";
 import { FacilityToolbar } from "./toolbar/facility-toolbar";
 import { FacilityTable } from "./table/facility-table";
 import { SortState } from "@/features/types/sort-state";
@@ -14,6 +13,8 @@ import { useFacilities } from "../hook/use-facilities";
 import { toFacility } from "../mapper/facility-mapper";
 import { FacilityQuery } from "../types/facility-query";
 import { useFacilitySummary } from "../hook/use-facility-summary";
+import { LoadingState } from "@/features/shared-features/loading-state";
+import { ErrorState } from "@/features/shared-features/error-state";
 
 export function Facility() {
   const [search, setSearch] = useState("");
@@ -48,9 +49,13 @@ export function Facility() {
     status: status !== "all" ? status : undefined,
   }
 
-  const { data: facilities, isLoading } = useFacilities(query);
-  const { data: summary } = useFacilitySummary();
-  // const summary = FacilitySummaryMock;
+  const { data: facilities, isLoading: isFacilitiesLoading,
+    isError: isFacilitiesError,
+    error: facilitiesError, } = useFacilities(query);
+  const { data: summary, isLoading: isSummaryLoading,
+    isError: isSummaryError,
+    error: summaryError, } = useFacilitySummary();
+
 
   const facilityData = facilities?.content.map(toFacility) ?? [];
 
@@ -60,6 +65,7 @@ export function Facility() {
     console.log("Facility created, refreshing list...");
     // You could refetch data here
   };
+
 
   return (
     // <div className="grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 space-y-4 ">
@@ -82,7 +88,17 @@ export function Facility() {
     // </div>
     <>
       <WorkspaceSection
-        summary={<FacilitySummaryCards summary={summary} />}
+        summary={
+          isSummaryLoading ? (
+            <LoadingState message="Loading facility summary..." />
+          ) : isSummaryError || !summary ? (
+            <div className="flex min-h-[160px] items-center justify-center text-sm text-destructive">
+              Unable to load facility summary.
+            </div>
+          ) : (
+            <FacilitySummaryCards summary={summary} />
+          )
+        }
         toolbar={
           <FacilityToolbar
             search={search}
@@ -103,11 +119,17 @@ export function Facility() {
         }
       >
         <SectionCard className="max-w-[85vw] ">
-          <FacilityTable
-            facilities={facilityData}
-            sort={sort}
-            onSortChange={setSort}
-          />
+          {isFacilitiesLoading ? (
+            <LoadingState message="Loading facilities..." />
+          ) : isFacilitiesError ? (
+            <ErrorState message="Unable to load facilities." />
+          ) : (
+            <FacilityTable
+              facilities={facilityData}
+              sort={sort}
+              onSortChange={setSort}
+            />
+          )}
         </SectionCard>
       </WorkspaceSection>
 

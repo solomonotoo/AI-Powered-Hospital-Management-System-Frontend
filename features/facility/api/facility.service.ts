@@ -34,8 +34,8 @@ class FacilityService {
       { params: query } // Query parameters
     );
 
-    console.log("RAW FACILITY API RESPONSE:", response);
-    console.log("RAW FACILITY API DATA:", response.data);
+    // console.log("RAW FACILITY API RESPONSE:", response);
+    // console.log("RAW FACILITY API DATA:", response.data);
 
     return response.data.data; // Extracts the actual data from wrapper
   }
@@ -64,7 +64,7 @@ class FacilityService {
   //get facility summary statistics
   async getFacilitySummary(): Promise<FacilityWorkSpaceSummary> {
     const response = await api.get<ApiResponse<FacilityWorkSpaceSummary>>(
-      `${API_ROUTES.FACILITIES.ROOT}/summary`
+      API_ROUTES.FACILITIES.SUMMARY
     );
     return response.data.data;
   }
