@@ -3,8 +3,8 @@ import { StaffFilter } from "./schedule-filter";
 interface StaffFiltersProps {
     department: string;
     onDepartmentChange: (value: string) => void;
-    status: string;
-    onStatusChange: (value: string) => void;
+    shift: string;
+    onShiftChange: (value: string) => void;
     role: string;
     onRoleChange: (value: string) => void;
 }
@@ -26,9 +26,10 @@ const departmentOptions = [
 ];
 
 const statusOptions = [
-    { label: "All Statuses", value: "all" },
-    { label: "Active", value: "active" },
-    { label: "Inactive", value: "inactive" },
+    { label: "All Shift", value: "all" },
+    { label: "Morngin", value: "Morning" },
+    { label: "Evenging", value: "Evening" },
+    { label: "Night", value: "Night" },
 ];
 
 const roleOptions = [
@@ -46,7 +47,7 @@ const roleOptions = [
     { label: "Super Admin", value: "super_admin" },
 ];
 
-export function StaffFilters({ department, onDepartmentChange, status, onStatusChange, role, onRoleChange }: StaffFiltersProps) {
+export function StaffFilters({ department, onDepartmentChange, shift, onShiftChange, role, onRoleChange }: StaffFiltersProps) {
     return (
         <div className="flex justify-between md:justify-center gap-2 items-center md:ml-20">
             <StaffFilter
@@ -59,8 +60,8 @@ export function StaffFilters({ department, onDepartmentChange, status, onStatusC
             <StaffFilter
                 placeholder="Filter by Status"
                 options={statusOptions}
-                value={status}
-                onValueChange={onStatusChange}
+                value={shift}
+                onValueChange={onShiftChange}
             />
 
             <StaffFilter

@@ -11,11 +11,9 @@ import { useStaff } from "../hooks/use-staff";
 import { StaffQuery } from "../types/staff-query";
 import { SortState } from "@/features/types/sort-state";
 import { toStaff } from "../mapper/staff-mapper";
-import { StaffSummaryMock } from "../staff-mock-data";
+import { StaffSummaryMock, staffDataMock } from "../staff-mock-data";
 
 export function StaffManagement() {
-
-
   const [search, setSearch] = useState("");
   const [department, setDepartment] = useState("all");
   const [role, setRole] = useState("all");
@@ -30,15 +28,18 @@ export function StaffManagement() {
     field: "fullName",
     direction: "asc",
   });
+
   //open create staff modal
   const [openCreateStaffDialog, setOpenCreateStaffDialog] = useState(false);
+
+  const staffMock = staffDataMock;
 
   //NB you can check api.query.ts
   //query for pagination and filtering of the API
   //page: page number (0-indexed)
   //size: number of items per page
   //sort: sort field
-  //search: search query  
+  //search: search query
   const query: StaffQuery = {
     page: page - 1,
     size: pageSize,
@@ -47,18 +48,23 @@ export function StaffManagement() {
     department: department !== "all" ? department : undefined,
     role: role !== "all" ? role : undefined,
     status: status !== "all" ? status : undefined,
-  }
+  };
 
-  const { data: summary, isLoading: isSummaryLoading,
+  const {
+    data: summary,
+    isLoading: isSummaryLoading,
     isError: isSummaryError,
-    error: summaryError, } = useStaffSummary();
-  const { data: staff, isLoading: isStaffLoading,
+    error: summaryError,
+  } = useStaffSummary();
+  const {
+    data: staff,
+    isLoading: isStaffLoading,
     isError: isStaffError,
-    error: staffError, } = useStaff(query);
+    error: staffError,
+  } = useStaff(query);
 
   // const staffSummary = StaffSummaryMock;
   const listStaff = staff?.content.map(toStaff) ?? [];
-
 
   // Handle successful facility creation
   const handleStaffCreated = () => {
@@ -66,7 +72,6 @@ export function StaffManagement() {
     console.log("Staff created, refreshing list...");
     // You could refetch data here
   };
-
 
   return (
     <>
@@ -87,7 +92,12 @@ export function StaffManagement() {
         }
       >
         <SectionCard>
-          <StaffTable staff={listStaff} />
+          <StaffTable
+            staff={
+              // listStaff
+              staffMock
+            }
+          />
         </SectionCard>
       </WorkspaceSection>
       <CreateStaffDialog

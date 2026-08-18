@@ -7,11 +7,11 @@ interface ScheduleToolbarProps {
   search: string;
   department: string;
   role: string;
-  status: string;
+  shift: string;
   onSearchChange: (search: string) => void;
   onDepartmentChange: (department: string) => void;
   onRoleChange: (role: string) => void;
-  onStatusChange: (status: string) => void;
+  onShiftChange: (status: string) => void;
   onCreateStaff: () => void;
 }
 
@@ -22,16 +22,16 @@ export function ScheduleToolbar({
   onDepartmentChange,
   role,
   onRoleChange,
-  status,
-  onStatusChange,
+  shift,
+  onShiftChange,
   onCreateStaff,
 }: ScheduleToolbarProps) {
   return (
     <Card className="grid grid-cols-1 md:grid-cols-3 items-center justify-between gap-2 px-6 py-3">
       <StaffSearch value={search} onChange={onSearchChange} />
       <StaffFilters
-        status={status}
-        onStatusChange={onStatusChange}
+        shift={shift}
+        onShiftChange={onShiftChange}
         department={department}
         onDepartmentChange={onDepartmentChange}
         role={role}

@@ -1,0 +1,55 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { TableCell, TableRow } from "@/components/ui/table";
+import { Staff } from "@/features/staff/types/staff";
+import { ScheduleTableRowActions } from "./schedule-table-row-actions";
+
+interface ScheduleTableRowProps {
+  staff: Staff;
+  onRowClick: (staff: Staff) => void;
+  onEdit: (staff: Staff) => void;
+  onView: (staff: Staff) => void;
+  onDelete: (staff: Staff) => void;
+  onExport: (staff: Staff) => void;
+}
+
+export function ScheduleTableRow({
+  staff,
+  onRowClick,
+  onEdit,
+  onView,
+  onDelete,
+  onExport,
+}: ScheduleTableRowProps) {
+  console.log("RAW STAFF RESPONSE:", staff?.firstName);
+  return (
+    <TableRow
+      onClick={() => onRowClick(staff)}
+      className="cursor-pointer hover:bg-muted/50"
+    >
+      <TableCell className="flex items-center gap-3">
+        <Avatar className="w-8 h-8">
+          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarFallback>
+            {staff.firstName?.charAt(0)}
+            {staff.lastName?.charAt(0)}
+          </AvatarFallback>
+        </Avatar>
+        {staff.firstName} {staff.lastName}
+      </TableCell>
+      <TableCell className="font-medium">{staff.employeeId}</TableCell>
+      <TableCell className="font-medium">{staff.department}</TableCell>
+      <TableCell className="font-medium">{staff.role}</TableCell>
+      <TableCell className="font-medium">{staff.status}</TableCell>
+      <TableCell className="font-medium">{staff.phoneNumber}</TableCell>
+      <TableCell className="text-medium">
+        <ScheduleTableRowActions
+          staff={staff}
+          onEdit={onEdit}
+          onView={onView}
+          onDelete={onDelete}
+          onExport={onExport}
+        />
+      </TableCell>
+    </TableRow>
+  );
+}

@@ -3,15 +3,19 @@
 import { useState } from "react";
 import { ScheduleToolbar } from "./schedule-toolbar/schedule-toolbar";
 import { WorkspaceSection } from "@/features/shared-features/workspace-section";
+import ScheduleTable from "./table/schedule-table";
+import { staffDataMock } from "../../staff-mock-data";
 
-export function ShiftSchedule() {
+export function ScheduleManagement() {
   const [search, setSearch] = useState("");
   const [department, setDepartment] = useState("all");
   const [role, setRole] = useState("all");
-  const [status, setStatus] = useState("all");
+  const [shift, setShift] = useState("all");
 
   //open create schedule modal
   const [openCreateStaffDialog, setOpenCreateStaffDialog] = useState(false);
+
+  const staff = staffDataMock;
   return (
     <>
       <div className="rounded-lg bg-card p-4 mb-4">
@@ -29,13 +33,13 @@ export function ShiftSchedule() {
             onDepartmentChange={setDepartment}
             role={role}
             onRoleChange={setRole}
-            status={status}
-            onStatusChange={setStatus}
+            shift={shift}
+            onShiftChange={setShift}
             onCreateStaff={() => setOpenCreateStaffDialog(true)}
           />
         }
       >
-        <div>table</div>
+        <ScheduleTable staff={staff}/>
       </WorkspaceSection>
     </>
   );
