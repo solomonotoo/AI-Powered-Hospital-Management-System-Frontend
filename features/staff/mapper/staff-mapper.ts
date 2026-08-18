@@ -23,7 +23,7 @@ export function toCreateStaffRequest(values: StaffFormValues) {
 
 //API RESPONSE -> UI MODEL
 //Thus maps API field to UI field
-export function toStaffForm(response: StaffResponse): Staff {
+export function toStaff(response: StaffResponse): Staff {
   return {
     id: response.staffId,
     employeeId: response.employeeNumber,
@@ -38,7 +38,7 @@ export function toStaffForm(response: StaffResponse): Staff {
     employmentDate: response.joiningDate,
     workingHours: response.workingHours,
     consultationFee: response.consultationFee,
-    active: response.active,
+    status: response.active,
     endDate: response.endDate,
     createdAt: response.createdAt,
     updatedAt: response.updatedAt,

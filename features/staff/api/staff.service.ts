@@ -25,6 +25,7 @@ class StaffService {
     const response = await api.get<ApiResponse<PageResponse<StaffResponse>>>(
       API_ROUTES.STAFF.ROOT
     );
+    // console.log("staff list", response.data.data);
     return response.data.data;
   }
 
@@ -51,10 +52,10 @@ class StaffService {
   }
 
   //get staff summary
-  async getStaffSummary() {
-    const response = await api.get(API_ROUTES.STAFF.ROOT + "/summary");
-    return response.data.data;
-  }
+  // async getStaffSummary() {
+  //   const response = await api.get(API_ROUTES.STAFF.SUMMARY);
+  //   return response.data.data;
+  // }
 }
 
 export const staffService = new StaffService();

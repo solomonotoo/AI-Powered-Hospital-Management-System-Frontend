@@ -17,22 +17,22 @@ export const StaffSummaryCards = ({ summary }: StaffSummaryCardsProps) => {
     const staffCards: summaryCards[] = [
         {
             title: "Total Staff",
-            value: summary.totalStaff,
+            value: summary?.totalStaff,
             icon: Briefcase
         },
         {
             title: "Active Staff",
-            value: summary.activeStaff,
+            value: summary?.activeStaff,
             icon: UserCheck
         },
         {
             title: "Inactive Staff",
-            value: summary.inActiveStaff,
+            value: summary?.inActiveStaff,
             icon: UserX
         },
         {
             title: "Pending Approval",
-            value: summary.pendingApprovalStaff,
+            value: summary?.pendingApprovalStaff,
             icon: UserX
         },
         {

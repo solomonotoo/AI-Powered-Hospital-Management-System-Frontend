@@ -7,4 +7,6 @@ export const STAFF_KEYS = {
   // a strongly typed
   list: (query: StaffQuery) => [...STAFF_KEYS.all, "list", query], //for list
   detail: (id: string) => [...STAFF_KEYS.all, "detail", id], //for single item
+  summary: () =>
+    [...STAFF_KEYS.all, "summary"],
 } as const;

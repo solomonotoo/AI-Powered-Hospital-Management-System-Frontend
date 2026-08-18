@@ -26,9 +26,9 @@ export interface Staff {
 
   // Employment & Assignment
   role: Role;
-  department: Department;
+  department?: Department;
   employmentDate: string;
-  workingHours: string;
+  workingHours?: string;
 
   // Professional Information
   specialisation?: string;

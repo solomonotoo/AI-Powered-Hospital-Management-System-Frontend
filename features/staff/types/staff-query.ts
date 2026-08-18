@@ -4,5 +4,5 @@ import { PageQuery } from "@/features/types/api-query";
 export interface StaffQuery extends PageQuery {
   role?: string;
   status?: string;
-  department: string;
+  department?: string;
 }

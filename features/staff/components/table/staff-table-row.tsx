@@ -20,15 +20,17 @@ export function StaffTableRow({
   onDelete,
   onExport,
 }: StaffTableRowProps) {
+  console.log("RAW STAFF RESPONSE:", staff?.firstName);
   return (
     <TableRow
       onClick={() => onRowClick(staff)}
       className="cursor-pointer hover:bg-muted/50"
     >
-      <TableCell>
-        <Avatar>
+      <TableCell className="flex items-center gap-3">
+        <Avatar className="w-8 h-8">
           <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>{staff.firstName?.charAt(0)}
+            {staff.lastName?.charAt(0)}</AvatarFallback>
         </Avatar>
         {staff.firstName}  {staff.lastName}
       </TableCell>
