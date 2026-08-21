@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Staff } from "../../types/staff";
 import { StaffTableRowActions } from "./staff-table-row-actions";
+import { StaffStatusBadge } from "../staff-status-badge";
 
 interface StaffTableRowProps {
   staff: Staff;
@@ -20,7 +21,7 @@ export function StaffTableRow({
   onDelete,
   onExport,
 }: StaffTableRowProps) {
-  console.log("RAW STAFF RESPONSE:", staff?.firstName);
+  // console.log("RAW STAFF STATUS:", staff.status);
   return (
     <TableRow
       onClick={() => onRowClick(staff)}
@@ -44,7 +45,7 @@ export function StaffTableRow({
         {staff.role}
       </TableCell>
       <TableCell className="font-medium">
-        {staff.status}
+        <StaffStatusBadge status={staff.status} />
       </TableCell>
       <TableCell className="font-medium">{staff.phoneNumber}</TableCell>
       <TableCell className="text-medium">

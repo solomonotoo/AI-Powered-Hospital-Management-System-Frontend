@@ -11,7 +11,6 @@ import { useStaff } from "../hooks/use-staff";
 import { StaffQuery } from "../types/staff-query";
 import { SortState } from "@/features/types/sort-state";
 import { toStaff } from "../mapper/staff-mapper";
-import { StaffSummaryMock } from "../staff-mock-data";
 
 export function StaffManagement() {
 
@@ -52,6 +51,7 @@ export function StaffManagement() {
   const { data: summary, isLoading: isSummaryLoading,
     isError: isSummaryError,
     error: summaryError, } = useStaffSummary();
+  console.log("summary data: ", summary);
   const { data: staff, isLoading: isStaffLoading,
     isError: isStaffError,
     error: staffError, } = useStaff(query);
@@ -71,7 +71,7 @@ export function StaffManagement() {
   return (
     <>
       <WorkspaceSection
-        summary={<StaffSummaryCards summary={StaffSummaryMock} />}
+        summary={<StaffSummaryCards summary={summary} />}
         toolbar={
           <StaffToolbar
             search={search}

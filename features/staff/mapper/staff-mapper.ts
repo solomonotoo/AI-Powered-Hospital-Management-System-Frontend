@@ -1,8 +1,8 @@
 //Data transformation
 
 import { StaffFormInput, StaffFormValues } from "../schema/staff-schema";
-import { Staff } from "../types/staff";
-import { StaffResponse } from "../types/staff-response";
+import { Staff, StaffSummaryCardTypes } from "../types/staff";
+import { StaffResponse, StaffSummaryResponse } from "../types/staff-response";
 
 export function toCreateStaffRequest(values: StaffFormValues) {
   return {
@@ -24,6 +24,7 @@ export function toCreateStaffRequest(values: StaffFormValues) {
 //API RESPONSE -> UI MODEL
 //Thus maps API field to UI field
 export function toStaff(response: StaffResponse): Staff {
+  console.log("API RESPONSE STATUS:", response.status);
   return {
     id: response.staffId,
     employeeId: response.employeeNumber,
@@ -38,12 +39,12 @@ export function toStaff(response: StaffResponse): Staff {
     employmentDate: response.joiningDate,
     workingHours: response.workingHours,
     consultationFee: response.consultationFee,
-    status: response.active,
+    status: response.status,
     endDate: response.endDate,
     createdAt: response.createdAt,
     updatedAt: response.updatedAt,
     createdBy: response.createdBy, // UUID
-    updatedBy: response.updatedAt,
+    updatedBy: response.updatedBy,
   };
 }
 
@@ -65,3 +66,13 @@ export function toStaffFormValues(staff: Staff): Partial<StaffFormInput> {
     consultationFee: staff.consultationFee ?? "",
   };
 }
+
+export function toStaffSummary(response: StaffSummaryResponse): StaffSummaryCardTypes {
+  return {
+    totalStaff: response.totalStaff,
+    activeStaff: response.activeStaff,
+    inactiveStaff: response.inactiveStaff,
+    onDutyStaff: response.onDutyStaff,
+    onLeaveStaff: response.onLeaveStaff,
+  };
+} 

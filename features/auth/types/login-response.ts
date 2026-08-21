@@ -4,8 +4,10 @@ import { loginSchema, signupSchema } from "../schema/auth";
 export type LoginRequest = z.infer<typeof loginSchema>;
 
 export interface LoginResponse {
-  token: string;
-  expiresAt: string;
+  accessToken: string;
+  accessTokenExpiresAt: string;
+  refreshToken: string;
+  refreshTokenExpiresAt: string;
   staffId: string;
   fullName: string;
   role: string;

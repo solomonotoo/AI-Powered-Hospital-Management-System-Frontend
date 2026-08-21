@@ -1,18 +1,22 @@
 import { UseFormReturn } from "react-hook-form";
 import { StaffFormInput } from "../schema/staff-schema";
 import z from "zod";
-import { departmentEnum, roleEnum } from "../schema/enums";
+import { departmentEnum, roleEnum, statusEnum } from "../schema/enums";
 
 export type Role = z.infer<typeof roleEnum>;
 export type Department = z.infer<typeof departmentEnum>;
+export type Status = z.infer<typeof statusEnum>;
 
+export interface StaffCountType {
+  [status: string]: number;
+}
 export interface StaffSummaryCardTypes {
   totalStaff: number;
   activeStaff: number;
-  inActiveStaff: number;
-  pendingApprovalStaff: number;
+  inactiveStaff: number;
   onDutyStaff: number;
   onLeaveStaff: number;
+  // countType: StaffCountType;
 }
 
 export interface Staff {
@@ -36,7 +40,7 @@ export interface Staff {
   qualifications?: string;
   consultationFee?: string;
 
-  status: boolean;
+  status: Status;
   endDate?: string;
 
   //auditmetadata

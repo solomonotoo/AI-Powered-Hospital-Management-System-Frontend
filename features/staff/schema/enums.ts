@@ -10,9 +10,8 @@ export const genderEnum = z.enum([
 export const statusEnum = z.enum([
   "ACTIVE",
   "INACTIVE",
-  // "RESIGNED",
-  // "TERMINATED",
-  // "LEAVE"
+  "ON_DUTY",
+  "ON_LEAVE"
 ]);
 
 export const roleEnum = z.enum([

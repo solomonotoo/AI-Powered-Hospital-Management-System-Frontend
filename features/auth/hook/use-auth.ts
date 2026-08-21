@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { authService } from "../api/auth.service";
-import { setAccessToken, setCurrentUser } from "@/lib/auth";
+import { setAccessToken, setCurrentUser, setRefreshToken } from "@/lib/auth";
 import { LoginRequest, CreateCredentialRequest } from "../types/login-response";
 
 export function useLogin() {
@@ -12,7 +12,9 @@ export function useLogin() {
     mutationFn: (data: LoginRequest) => authService.login(data),
     onSuccess: (data) => {
       // Save token and user details
-      setAccessToken(data.token);
+      setAccessToken(data.accessToken);
+      setRefreshToken(data.refreshToken);
+
       setCurrentUser({
         staffId: data.staffId,
         fullName: data.fullName,
