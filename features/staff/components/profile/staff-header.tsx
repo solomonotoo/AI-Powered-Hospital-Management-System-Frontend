@@ -12,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { formatDate, formatFullName, formatPhoneNumber } from "@/lib/format";
 import { Separator } from "@/components/ui/separator";
-import { StaffResponse } from "../../types/staff-response";
 import { Staff } from "../../types/staff";
 
 interface StaffHeaderProps {
@@ -20,7 +19,7 @@ interface StaffHeaderProps {
 }
 
 export function StaffHeader({ staff }: StaffHeaderProps) {
-   if (!staff) {
+  if (!staff) {
     return null; // or a loading skeleton
   }
   const fullName = formatFullName(staff.firstName, staff.lastName);

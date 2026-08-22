@@ -52,10 +52,10 @@ class StaffService {
   }
 
   //get staff summary
-  // async getStaffSummary() {
-  //   const response = await api.get(API_ROUTES.STAFF.SUMMARY);
-  //   return response.data.data;
-  // }
+  async getStaffSummary() {
+    const response = await api.get(API_ROUTES.STAFF.SUMMARY);
+    return response.data.data;
+  }
 }
 
 export const staffService = new StaffService();

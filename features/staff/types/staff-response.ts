@@ -1,4 +1,4 @@
-import { Department, Role } from "./staff";
+import { Department, Role, Status } from "./staff";
 
 export interface StaffResponse {
   staffId: string;
@@ -15,10 +15,19 @@ export interface StaffResponse {
   joiningDate: string;
   workingHours: string;
   consultationFee: string;
-  active: boolean;
+  status: Status;
   endDate?: string;
   createdAt: string;
   updatedAt: string;
   createdBy: string; // UUID
   updatedBy?: string; // UUID
+}
+
+
+export interface StaffSummaryResponse {
+  totalStaff: number;
+  activeStaff: number;
+  inactiveStaff: number;
+  onDutyStaff: number;
+  onLeaveStaff: number;
 }
