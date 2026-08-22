@@ -14,4 +14,4 @@ export const FACILITY_KEYS = {
     detail: (id: string) => [...FACILITY_KEYS.all, "detail", id], //for single item
     summary: () =>
         [...FACILITY_KEYS.all, "summary"],
-} as const; 
+} as const;  
