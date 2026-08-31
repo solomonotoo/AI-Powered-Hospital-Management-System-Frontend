@@ -11,10 +11,7 @@ import { useStaff } from "../hooks/use-staff";
 import { StaffQuery } from "../types/staff-query";
 import { SortState } from "@/features/types/sort-state";
 import { toStaff } from "../mapper/staff-mapper";
-<<<<<<< HEAD
 import { StaffSummaryMock, staffDataMock } from "../staff-mock-data";
-=======
->>>>>>> 85841035c779d724517103e5e9fb710a805863c4
 
 export function StaffManagement() {
   const [search, setSearch] = useState("");

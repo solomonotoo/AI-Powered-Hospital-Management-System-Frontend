@@ -39,7 +39,7 @@ export function Facility() {
   //page: page number (0-indexed)
   //size: number of items per page
   //sort: sort field
-  //search: search query  
+  //search: search query
   const query: FacilityQuery = {
     page: page - 1,
     size: pageSize,
@@ -47,15 +47,20 @@ export function Facility() {
     sort: `${sort.field},${sort.direction}`,
     category: category !== "all" ? category : undefined,
     status: status !== "all" ? status : undefined,
-  }
+  };
 
-  const { data: facilities, isLoading: isFacilitiesLoading,
+  const {
+    data: facilities,
+    isLoading: isFacilitiesLoading,
     isError: isFacilitiesError,
-    error: facilitiesError, } = useFacilities(query);
-  const { data: summary, isLoading: isSummaryLoading,
+    error: facilitiesError,
+  } = useFacilities(query);
+  const {
+    data: summary,
+    isLoading: isSummaryLoading,
     isError: isSummaryError,
-    error: summaryError, } = useFacilitySummary();
-
+    error: summaryError,
+  } = useFacilitySummary();
 
   const facilityData = facilities?.content.map(toFacility) ?? [];
 
@@ -65,7 +70,6 @@ export function Facility() {
     console.log("Facility created, refreshing list...");
     // You could refetch data here
   };
-
 
   return (
     // <div className="grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 space-y-4 ">
@@ -90,7 +94,10 @@ export function Facility() {
       <WorkspaceSection
         summary={
           isSummaryLoading ? (
-            <LoadingState message="Loading facility summary..." />
+            <LoadingState
+              message="Loading facility summary..."
+              skeletonType="card"
+            />
           ) : isSummaryError || !summary ? (
             <div className="flex min-h-[160px] items-center justify-center text-sm text-destructive">
               Unable to load facility summary.
@@ -120,7 +127,10 @@ export function Facility() {
       >
         <SectionCard className="max-w-[85vw] ">
           {isFacilitiesLoading ? (
-            <LoadingState message="Loading facilities..." />
+            <LoadingState
+              message="Loading facilities..."
+              skeletonType="table"
+            />
           ) : isFacilitiesError ? (
             <ErrorState message="Unable to load facilities." />
           ) : (

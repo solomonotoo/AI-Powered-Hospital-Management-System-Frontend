@@ -2,7 +2,13 @@
 
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import { env } from "./env";
-import { clearAuth, getAccessToken, getRefreshToken, setAccessToken, setRefreshToken } from "./auth";
+import {
+  clearAuth,
+  getAccessToken,
+  getRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from "./auth";
 import { error } from "console";
 import { ApiResponse } from "@/features/types/api-response";
 import { RefreshTokenResponse } from "@/features/auth/types/refresh-token";
@@ -41,20 +47,27 @@ const refreshApi = axios.create({
 });
 
 //request interceptors- Adds JWT token to every request
-api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = getAccessToken(); // Gets the stored JWT
-  // console.log("========== API REQUEST ==========");
-  // console.log("METHOD:", config.method?.toUpperCase());
-  // console.log("URL:", config.url);
-  // console.log("BASE URL:", config.baseURL);
-  // console.log("FULL URL:", `${config.baseURL ?? ""}${config.url ?? ""}`);
-  // console.log("HAS TOKEN:", !!token);
-  // console.log("=================================");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`; // Adds to header
-  }
-  return config;
-},
+api.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    //remove this code before production deploument
+    // Development authentication bypass
+    if (env.BYPASS_AUTH) {
+      return config;
+    }
+
+    const token = getAccessToken(); // Gets the stored JWT
+    // console.log("========== API REQUEST ==========");
+    // console.log("METHOD:", config.method?.toUpperCase());
+    // console.log("URL:", config.url);
+    // console.log("BASE URL:", config.baseURL);
+    // console.log("FULL URL:", `${config.baseURL ?? ""}${config.url ?? ""}`);
+    // console.log("HAS TOKEN:", !!token);
+    // console.log("=================================");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`; // Adds to header
+    }
+    return config;
+  },
   (error) => Promise.reject(error)
 );
 
@@ -62,7 +75,14 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as RetryableRequestConfig | undefined
+    // ----------------------------------------------------------
+    // Development authentication bypass
+    // ----------------------------------------------------------
+    if (env.BYPASS_AUTH) {
+      return Promise.reject(error);
+    }
+
+    const originalRequest = error.config as RetryableRequestConfig | undefined;
 
     // ----------------------------------------------------------
     // No request configuration
@@ -72,11 +92,18 @@ api.interceptors.response.use(
     }
 
     // ----------------------------------------------------------
+    // Prevent infinite retry loops
+    // ----------------------------------------------------------
+    if (originalRequest._retry) {
+      return Promise.reject(error);
+    }
+
+    // ----------------------------------------------------------
     // Do not attempt refresh on the refresh endpoint itself
     // ----------------------------------------------------------
     if (originalRequest.url?.includes(API_ROUTES.AUTH.REFRESH)) {
       clearAuth();
-      return Promise.reject(error)
+      return Promise.reject(error);
     }
 
     originalRequest._retry = true;
@@ -87,7 +114,7 @@ api.interceptors.response.use(
     const refreshToken = getRefreshToken();
     if (!refreshToken) {
       clearAuth();
-      return Promise.reject(error)
+      return Promise.reject(error);
     }
 
     try {
@@ -95,12 +122,13 @@ api.interceptors.response.use(
       // Request new tokens
       // --------------------------------------------------------
 
-      const refreshResponse = await refreshApi.post<ApiResponse<RefreshTokenResponse> | RefreshTokenResponse>(API_ROUTES.AUTH.REFRESH, {
+      const refreshResponse = await refreshApi.post<
+        ApiResponse<RefreshTokenResponse> | RefreshTokenResponse
+      >(API_ROUTES.AUTH.REFRESH, {
         refreshToken,
       });
 
       const body = refreshResponse.data;
-
 
       // --------------------------------------------------------
       // Support both:
@@ -119,18 +147,13 @@ api.interceptors.response.use(
       // }
       // --------------------------------------------------------
 
-
       const tokenData =
-        body &&
-          typeof body === 'object' &&
-          "success" in body &&
-          "data" in body
+        body && typeof body === "object" && "success" in body && "data" in body
           ? body.data
           : body;
 
       const newAccessToken = tokenData?.accessToken;
       const newRefreshToken = tokenData?.refreshToken;
-
 
       if (!newAccessToken) {
         throw new Error("Refresh response did not contain access token");
@@ -154,7 +177,7 @@ api.interceptors.response.use(
       // If refresh fails → clear session
       // --------------------------------------------------------
       clearAuth();
-      return Promise.reject(error)
+      return Promise.reject(error);
     }
   }
 );
