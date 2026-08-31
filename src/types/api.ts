@@ -4,6 +4,22 @@
  */
 
 export interface paths {
+    "/api/v1/users/{userId}/roles/{assignmentId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateAssignment"];
+        post?: never;
+        delete: operations["revokeAssignment"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/facilities/{id}": {
         parameters: {
             query?: never;
@@ -15,6 +31,22 @@ export interface paths {
         put: operations["update"];
         post?: never;
         delete: operations["deactivate"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/{userId}/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listUserRoles"];
+        put?: never;
+        post: operations["assignRole"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -116,6 +148,118 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/users/{userId}/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSessions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/{userId}/permissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listUserPermissions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/{userId}/activity": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getActivity"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/{userId}/access": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAccess"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRole"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/roles/{roleId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRole"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/permissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPermission"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/facilities/summary": {
         parameters: {
             query?: never;
@@ -132,10 +276,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/users/{userId}/sessions/{sessionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["revokeSession"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        UpdateAssignmentRequest: {
+            /** Format: date-time */
+            expiresAt?: string;
+        };
         FacilityAddressRequest: {
             line1: string;
             line2?: string;
@@ -170,6 +334,24 @@ export interface components {
             status?: string;
             createdAt?: string;
             updateAt?: string;
+        };
+        AssignRoleRequest: {
+            /** Format: uuid */
+            roleId?: string;
+            /** Format: date-time */
+            expiresAt?: string;
+        };
+        RoleAssignmentResponse: {
+            assignmentId?: string;
+            staffId?: string;
+            roleId?: string;
+            /** Format: date-time */
+            assignedAt?: string;
+            assignedBy?: string;
+            /** Format: date-time */
+            expiresAt?: string;
+            /** @enum {string} */
+            status?: "ACTIVE" | "EXPIRED" | "REVOKED";
         };
         AddressRequest: {
             line1: string;
@@ -266,6 +448,46 @@ export interface components {
             loginEmail: string;
             temporaryPassword: string;
         };
+        ApiResponseCreateCredentialResponse: {
+            success?: boolean;
+            message?: string;
+            data?: components["schemas"]["CreateCredentialResponse"];
+            /** Format: date-time */
+            timestamp?: string;
+        };
+        CreateCredentialResponse: {
+            /** Format: uuid */
+            staffId?: string;
+        };
+        SessionResponse: {
+            sessionId?: string;
+            issuedAt?: string;
+            expiredAt?: string;
+            userAgent?: string;
+            revoked?: boolean;
+            valid?: boolean;
+        };
+        UserActivityResponse: {
+            id?: string;
+            eventType?: string;
+            description?: string;
+            occured?: string;
+        };
+        UserAccessResponse: {
+            roles?: components["schemas"]["RoleAssignmentResponse"][];
+            permissions?: string[];
+        };
+        RoleResponse: {
+            roleId?: string;
+            name?: string;
+            description?: string;
+            permissionCodes?: string[];
+            systemDefined?: boolean;
+        };
+        PermissionResponse: {
+            code?: string;
+            description?: string;
+        };
         ApiResponsePagedResponseFacilityResponse: {
             success?: boolean;
             message?: string;
@@ -315,6 +537,56 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    updateAssignment: {
+        parameters: {
+            query: {
+                currentUserId: string;
+            };
+            header?: never;
+            path: {
+                userId: string;
+                assignmentId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateAssignmentRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    revokeAssignment: {
+        parameters: {
+            query: {
+                currentUserId: string;
+            };
+            header?: never;
+            path: {
+                userId: string;
+                assignmentId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     getById: {
         parameters: {
             query?: never;
@@ -384,6 +656,56 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    listUserRoles: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoleAssignmentResponse"][];
+                };
+            };
+        };
+    };
+    assignRole: {
+        parameters: {
+            query: {
+                currentUserId: string;
+            };
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["AssignRoleRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoleAssignmentResponse"];
+                };
             };
         };
     };
@@ -552,7 +874,159 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ApiResponseCreateCredentialResponse"];
+                };
+            };
+        };
+    };
+    getSessions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionResponse"][];
+                };
+            };
+        };
+    };
+    listUserPermissions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string[];
+                };
+            };
+        };
+    };
+    getActivity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserActivityResponse"][];
+                };
+            };
+        };
+    };
+    getAccess: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserAccessResponse"];
+                };
+            };
+        };
+    };
+    listRole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoleResponse"][];
+                };
+            };
+        };
+    };
+    getRole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roleId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoleResponse"];
+                };
+            };
+        };
+    };
+    listPermission: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PermissionResponse"][];
+                };
             };
         };
     };
@@ -573,6 +1047,27 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["ApiResponseFacilitySummaryResponse"];
                 };
+            };
+        };
+    };
+    revokeSession: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+                sessionId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

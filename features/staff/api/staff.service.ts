@@ -21,17 +21,17 @@ class StaffService {
   // }
 
   //get staff list data with parameter query
-  async getStaff(query: StaffQuery) {
+  async getStaff(query?: StaffQuery) {
     const response = await api.get<ApiResponse<PageResponse<StaffResponse>>>(
-      API_ROUTES.STAFF.ROOT
+      API_ROUTES.STAFF.ROOT,
+      { params: query }
     );
-    // console.log("staff list", response.data.data);
     return response.data.data;
   }
 
   //get staff by id
   async getStaffById(id: string) {
-    const response = await api.get<ApiResponse<PageResponse<StaffResponse>>>(
+    const response = await api.get<ApiResponse<StaffResponse>>(
       API_ROUTES.STAFF.BY_ID(id)
     );
     return response.data.data;
@@ -39,7 +39,7 @@ class StaffService {
 
   //update staff
   async updateStaff(id: string, data: UpdateStaffRequest) {
-    const response = await api.put<ApiResponse<PageResponse<StaffResponse>>>(
+    const response = await api.put<ApiResponse<StaffResponse>>(
       API_ROUTES.STAFF.BY_ID(id),
       data
     );

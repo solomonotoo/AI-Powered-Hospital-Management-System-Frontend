@@ -957,6 +957,16 @@ export const sidebarItems: SidebarSection[] = [
             url: "/users/roles",
             allowedRoles: allowedRoleManagementRoles,
           },
+          //  {
+          //   title: 'Access Policies',
+          //   url: '/users/policies',
+          //   // icon: <LockKeyhole className="h-4 w-4" />,
+          // },
+          // {
+          //   title: 'Security Events',
+          //   url: '/users/security',
+          //   // icon: <Activity className="h-4 w-4" />,
+          // },
         ],
       },
 

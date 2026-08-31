@@ -1,0 +1,10 @@
+export { AccountWorkspace } from './workspace/account-workspace';
+export { AccountHeader } from './components/account-header';
+export { ProfilePhotoUpload } from './components/profile-photo-upload';
+export { AccountNavigation } from './components/account-navigation';
+export { ProfileTab } from './profile/profile-tab';
+export { SecurityTab } from './security/security-tab';
+export { MfaTab } from './mfa/mfa-tab';
+export { MfaSetupDialog } from './mfa/mfa-setup-dialog';
+export { SessionsTab } from './sessions/sessions-tab';
+export { NotificationSettings } from './notifications/notification-settings';
