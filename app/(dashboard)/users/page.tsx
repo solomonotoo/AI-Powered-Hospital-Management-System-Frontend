@@ -1,5 +1,5 @@
 import { SharedLayout } from "@/components/shared-layout/shared-layout";
-import { UserList } from "@/features/identity/users/components/user-list";
+import { UserList } from "@/features/identity/users";
 
 export default function UserListPage() {
     return <SharedLayout

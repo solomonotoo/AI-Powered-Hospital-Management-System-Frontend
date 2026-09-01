@@ -148,6 +148,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listUsers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/users/{userId}/sessions": {
         parameters: {
             query?: never;
@@ -204,6 +220,22 @@ export interface paths {
             cookie?: never;
         };
         get: operations["getAccess"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAllRoleAssignments"];
         put?: never;
         post?: never;
         delete?: never;
@@ -459,6 +491,28 @@ export interface components {
             /** Format: uuid */
             staffId?: string;
         };
+        PagedResponseUserSummaryResponse: {
+            content?: components["schemas"]["UserSummaryResponse"][];
+            /** Format: int32 */
+            page?: number;
+            /** Format: int32 */
+            size?: number;
+            /** Format: int64 */
+            totalElements?: number;
+            /** Format: int32 */
+            totalPages?: number;
+            first?: boolean;
+            last?: boolean;
+        };
+        UserSummaryResponse: {
+            staffId?: string;
+            fullName?: string;
+            loginEmail?: string;
+            staffRole?: string;
+            active?: boolean;
+            mustChangePassword?: boolean;
+            lastLoginAt?: string;
+        };
         SessionResponse: {
             sessionId?: string;
             issuedAt?: string;
@@ -476,6 +530,28 @@ export interface components {
         UserAccessResponse: {
             roles?: components["schemas"]["RoleAssignmentResponse"][];
             permissions?: string[];
+        };
+        PagedResponseRoleAssignmentSummaryResponse: {
+            content?: components["schemas"]["RoleAssignmentSummaryResponse"][];
+            /** Format: int32 */
+            page?: number;
+            /** Format: int32 */
+            size?: number;
+            /** Format: int64 */
+            totalElements?: number;
+            /** Format: int32 */
+            totalPages?: number;
+            first?: boolean;
+            last?: boolean;
+        };
+        RoleAssignmentSummaryResponse: {
+            assignmentId?: string;
+            staffId?: string;
+            staffFullName?: string;
+            roleId?: string;
+            roleName?: string;
+            expiresAt?: string;
+            revoked?: boolean;
         };
         RoleResponse: {
             roleId?: string;
@@ -880,6 +956,29 @@ export interface operations {
             };
         };
     };
+    listUsers: {
+        parameters: {
+            query?: {
+                page?: number;
+                size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PagedResponseUserSummaryResponse"];
+                };
+            };
+        };
+    };
     getSessions: {
         parameters: {
             query?: never;
@@ -964,6 +1063,29 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserAccessResponse"];
+                };
+            };
+        };
+    };
+    listAllRoleAssignments: {
+        parameters: {
+            query?: {
+                page?: number;
+                size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PagedResponseRoleAssignmentSummaryResponse"];
                 };
             };
         };

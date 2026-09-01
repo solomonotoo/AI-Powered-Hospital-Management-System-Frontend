@@ -110,7 +110,14 @@ export const userApi = {
 
     return { users: filtered, stats };
   },
-
+  // user-api.ts - Add this method
+  getAllUserRoles: async (params?: { page?: number; size?: number }): Promise<components['schemas']['PagedResponseRoleAssignmentSummaryResponse']> => {
+    const response = await api.get<components['schemas']['PagedResponseRoleAssignmentSummaryResponse']>(
+      '/users/roles',
+      { params }
+    );
+    return response.data;
+  },
   getUserById: async (userId: string): Promise<User> => {
     const user = MOCK_USERS.find(u => u.id === userId);
     if (!user) {

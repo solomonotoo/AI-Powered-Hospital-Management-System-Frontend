@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import {
+  Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
@@ -51,7 +52,7 @@ export function DataTableFooter({
   const totalPages = Math.max(1, Math.ceil(totalRecords / pageSize)); //total number of pages
   const start = totalRecords === 0 ? 0 : (page - 1) * pageSize + 1; //first page
   // const end = Math.min((page = pageSize), totalPages); //last page
-  const end = Math.min((page = pageSize), totalRecords); //last page
+  const end = Math.min((page * pageSize), totalRecords); //last page
 
   return (
     <div className="flex flex-col gap-4 border-t pt-4 lg:flex-row lg:items-center lg:justify-between">
@@ -59,18 +60,22 @@ export function DataTableFooter({
         Showing {start}-{end} of {totalRecords} records
       </div>
       <div className="flex items-center gap-4">
-        <SelectTrigger>
-          {" "}
-          {/**trigger the page number selected */}
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="10">10</SelectItem>
-          <SelectItem value="20">20</SelectItem>
-          <SelectItem value="50">50</SelectItem>
-          <SelectItem value="100">100</SelectItem>
-        </SelectContent>
-
+        <Select
+          value={String(pageSize)}
+          onValueChange={(value) => onPageSizeChange(Number(value))}
+        >
+          <SelectTrigger>
+            {" "}
+            {/**trigger the page number selected */}
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="10">10</SelectItem>
+            <SelectItem value="20">20</SelectItem>
+            <SelectItem value="50">50</SelectItem>
+            <SelectItem value="100">100</SelectItem>
+          </SelectContent>
+        </Select>
         <Button
           variant="outline"
           size="icon"
