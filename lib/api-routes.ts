@@ -36,6 +36,13 @@ export const API_ROUTES = {
   MEDICAL_RECORDS: {
     ROOT: "/medical-records",
   },
+
+  USERS: {
+    ROOT: "/users",
+    BY_ID: (id: string) => `/users/${id}`,
+    SEARCH: "/users/search",
+    SUMMARY: "/users/summary"
+  }
 } as const;
 
 //now the service method becomes much cleaner

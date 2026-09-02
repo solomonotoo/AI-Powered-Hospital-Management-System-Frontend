@@ -11,6 +11,7 @@ import UsersTable from "./table/users-table";
 import { UsersQuery } from "../types/users-query";
 import { UsersNavigation } from "./users-navigation";
 import { UsersWorkspaceTabs } from "./users-workspace-tab";
+import { useUsers } from "../hook/use-users";
 
 export function UserManagement() {
   const [search, setSearch] = useState("");
@@ -31,19 +32,21 @@ export function UserManagement() {
   const query: UsersQuery = {
     page: page - 1,
     size: pageSize,
-    search: search || undefined,
-    sort: `${sort.field},${sort.direction}`,
-    department: department !== "all" ? department : undefined,
-    role: role !== "all" ? role : undefined,
-    status: status !== "all" ? status : undefined,
+    // search: search || undefined,
+    // sort: `${sort.field},${sort.direction}`,
+    // department: department !== "all" ? department : undefined,
+    // role: role !== "all" ? role : undefined,
+    // status: status !== "all" ? status : undefined,
   };
 
-  const userMock = usersMockData;
-  const userSumaryMock = usersSummaryMockData;
+  // const userMock = usersMockData;
+  //const userSumaryMock = usersSummaryMockData;
 
+  const { data, isLoading, isError, error, refetch } = useUsers(query);
+  const users = data?.content ?? [];
   return (
     <WorkspaceSection
-      summary={<UsersSummaryCards summary={userSumaryMock} />}
+      // summary={<UsersSummaryCards summary={data} />}
       toolbar={
         <UsersToolbar
           search={search}
@@ -60,10 +63,19 @@ export function UserManagement() {
       <>
         <UsersNavigation activeTab={activeTab} onTabChange={setActiveTab} />
         <SectionCard>
-          <UsersWorkspaceTabs 
+          <UsersWorkspaceTabs
             activeTab={activeTab}
-            users={usersMockData}
-
+            users={users}
+          // page={page}
+          // pageSize={pageSize}
+          // setPage={setPage}
+          // setPageSize={setPageSize}
+          // totalElements={data?.totalElements ?? 0}
+          // totalPages={data?.totalPages ?? 0}
+          // isLoading={isLoading}
+          // isError={isError}
+          // error={error}
+          // refetch={refetch}
           />
         </SectionCard>
       </>

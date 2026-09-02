@@ -4,8 +4,9 @@ export function UsersTableHeader() {
   return (
     <TableHeader>
       <TableRow>
-        <TableHead>Staff</TableHead>
-        <TableHead>Role</TableHead>
+        <TableHead>Users</TableHead>
+        <TableHead>Email</TableHead>
+        <TableHead>Change Password</TableHead>
         <TableHead>Status</TableHead>
         <TableHead>MFA</TableHead>
         <TableHead>Last Login</TableHead>

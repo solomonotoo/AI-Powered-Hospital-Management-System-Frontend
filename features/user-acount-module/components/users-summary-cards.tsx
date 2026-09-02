@@ -1,9 +1,9 @@
 import { MetricCard } from "@/features/shared-features/metric-card";
 import { Briefcase, LucideIcon, UserCheck, UserX } from "lucide-react";
-import { UsersSummaryCardTypes } from "../types/users";
+import { PagedUsersResponse, UserSummary } from "../types/users";
 
 interface UsersSummaryCardsProps {
-  summary: UsersSummaryCardTypes;
+  summary: PagedUsersResponse;
 }
 
 interface summaryCards {
@@ -16,22 +16,22 @@ export const UsersSummaryCards = ({ summary }: UsersSummaryCardsProps) => {
   const staffCards: summaryCards[] = [
     {
       title: "Total Users",
-      value: summary?.totalUsers ?? 0,
+      value: summary.totalElements ?? 0,
       icon: Briefcase,
     },
     {
       title: "Active Users",
-      value: summary?.activeUsers ?? 0,
+      value: summary?.content?.filter((user) => user.active).length ?? 0,
       icon: UserCheck,
     },
     {
       title: "MFA Enabled",
-      value: summary?.mfaEnabledUsers ?? 0,
+      value: summary?.content?.filter((user) => user.mustChangePassword).length ?? 0,
       icon: UserX,
     },
     {
       title: "Locked / Suspended",
-      value: summary?.lockedUsers ?? 0,
+      value: summary?.content?.filter((user) => !user.active).length ?? 0,
       icon: UserX,
     },
   ];

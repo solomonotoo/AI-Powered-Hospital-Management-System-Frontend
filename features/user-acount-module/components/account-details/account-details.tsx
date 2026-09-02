@@ -26,16 +26,23 @@ export function AccountDetails() {
     <div className="space-y-6">
       <UserProfileCard
         userData={userData}
-        userId="user-123" // Pass the actual user ID from your auth system
+        userId="user-123"
       />
 
       <WorkspaceSection>
-        <UsersProfileNavigation
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-        />
-        <UserProfileWorkspaceTabs activeTab={activeTab} users={users} />
-        
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+          <UsersProfileNavigation
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
+
+          <main className="min-w-0 flex-1">
+            <UserProfileWorkspaceTabs
+              activeTab={activeTab}
+              users={users}
+            />
+          </main>
+        </div>
       </WorkspaceSection>
     </div>
   );

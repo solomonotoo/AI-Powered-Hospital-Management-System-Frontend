@@ -21,7 +21,8 @@ export function StaffTableRow({
   onDelete,
   onExport,
 }: StaffTableRowProps) {
-  // console.log("RAW STAFF STATUS:", staff.status);
+  // console.log("STAFF ROW:", staff);
+
   return (
     <TableRow
       onClick={() => onRowClick(staff)}
@@ -33,13 +34,14 @@ export function StaffTableRow({
           <AvatarFallback>{staff.firstName?.charAt(0)}
             {staff.lastName?.charAt(0)}</AvatarFallback>
         </Avatar>
-        {staff.firstName}  {staff.lastName}
+        <span className="font-medium text-wrap w-32"> {staff.firstName}  {staff.lastName}</span>
+
       </TableCell>
       <TableCell className="font-medium">
         {staff.employeeId}
       </TableCell>
       <TableCell className="font-medium">
-        {staff.department}
+        {staff.department ?? "Not Assigned"}
       </TableCell>
       <TableCell className="font-medium">
         {staff.role}
@@ -47,7 +49,7 @@ export function StaffTableRow({
       <TableCell className="font-medium">
         <StaffStatusBadge status={staff.status} />
       </TableCell>
-      <TableCell className="font-medium">{staff.phoneNumber}</TableCell>
+      <TableCell className="font-medium">{staff.phoneNumber ?? "Not Provided"}</TableCell>
       <TableCell className="text-medium">
         <StaffTableRowActions
           staff={staff}

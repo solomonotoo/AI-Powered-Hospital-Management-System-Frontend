@@ -5,7 +5,11 @@ import {
   Activity,
   Calendar,
   FileText,
+  KeyRound,
   LayoutDashboard,
+  MonitorSmartphone,
+  Shield,
+  ShieldCheck,
   Users,
 } from "lucide-react";
 
@@ -19,35 +23,84 @@ export function UsersProfileNavigation({
   onTabChange,
 }: UsersProfileNavigationProps) {
   const tabs: WorkspaceTab[] = [
-    { id: "overview", label: "Overview", icon: Users },
-    { id: "access", label: "Access & Role", icon: Activity },
-    { id: "authentication", label: "Authentication", icon: Calendar },
-    { id: "mfa", label: "MFA", icon: Calendar },
-    { id: "userSessions", label: "Session", icon: Calendar },
-    { id: "activity", label: "Activity", icon: Calendar },
+    {
+      id: "overview",
+      label: "Overview",
+      icon: LayoutDashboard,
+      permission: "USER_ACCOUNT_VIEW",
+    },
+    {
+      id: "access",
+      label: "Access & Roles",
+      icon: Shield,
+      permission: "USER_ACCESS_MANAGE",
+    },
+    {
+      id: "authentication",
+      label: "Authentication",
+      icon: KeyRound,
+      permission: "USER_AUTHENTICATION_VIEW",
+    },
+    {
+      id: "mfa",
+      label: "Multi-Factor Auth",
+      icon: ShieldCheck,
+      permission: "USER_MFA_MANAGE",
+    },
+    {
+      id: "userSessions",
+      label: "Sessions",
+      icon: MonitorSmartphone,
+      permission: "USER_SESSION_VIEW",
+    },
+    {
+      id: "activity",
+      label: "Activity",
+      icon: Activity,
+      permission: "USER_ACTIVITY_VIEW",
+    },
   ];
 
   return (
-    <div className="overflow-x-auto bg-card p-2 rounded-lg">
-      <div className="flex gap-2 border-b pb-3 justify-around">
-        {tabs.map((tab) => {
-          const Icon = tab.icon;
-          return (
-            <Button
-              key={tab.id}
-              variant={activeTab === tab.id ? "default" : "ghost"}
-              onClick={() => onTabChange(tab.id)}
-              className="gap-2 whitespace-nowrap"
-            >
-              <Icon className="h-4 w-4" />
-              {tab.label}
-              {tab.badge !== undefined && (
-                <Badge variant="secondary">{tab.badge}</Badge>
-              )}
-            </Button>
-          );
-        })}
+    <aside className="w-full shrink-0 lg:w-60 xl:w-64">
+      <div className="rounded-xl border bg-card p-2">
+        <div className="px-3 pb-3 pt-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Account Management
+          </p>
+        </div>
+
+        <nav className="space-y-1">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+
+            return (
+              <Button
+                key={tab.id}
+                type="button"
+                variant={isActive ? "secondary" : "ghost"}
+                disabled={tab.disabled}
+                onClick={() => onTabChange(tab.id)}
+                className="h-11 w-full justify-start gap-3 px-3"
+              >
+                <Icon className="size-4 shrink-0" />
+
+                <span className="truncate">{tab.label}</span>
+
+                {tab.badge !== undefined && (
+                  <Badge
+                    variant="secondary"
+                    className="ml-auto"
+                  >
+                    {tab.badge}
+                  </Badge>
+                )}
+              </Button>
+            );
+          })}
+        </nav>
       </div>
-    </div>
+    </aside>
   );
 }
