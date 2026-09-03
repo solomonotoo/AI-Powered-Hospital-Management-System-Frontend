@@ -5,8 +5,18 @@ import { PageQuery } from "@/features/types/api-query";
 //   status?: string;
 //   department?: string;
 // }
+export type UserSortField =
+  | "lastLoginAt"
+  | "loginemail"
+  | "createdAt";
 
 export interface UsersQuery {
-  page: number;
-  size: number;
+  search?: string;
+  active?: boolean;
+  mfaEnabled?: boolean;
+  sortBy?: UserSortField;
+  sortDir?: "asc" | "desc";
+  page?: number;
+  size?: number;
+
 }

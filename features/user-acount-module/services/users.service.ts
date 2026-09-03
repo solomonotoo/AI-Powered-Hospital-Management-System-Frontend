@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import { PagedUsersResponse } from "../types/users";
+import { PagedUsersResponse, UsersSummaryCardResponse  } from "../types/users";
 import { API_ROUTES } from "@/lib/api-routes";
 import { UsersQuery } from "../types/users-query";
 
@@ -9,6 +9,13 @@ import { UsersQuery } from "../types/users-query";
 // not an ApiResponse<T> wrapper. So we should not add wrapper-unwrapping logic unless the actual runtime response proves otherwise.
 
 class UsersService {
+    async getUsersCardSummary(): Promise<UsersSummaryCardResponse> {
+        const response = await api.get<UsersSummaryCardResponse>(
+            API_ROUTES.USERS.SUMMARY
+        );
+        return response.data;
+    }
+
     async getUsers(query: UsersQuery): Promise<PagedUsersResponse> {
         const response = await api.get<PagedUsersResponse>(
             API_ROUTES.USERS.ROOT,
@@ -19,6 +26,8 @@ class UsersService {
 
         return response.data;
     }
+
+
 }
 
 export const usersService = new UsersService();

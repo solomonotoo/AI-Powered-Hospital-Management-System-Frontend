@@ -1,13 +1,13 @@
 // Rather than using:
 
 import { ComponentType } from "react";
-import { UserSummary } from "../types/users";
+import {  UserSummaryResponse } from "../types/users";
 import UsersTable from "./table/users-table";
 
 //NB this file will allow tab content to change when you click on a tab
 interface WorkspaceTabsProps {
   activeTab: string;
-  users: UserSummary[];
+  users: UserSummaryResponse[];
 }
 
 // interface WorkspaceTabComponentProps {

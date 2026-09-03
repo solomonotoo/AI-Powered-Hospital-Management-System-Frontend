@@ -8,10 +8,11 @@ import { useState } from "react";
 import { SortState } from "@/features/types/sort-state";
 import { SectionCard } from "@/features/shared-features/section-card";
 import UsersTable from "./table/users-table";
-import { UsersQuery } from "../types/users-query";
+import { UserSortField,UsersQuery } from "../types/users-query";
 import { UsersNavigation } from "./users-navigation";
 import { UsersWorkspaceTabs } from "./users-workspace-tab";
 import { useUsers } from "../hook/use-users";
+import { useUserSummary } from "../hook/use-user-summary";
 
 export function UserManagement() {
   const [search, setSearch] = useState("");
@@ -24,19 +25,20 @@ export function UserManagement() {
   const [pageSize, setPageSize] = useState(10);
 
   //sorting state
-  const [sort, setSort] = useState<SortState>({
-    field: "fullName",
+  const [sort, setSort] = useState<{
+    field: UserSortField;
+    direction: "asc" | "desc";
+  }>({
+    field: "createdAt",
     direction: "asc",
   });
 
   const query: UsersQuery = {
     page: page - 1,
     size: pageSize,
-    // search: search || undefined,
-    // sort: `${sort.field},${sort.direction}`,
-    // department: department !== "all" ? department : undefined,
-    // role: role !== "all" ? role : undefined,
-    // status: status !== "all" ? status : undefined,
+    search: search || undefined,
+    sortBy: sort.field,
+    sortDir: sort.direction,
   };
 
   // const userMock = usersMockData;
@@ -44,9 +46,15 @@ export function UserManagement() {
 
   const { data, isLoading, isError, error, refetch } = useUsers(query);
   const users = data?.content ?? [];
+// console.log("USERS API DATA:", data);
+// console.log("USERS CONTENT:", data?.content);
+
+
+  const { data: summaryData, isLoading: isSummaryLoading, isError: isSummaryError, error: summaryError, refetch: refetchSummary } = useUserSummary();
+  const summary = summaryData ?? {};
   return (
     <WorkspaceSection
-      // summary={<UsersSummaryCards summary={data} />}
+       summary={<UsersSummaryCards summary={summary} />}
       toolbar={
         <UsersToolbar
           search={search}

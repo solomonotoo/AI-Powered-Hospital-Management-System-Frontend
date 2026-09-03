@@ -228,6 +228,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/users/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getUserSummary"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/users/roles": {
         parameters: {
             query?: never;
@@ -383,7 +399,7 @@ export interface components {
             /** Format: date-time */
             expiresAt?: string;
             /** @enum {string} */
-            status?: "ACTIVE" | "EXPIRED" | "REVOKED";
+            status?: "ACTIVE" | "EXPIRED" | "REVOKED" | "SUSPENDED";
         };
         AddressRequest: {
             line1: string;
@@ -530,6 +546,16 @@ export interface components {
         UserAccessResponse: {
             roles?: components["schemas"]["RoleAssignmentResponse"][];
             permissions?: string[];
+        };
+        UserSummaryCardResponse: {
+            /** Format: int64 */
+            totalUsers?: number;
+            /** Format: int64 */
+            activeUsers?: number;
+            /** Format: int64 */
+            mfaEnabledUsers?: number;
+            /** Format: int64 */
+            suspendedUsers?: number;
         };
         PagedResponseRoleAssignmentSummaryResponse: {
             content?: components["schemas"]["RoleAssignmentSummaryResponse"][];
@@ -959,6 +985,11 @@ export interface operations {
     listUsers: {
         parameters: {
             query?: {
+                search?: string;
+                active?: boolean;
+                mfaEnabled?: boolean;
+                sortBy?: string;
+                sortDir?: string;
                 page?: number;
                 size?: number;
             };
@@ -1063,6 +1094,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserAccessResponse"];
+                };
+            };
+        };
+    };
+    getUserSummary: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSummaryCardResponse"];
                 };
             };
         };

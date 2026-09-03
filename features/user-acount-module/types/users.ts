@@ -32,6 +32,9 @@ import { components } from "@/lib/api/generated/openapi-types";
 
 //the above is replaced with generated OpenAPI types
 
+export type UsersSummaryCardResponse =
+  components["schemas"]["UserSummaryCardResponse"]; 
+  
 export type UserSummaryResponse =
   components["schemas"]["UserSummaryResponse"];
 

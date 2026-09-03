@@ -65,7 +65,7 @@ export function StaffManagement() {
 
   // const staffSummary = StaffSummaryMock;
   const listStaff = staff?.content.map(toStaff) ?? [];
-  c
+  
   // Handle successful facility creation
   const handleStaffCreated = () => {
     // Refresh your facility list here

@@ -2,16 +2,16 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { UsersTableRowActions } from "./users-table-row-actions";
 import { UsersStatusBadge } from "../users-status-badge";
-import { UserSummary } from "../../types/users";
+import { UserSummaryResponse } from "../../types/users";
 import { MFABadge } from "../mfa-badge";
 
 interface UsersTableRowProps {
-  users: UserSummary;
-  onRowClick: (user: UserSummary) => void;
-  onEdit: (user: UserSummary) => void;
-  onView: (users: UserSummary) => void;
-  onDelete: (users: UserSummary) => void;
-  onExport: (users: UserSummary) => void;
+  users: UserSummaryResponse;
+  onRowClick: (user: UserSummaryResponse) => void;
+  onEdit: (user: UserSummaryResponse) => void;
+  onView: (users: UserSummaryResponse) => void;
+  onDelete: (users: UserSummaryResponse) => void;
+  onExport: (users: UserSummaryResponse) => void;
 }
 
 export function UsersTableRow({
@@ -22,7 +22,7 @@ export function UsersTableRow({
   onDelete,
   onExport,
 }: UsersTableRowProps) {
-  // console.log("RAW users STATUS:", users.status);
+   //console.log("RAW users STATUS:", users);
   return (
     <TableRow
       onClick={() => onRowClick(users)}
