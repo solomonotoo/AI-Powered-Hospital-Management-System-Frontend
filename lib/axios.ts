@@ -51,9 +51,9 @@ api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     //remove this code before production deploument
     // Development authentication bypass
-    if (env.BYPASS_AUTH) {
-      return config;
-    }
+    // if (env.BYPASS_AUTH) {
+    //   return config;
+    // }
 
     const token = getAccessToken(); // Gets the stored JWT
     // console.log("========== API REQUEST ==========");

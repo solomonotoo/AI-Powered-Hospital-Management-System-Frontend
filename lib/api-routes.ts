@@ -10,13 +10,13 @@ export const API_ROUTES = {
     ROOT: "/staff",
     BY_ID: (id: string) => `/staff/${id}`,
     SEARCH: "/staff/search",
-    SUMMARY: "/staff/summary"
+    SUMMARY: "/staff/summary",
   },
   FACILITIES: {
     ROOT: "/facilities",
     BY_ID: (id: string) => `/facilities/${id}`,
     // SEARCH: "/facilities/search",
-    SUMMARY: "/facilities/summary"
+    SUMMARY: "/facilities/summary",
   },
   PATIENTS: {
     ROOT: "/patients",
@@ -41,8 +41,18 @@ export const API_ROUTES = {
     ROOT: "/users",
     BY_ID: (id: string) => `/users/${id}`,
     SEARCH: "/users/search",
-    SUMMARY: "/users/summary"
-  }
+    SUMMARY: "/users/summary",
+
+    ROLES: (userId: string) => `/users/${userId}/roles`,
+    ROLES_ASSIGNMENT: (userId: string, assignmentId: string) =>
+      `/users/${userId}/roles/${assignmentId}`,
+
+    PERMISSIONS: (userId: string) => `/users/${userId}/permissions`,
+    ACCESS: (userId: string) => `/users/${userId}/access`,
+  },
+  ROLES: {
+    LIST: "/roles",
+  },
 } as const;
 
 //now the service method becomes much cleaner

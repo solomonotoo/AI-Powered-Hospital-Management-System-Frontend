@@ -24,10 +24,7 @@ export function AccountDetails() {
 
   return (
     <div className="space-y-6">
-      <UserProfileCard
-        userData={userData}
-        userId="user-123"
-      />
+      <UserProfileCard userData={userData} userId="user-123" />
 
       <WorkspaceSection>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
@@ -37,10 +34,7 @@ export function AccountDetails() {
           />
 
           <main className="min-w-0 flex-1">
-            <UserProfileWorkspaceTabs
-              activeTab={activeTab}
-              users={users}
-            />
+            <UserProfileWorkspaceTabs activeTab={activeTab} users={users} />
           </main>
         </div>
       </WorkspaceSection>

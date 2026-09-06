@@ -89,10 +89,7 @@ export function UsersProfileNavigation({
                 <span className="truncate">{tab.label}</span>
 
                 {tab.badge !== undefined && (
-                  <Badge
-                    variant="secondary"
-                    className="ml-auto"
-                  >
+                  <Badge variant="secondary" className="ml-auto">
                     {tab.badge}
                   </Badge>
                 )}

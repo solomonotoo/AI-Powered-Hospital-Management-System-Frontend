@@ -36,6 +36,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/users/{userId}/suspend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["suspendUser"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/users/{userId}/roles": {
         parameters: {
             query?: never;
@@ -46,6 +62,22 @@ export interface paths {
         get: operations["listUserRoles"];
         put?: never;
         post: operations["assignRole"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/{userId}/reactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["reactivityUser"];
         delete?: never;
         options?: never;
         head?: never;
@@ -525,7 +557,7 @@ export interface components {
             fullName?: string;
             loginEmail?: string;
             staffRole?: string;
-            active?: boolean;
+            status?: string;
             mustChangePassword?: boolean;
             lastLoginAt?: string;
         };
@@ -761,6 +793,28 @@ export interface operations {
             };
         };
     };
+    suspendUser: {
+        parameters: {
+            query: {
+                currentUserId: string;
+            };
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     listUserRoles: {
         parameters: {
             query?: never;
@@ -808,6 +862,28 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["RoleAssignmentResponse"];
                 };
+            };
+        };
+    };
+    reactivityUser: {
+        parameters: {
+            query: {
+                currentUserId: string;
+            };
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

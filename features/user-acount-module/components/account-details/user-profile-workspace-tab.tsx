@@ -1,5 +1,5 @@
 import { Users } from "../../types/users";
-import { UserProfileAccessRoles } from "./user-profile-access-roles";
+import { UserProfileAccessRoles } from "../access-roles/user-profile-access-roles";
 import { UserProfileActivity } from "./user-profile-activity";
 import { UserProfileAuthentication } from "./user-profile-authentication";
 import { UserProfileMFA } from "./user-profile-mfa";
@@ -66,7 +66,7 @@ export function UserProfileWorkspaceTabs({
     case "mfa":
       return <UserProfileMFA />;
     case "userSessions":
-      return <UserProfileSessions/>;
+      return <UserProfileSessions />;
     case "activity":
       return <UserProfileActivity />;
 
