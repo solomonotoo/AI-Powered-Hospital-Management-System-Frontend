@@ -28,11 +28,14 @@ export default function UsersTable({ users }: UsersTableProps) {
           <UsersTableRow
             key={user.staffId}
             users={user}
-            onRowClick={(user) => router.push(`/users/${user.staffId}`)}
-            onView={showDetails}
-            onEdit={() => console.log("edit page comming soon")}
-            onExport={() => console.log("export page comming soon")}
-            onDelete={() => console.log("delete page comming soon")}
+            // Navigate to user account profile on row click
+            onRowClick={(u) => router.push(`/users/${u.staffId}`)}
+            // Navigate to user account profile on 'View Account' action click
+            onView={(u) => router.push(`/users/${u.staffId}`)}
+            // Navigate directly to Access & Roles tab on 'Edit Access' action click
+            onEdit={(u) => router.push(`/users/${u.staffId}?tab=access`)}
+            onExport={() => console.log("export user data")}
+            onDelete={() => console.log("manage user deletion")}
           />
         ))}
       </TableBody>

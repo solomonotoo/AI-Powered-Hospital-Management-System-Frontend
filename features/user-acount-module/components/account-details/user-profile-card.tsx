@@ -22,7 +22,7 @@ import { toast } from "sonner";
 import defaultProfilePic from "@/public/images/signup1.jpg";
 
 interface UserProfileCardProps {
-  userData?: {
+  user?: {
     name: string;
     email: string;
     userId: string;
@@ -36,15 +36,7 @@ interface UserProfileCardProps {
 }
 
 export function UserProfileCard({
-  userData = {
-    name: "Peter Owusu",
-    email: "peterowusu@gmail.com",
-    userId: "USR-0023",
-    role: "Admin",
-    status: "Active",
-    lastActive: "2 hours ago",
-    memberSince: "Jan 2024",
-  },
+  user,
   onImageUpload,
   onImageRemove,
 }: UserProfileCardProps) {
@@ -126,8 +118,8 @@ export function UserProfileCard({
   };
 
   return (
-    <Card className="border-0 shadow-lg bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
-      <CardHeader className="border-b border-slate-200/60 dark:border-slate-700/60 pb-6">
+    <Card className="border-0 shadow-lg ">
+      <CardHeader className="border-b border-slate-200/60  pb-6">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">
@@ -161,9 +153,8 @@ export function UserProfileCard({
                     src={profileImage || defaultProfilePic}
                     alt="Profile photo"
                     fill
-                    className={`object-cover transition-all duration-300 ${
-                      isHovering ? "scale-105 brightness-75" : "scale-100"
-                    }`}
+                    className={`object-cover transition-all duration-300 ${isHovering ? "scale-105 brightness-75" : "scale-100"
+                      }`}
                   />
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-black/5 dark:ring-white/10" />
 
@@ -230,23 +221,22 @@ export function UserProfileCard({
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
-                  {userData.name}
+                  {user?.name}
                 </h3>
                 <div className="flex items-center gap-2 mt-1 flex-wrap">
                   <Badge variant="secondary" className="gap-1.5">
                     <Shield className="h-3 w-3" />
-                    {userData.role}
+                    {user?.role}
                   </Badge>
                   <Badge
                     variant="outline"
-                    className={`gap-1.5 ${
-                      userData.status === "Active"
-                        ? "border-emerald-200 text-emerald-700 dark:border-emerald-800 dark:text-emerald-400"
-                        : "border-amber-200 text-amber-700 dark:border-amber-800 dark:text-amber-400"
-                    }`}
+                    className={`gap-1.5 ${user?.status === "Active"
+                      ? "border-emerald-200 text-emerald-700 dark:border-emerald-800 dark:text-emerald-400"
+                      : "border-amber-200 text-amber-700 dark:border-amber-800 dark:text-amber-400"
+                      }`}
                   >
                     <Clock className="h-3 w-3" />
-                    {userData.status}
+                    {user?.status}
                   </Badge>
                 </div>
               </div>
@@ -269,7 +259,7 @@ export function UserProfileCard({
                     Email
                   </p>
                   <p className="text-sm font-medium text-slate-900 dark:text-white">
-                    {userData.email}
+                    {user?.email}
                   </p>
                 </div>
               </div>
@@ -283,7 +273,7 @@ export function UserProfileCard({
                     User ID
                   </p>
                   <p className="text-sm font-medium text-slate-900 dark:text-white font-mono">
-                    {userData.userId}
+                    {user?.userId}
                   </p>
                 </div>
               </div>
@@ -292,11 +282,11 @@ export function UserProfileCard({
             <div className="flex flex-wrap items-center gap-4 pt-2 text-sm text-slate-600 dark:text-slate-400">
               <span className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                Last active: {userData.lastActive}
+                Last active: {user?.lastActive}
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                Member since: {userData.memberSince}
+                Member since: {user?.memberSince}
               </span>
             </div>
           </div>

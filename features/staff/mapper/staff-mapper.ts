@@ -1,21 +1,22 @@
-//Data transformation
-
 import { StaffFormInput, StaffFormValues } from "../schema/staff-schema";
 import { Staff, StaffSummaryCardTypes } from "../types/staff";
+import { CreateStaffRequest } from "../types/staff-request";
 import { StaffResponse, StaffSummaryResponse } from "../types/staff-response";
 
-export function toCreateStaffRequest(values: StaffFormValues) {
+// Maps UI form values to the CreateStaffRequest DTO expected by the backend
+export function toCreateStaffRequest(values: StaffFormValues): CreateStaffRequest {
   return {
-    employeeNumber: values.employeeId,
+    employeeNumber: values.employeeId, // Map form employeeId to backend employeeNumber
     firstName: values.firstName,
     lastName: values.lastName,
     role: values.role,
     specialisation: values.specialisation,
     department: values.department,
     workEmail: values.workEmail,
-    phone: values.phoneNumber,
+    phone: values.phoneNumber, // Map form phoneNumber to backend phone
+    qualifications: values.qualifications, // Include qualifications field
     licenseNumber: values.licenseNumber,
-    joiningDate: values.employmentDate,
+    joiningDate: values.employmentDate, // Map form employmentDate to backend joiningDate
     workingHours: values.workingHours,
     consultationFee: values.consultationFee,
   };

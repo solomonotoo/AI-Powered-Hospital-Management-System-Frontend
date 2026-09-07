@@ -33,10 +33,18 @@ import { components } from "@/lib/api/generated/openapi-types";
 //the above is replaced with generated OpenAPI types
 
 export type UsersSummaryCardResponse =
-  components["schemas"]["UserSummaryCardResponse"]; 
-  
+  components["schemas"]["UserSummaryCardResponse"];
+
 export type UserSummaryResponse =
   components["schemas"]["UserSummaryResponse"];
 
 export type PagedUsersResponse =
   components["schemas"]["PagedResponseUserSummaryResponse"];
+
+// OpenAPI types for user credential provisioning
+export type CreateCredentialRequest =
+  components["schemas"]["CreateCredentialRequest"];
+
+export type CreateCredentialResponse =
+  components["schemas"]["CreateCredentialResponse"];
+

@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import { PagedUsersResponse, UsersSummaryCardResponse  } from "../types/users";
+import { CreateCredentialRequest, PagedUsersResponse, UsersSummaryCardResponse, UserSummaryResponse } from "../types/users";
 import { API_ROUTES } from "@/lib/api-routes";
 import { UsersQuery } from "../types/users-query";
 
@@ -27,7 +27,17 @@ class UsersService {
         return response.data;
     }
 
+    async getUserById(userId: string): Promise<UserSummaryResponse> {
+        const response = await api.get<UserSummaryResponse>(
+            API_ROUTES.USERS.BY_ID(userId)
+        );
+        return response.data;
+    }
 
+    // Provision new user credential in auth backend using OpenAPI CreateCredentialRequest
+    async createCredential(data: CreateCredentialRequest): Promise<void> {
+        await api.post(API_ROUTES.AUTH.CREDENTIALS, data);
+    }
 }
 
 export const usersService = new UsersService();

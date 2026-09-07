@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { UsersFilters } from "./users-filters";
 import { UsersSearch } from "./users-search";
+import { UsersToolbarActions } from "./users-toolbar-actions";
 
 interface UsersToolbarProps {
   search: string;
@@ -11,6 +12,7 @@ interface UsersToolbarProps {
   onDepartmentChange: (department: string) => void;
   onRoleChange: (role: string) => void;
   onStatusChange: (status: string) => void;
+  onCreateCredential: () => void;
 }
 
 export function UsersToolbar({
@@ -22,6 +24,7 @@ export function UsersToolbar({
   onRoleChange,
   status,
   onStatusChange,
+  onCreateCredential,
 }: UsersToolbarProps) {
   return (
     <Card className="grid grid-cols-1 md:grid-cols-3 items-center justify-between gap-2 px-6 py-3">
@@ -34,6 +37,9 @@ export function UsersToolbar({
         role={role}
         onRoleChange={onRoleChange}
       />
+      <UsersToolbarActions onExportCredentials={() => {
+        console.log("Export staff");
+      }} onNewCredential={onCreateCredential} />
     </Card>
   );
 }

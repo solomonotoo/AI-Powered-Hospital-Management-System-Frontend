@@ -27,37 +27,37 @@ export function UsersProfileNavigation({
       id: "overview",
       label: "Overview",
       icon: LayoutDashboard,
-      permission: "USER_ACCOUNT_VIEW",
+      //permission: "USER_ACCOUNT_VIEW",
     },
     {
       id: "access",
       label: "Access & Roles",
       icon: Shield,
-      permission: "USER_ACCESS_MANAGE",
+      //permission: "USER_ACCESS_MANAGE",
     },
     {
       id: "authentication",
       label: "Authentication",
       icon: KeyRound,
-      permission: "USER_AUTHENTICATION_VIEW",
+      // permission: "USER_AUTHENTICATION_VIEW",
     },
     {
       id: "mfa",
       label: "Multi-Factor Auth",
       icon: ShieldCheck,
-      permission: "USER_MFA_MANAGE",
+      // permission: "USER_MFA_MANAGE",
     },
     {
       id: "userSessions",
       label: "Sessions",
       icon: MonitorSmartphone,
-      permission: "USER_SESSION_VIEW",
+      // permission: "USER_SESSION_VIEW",
     },
     {
       id: "activity",
       label: "Activity",
       icon: Activity,
-      permission: "USER_ACTIVITY_VIEW",
+      // permission: "USER_ACTIVITY_VIEW",
     },
   ];
 
@@ -89,7 +89,10 @@ export function UsersProfileNavigation({
                 <span className="truncate">{tab.label}</span>
 
                 {tab.badge !== undefined && (
-                  <Badge variant="secondary" className="ml-auto">
+                  <Badge
+                    variant="secondary"
+                    className="ml-auto"
+                  >
                     {tab.badge}
                   </Badge>
                 )}

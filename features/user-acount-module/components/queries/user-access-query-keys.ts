@@ -5,7 +5,16 @@ export const userAccessQueryKeys = {
 
   roles: () => [...userAccessQueryKeys.all, "roles"] as const,
 
-  //   roleCatelog: () => ["roles"] as const,
-  //   permissions: (userId: string) =>
-  //     [...userAccessQueryKeys.all, userId, "permissions"] as const,
+  
 };
+
+export const userQueryKeys = {
+    all: ["users"] as const,
+    detail: (userId: string) => [...userQueryKeys.all, userId] as const,
+
+}
+
+export const userProfileQueryKeys = {
+    all: ["user-profile"] as const,
+    detail: (userId: string) => [...userProfileQueryKeys.all, userId] as const,
+}

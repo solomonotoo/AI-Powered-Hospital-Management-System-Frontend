@@ -11,7 +11,6 @@ import { useStaff } from "../hooks/use-staff";
 import { StaffQuery } from "../types/staff-query";
 import { SortState } from "@/features/types/sort-state";
 import { toStaff } from "../mapper/staff-mapper";
-import { StaffSummaryMock, staffDataMock } from "../staff-mock-data";
 
 export function StaffManagement() {
   const [search, setSearch] = useState("");
@@ -31,8 +30,6 @@ export function StaffManagement() {
 
   //open create staff modal
   const [openCreateStaffDialog, setOpenCreateStaffDialog] = useState(false);
-
-  const staffMock = staffDataMock;
 
   //NB you can check api.query.ts
   //query for pagination and filtering of the API

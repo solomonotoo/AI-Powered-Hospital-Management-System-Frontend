@@ -13,8 +13,9 @@ export const EmploymentAndAssignmentStep = ({ form }: StaffFormStepProps) => {
     { label: "Orthopedics", value: "ORTHOPEDICS" },
     { label: "Pediatrics", value: "PEDIATRICS" },
     { label: "Dermatology", value: "DERMATOLOGY" },
-    { label: "Ophthalmology", value: "OTOLARYNGOLOGY" },
-    { label: "Otolaryngology", value: "OPHTHALMOLOGY" },
+    // Corrected department value mappings for Ophthalmology and Otolaryngology
+    { label: "Ophthalmology", value: "OPHTHALMOLOGY" },
+    { label: "Otolaryngology", value: "OTOLARYNGOLOGY" },
     { label: "Urology", value: "UROLOGY" },
   ];
 

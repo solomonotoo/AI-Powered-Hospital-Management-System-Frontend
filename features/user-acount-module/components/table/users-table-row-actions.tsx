@@ -12,14 +12,15 @@ import {
   UserLock,
   UserX,
 } from "lucide-react";
-import { Users } from "../../types/users";
+import { UserSummaryResponse } from "../../types/users";
 
+// Props definition using OpenAPI UserSummaryResponse
 interface UsersTableRowActionsProps {
-  users: Users;
-  onEdit: (users: Users) => void;
-  onView: (users: Users) => void;
-  onDelete: (users: Users) => void;
-  onExport: (users: Users) => void;
+  users: UserSummaryResponse;
+  onEdit: (users: UserSummaryResponse) => void;
+  onView: (users: UserSummaryResponse) => void;
+  onDelete: (users: UserSummaryResponse) => void;
+  onExport: (users: UserSummaryResponse) => void;
 }
 
 export function UsersTableRowActions({

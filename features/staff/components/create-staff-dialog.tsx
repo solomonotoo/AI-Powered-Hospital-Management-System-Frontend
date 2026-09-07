@@ -23,11 +23,11 @@ export function CreateStaffDialog({
   onSuccess,
 }: CreateStafDialogProps) {
   const handleSubmit = async (values: StaffFormValues) => {
-    console.log("Staff form submitted:", values);
+    //console.log("Staff form submitted:", values);
     // Call your mutation/API here
     // Keep the dialog open temporarily while developing.
     // Later:
-    // await createStaff(values);
+     //await createStaff(values);
     onSuccess?.();
     onOpenChange(false);
   };

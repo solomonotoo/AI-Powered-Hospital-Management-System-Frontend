@@ -1,6 +1,5 @@
 import { MetricCard } from "@/features/shared-features/metric-card";
 import { Briefcase, LucideIcon, UserCheck, UserX } from "lucide-react";
-import { StaffSummaryMock } from "../staff-mock-data";
 import { StaffSummaryCardTypes } from "../types/staff";
 
 interface StaffSummaryCardsProps {

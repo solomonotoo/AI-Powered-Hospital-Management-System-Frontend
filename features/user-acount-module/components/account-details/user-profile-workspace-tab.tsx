@@ -58,7 +58,7 @@ export function UserProfileWorkspaceTabs({
       return <UserProfileOverview />;
 
     case "access":
-      return <UserProfileAccessRoles />;
+      return <UserProfileAccessRoles userId={users?.userId || ""} />;
 
     case "authentication":
       return <UserProfileAuthentication />;
