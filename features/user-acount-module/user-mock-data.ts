@@ -1,4 +1,21 @@
-import { Users } from "./types/users";
+export interface LegacyMockUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  loginEmail: string;
+  passwordHash: string;
+  mfaEnabled: boolean;
+  mustChangePassword: boolean;
+  lastLoginAt: string;
+  role: string;
+  status: string;
+  audit: {
+    createdAt: string;
+    updatedAt: string;
+    createdBy: string;
+    updatedBy: string;
+  };
+}
 
 export const usersMockData = [
   {
@@ -361,7 +378,7 @@ export const usersMockData = [
       "updatedBy": "e7f8a9b0-c1d2-4e3f-8a4b-5c6d7e8f9a0b"
     }
   }
-] satisfies Users[];
+] satisfies LegacyMockUser[];
 
 export const usersSummaryMockData = {
   totalUsers: 20,

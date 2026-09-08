@@ -5,7 +5,7 @@ export const userAccessQueryKeys = {
 
   roles: () => [...userAccessQueryKeys.all, "roles"] as const,
 
-  
+  permissionsList: () => [...userAccessQueryKeys.all, "permissions-list"] as const,
 };
 
 export const userQueryKeys = {

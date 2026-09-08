@@ -1,16 +1,8 @@
 import { Badge } from "@/components/ui/badge";
-import { Staff } from "@/features/staff/types/staff";
-import { Users } from "../types/users";
-
-const styles = {
-  ACTIVE: "bg-success text-success-foreground",
-  INACTIVE: "bg-destructive-soft text-destructive-soft-foreground",
-  ON_DUTY: "bg-success text-success-foreground",
-  ON_LEAVE: "bg-info text-info-foreground",
-};
+import { UserSummaryResponse } from "../types/users";
 
 interface UsersStatusBadgeProps {
-  status: Users["status"];
+  status?: UserSummaryResponse["status"];
 }
 export function UsersStatusBadge({ status }: UsersStatusBadgeProps) {
   switch (status) {

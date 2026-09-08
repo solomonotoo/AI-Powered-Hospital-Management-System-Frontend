@@ -25,9 +25,10 @@ export function useCreateCredential() {
     },
 
     // Handle and display meaningful error notification
-    onError: (error: any) => {
+    onError: (error: unknown) => {
+      const maybeAxios = error as { response?: { data?: { message?: string } } };
       const message =
-        error.response?.data?.message ||
+        maybeAxios.response?.data?.message ||
         "Failed to create user credentials. Please check details and try again.";
       toast.error(message);
     },

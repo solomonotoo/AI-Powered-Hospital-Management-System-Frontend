@@ -1,5 +1,5 @@
 // Unified user account details component
-import { AccountDetails } from "@/features/user-acount-module/components/account-details/account-details";
+import { AccountDetails } from "@/features/user-acount-module/components/user-profile";
 
 interface AccountDetailsPageProps {
   // Support both usersId (Next.js dynamic route folder name) and userId

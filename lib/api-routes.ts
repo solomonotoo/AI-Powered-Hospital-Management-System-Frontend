@@ -53,6 +53,9 @@ export const API_ROUTES = {
   ROLES: {
     LIST: "/roles",
   },
+  PERMISSIONS: {
+    LIST: "/permissions",
+  },
 } as const;
 
 //now the service method becomes much cleaner

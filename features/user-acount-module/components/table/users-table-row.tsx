@@ -53,9 +53,7 @@ export function UsersTableRow({
 
       {/* Status */}
       <TableCell className="font-medium">
-        <UsersStatusBadge
-          status={users.active ? "Active" : "Locked / Suspended"}
-        />
+        <UsersStatusBadge status={users.status} />
       </TableCell>
 
       {/* MFA */}

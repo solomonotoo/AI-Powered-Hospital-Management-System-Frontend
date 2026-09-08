@@ -1,8 +1,17 @@
-import { UserProfileAssignRole } from '@/features/user-acount-module/components/account-details/user-profile-assigned-role'
-import React from 'react'
+import { AccountDetails } from "@/features/user-acount-module/components/user-profile";
 
-export default function UserAssignedRolePage() {
-  return (
-    <UserProfileAssignRole />
-  )
+interface UserAssignedRolePageProps {
+  params: Promise<{
+    usersId?: string;
+    userId?: string;
+  }>;
+}
+
+export default async function UserAssignedRolePage({
+  params,
+}: UserAssignedRolePageProps) {
+  const resolvedParams = await params;
+  const userId = resolvedParams.usersId || resolvedParams.userId || "";
+
+  return <AccountDetails userId={userId} initialTab="access" />;
 }

@@ -1,0 +1,15 @@
+export { AccountDetails } from "./account-details";
+export { ProfileCard } from "./profile-card";
+export { UserProfileNavigation } from "./user-profile-navigation";
+export { UserProfileWorkspaceTabs } from "./user-profile-workspace-tabs";
+export { UserProfileRoles } from "./roles/user-profile-roles";
+export { RoleAssignmentCard } from "./roles/role-assignment-card";
+export { AssignRoleDialog } from "./roles/assign-role-dialog";
+export { RevokeRoleDialog } from "./roles/revoke-role-dialog";
+export { EditAssignmentDialog } from "./roles/edit-assignment-dialog";
+export { UserProfilePermissions } from "./permissions/user-profile-permissions";
+export { UserProfileOverview } from "./tabs/user-profile-overview";
+export { UserProfileSessions } from "./tabs/user-profile-sessions";
+export { UserProfileActivity } from "./tabs/user-profile-activity";
+export { UserProfileAuthentication } from "./tabs/user-profile-authentication";
+export { UserProfileMFA } from "./tabs/user-profile-mfa";

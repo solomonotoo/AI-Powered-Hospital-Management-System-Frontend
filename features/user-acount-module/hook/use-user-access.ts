@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { userAccessService } from "../services/user-access.service";
-import { rolesService } from "../services/roles.service";
 import {
   AssignRoleRequest,
   UpdateAssignmentRequest,
