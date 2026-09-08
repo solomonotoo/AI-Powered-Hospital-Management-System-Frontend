@@ -26,6 +26,8 @@ interface AssignRoleDialogProps {
   userId: string;
   currentUserId: string;
   assignments: RoleAssignmentResponse[];
+  // Optional callback to trigger the creation of a brand new role
+  onCreateNewRole?: () => void;
 }
 
 export function AssignRoleDialog({
@@ -34,6 +36,7 @@ export function AssignRoleDialog({
   userId,
   currentUserId,
   assignments,
+  onCreateNewRole,
 }: AssignRoleDialogProps) {
   const [search, setSearch] = useState("");
   const [selectedRoleId, setSelectedRoleId] = useState<string>("");
@@ -159,8 +162,23 @@ export function AssignRoleDialog({
             )}
 
             {!isLoading && !isError && filteredRoles.length === 0 && (
-              <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
-                {search ? "No matching roles found" : "All available roles are already assigned"}
+              <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground space-y-3">
+                <p>{search ? "No matching roles found" : "All available roles are already assigned"}</p>
+                {onCreateNewRole && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      onOpenChange(false);
+                      onCreateNewRole();
+                    }}
+                    className="gap-1.5"
+                  >
+                    <Shield className="size-3.5 text-primary" />
+                    Create New Role
+                  </Button>
+                )}
               </div>
             )}
 

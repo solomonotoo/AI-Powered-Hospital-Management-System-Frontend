@@ -2,11 +2,14 @@
 
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Shield, UserPlus, History } from "lucide-react";
+import { Shield, UserPlus, History, ShieldPlus } from "lucide-react";
 import { RoleAssignmentCard } from "./role-assignment-card";
 import { AssignRoleDialog } from "./assign-role-dialog";
 import { RevokeRoleDialog } from "./revoke-role-dialog";
 import { EditAssignmentDialog } from "./edit-assignment-dialog";
+import { CreateRoleDialog } from "./create-role-dialog";
+import { EditRoleDialog } from "./edit-role-dialog";
+import { DeleteRoleDialog } from "./delete-role-dialog";
 import { LoadingState } from "@/features/shared-features/loading-state";
 import { ErrorState } from "@/features/shared-features/error-state";
 import { useRoles } from "@/features/user-acount-module/hook/use-roles";
@@ -21,21 +24,42 @@ interface UserProfileRolesProps {
   userId: string;
 }
 
+/**
+ * Main Role Management Tab Component
+ *
+ * Capabilities:
+ * - View active user role assignments and assignment history
+ * - Assign role from catalog (AssignRoleDialog)
+ * - Define a brand new role with bundled permissions (CreateRoleDialog)
+ * - [Room for Update]: Edit role definition (EditRoleDialog)
+ * - [Room for Deletion]: Delete role definition (DeleteRoleDialog)
+ * - Revoke role assignment from user (RevokeRoleDialog)
+ * - Edit assignment expiration date (EditAssignmentDialog)
+ */
 export function UserProfileRoles({ userId }: UserProfileRolesProps) {
+  // Current logged in administrator (required by backend currentUserId query param)
   const { user: currentUser, isLoading: isCurrentUserLoading } = useCurrentUser();
   const currentUserId = currentUser?.staffId;
 
-  // Dialog state
+  // Dialog visibility states
   const [assignRoleOpen, setAssignRoleOpen] = useState(false);
+  const [createRoleOpen, setCreateRoleOpen] = useState(false);
   const [revokeDialogOpen, setRevokeDialogOpen] = useState(false);
   const [editExpirationOpen, setEditExpirationOpen] = useState(false);
+
+  // States for role update & deletion dialogs (room for update and delete)
+  const [editRoleOpen, setEditRoleOpen] = useState(false);
+  const [deleteRoleOpen, setDeleteRoleOpen] = useState(false);
+  const [roleToManage, setRoleToManage] = useState<RoleResponse | null>(null);
+
+  // Selected assignment for revoke or expiration modification
   const [selectedAssignment, setSelectedAssignment] =
     useState<RoleAssignmentResponse | null>(null);
   const [selectedRole, setSelectedRole] = useState<RoleResponse | undefined>(
     undefined
   );
 
-  // Queries
+  // Query: User access information (assigned roles & effective permissions)
   const {
     data: access,
     isLoading: isAccessLoading,
@@ -44,6 +68,7 @@ export function UserProfileRoles({ userId }: UserProfileRolesProps) {
     refetch: refetchAccess,
   } = useUserAccess(userId);
 
+  // Query: System roles catalog
   const {
     data: roles = [],
     isLoading: isRolesLoading,
@@ -52,6 +77,7 @@ export function UserProfileRoles({ userId }: UserProfileRolesProps) {
 
   const assignments = access?.roles ?? [];
 
+  // Map roles by ID for fast lookup
   const rolesById = useMemo(() => {
     return new Map<string, RoleResponse>(
       roles
@@ -60,16 +86,19 @@ export function UserProfileRoles({ userId }: UserProfileRolesProps) {
     );
   }, [roles]);
 
+  // Active assignments currently granting permissions
   const activeAssignments = useMemo(
     () => assignments.filter((a) => a.status === "ACTIVE"),
     [assignments]
   );
 
+  // Previous or inactive assignments
   const historicalAssignments = useMemo(
     () => assignments.filter((a) => a.status !== "ACTIVE"),
     [assignments]
   );
 
+  // Open revoke confirmation dialog
   const handleOpenRevoke = (
     assignment: RoleAssignmentResponse,
     role?: RoleResponse
@@ -79,6 +108,7 @@ export function UserProfileRoles({ userId }: UserProfileRolesProps) {
     setRevokeDialogOpen(true);
   };
 
+  // Open edit expiration dialog
   const handleOpenEditExpiration = (
     assignment: RoleAssignmentResponse,
     role?: RoleResponse
@@ -124,14 +154,27 @@ export function UserProfileRoles({ userId }: UserProfileRolesProps) {
           </p>
         </div>
 
-        <Button
-          onClick={() => setAssignRoleOpen(true)}
-          disabled={!currentUserId || isRolesError}
-          className="gap-2 shrink-0"
-        >
-          <UserPlus className="size-4" />
-          Assign Role
-        </Button>
+        {/* Action Buttons: New Role creation and Role assignment */}
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <Button
+            variant="outline"
+            onClick={() => setCreateRoleOpen(true)}
+            disabled={!currentUserId}
+            className="gap-1.5"
+          >
+            <ShieldPlus className="size-4 text-primary" />
+            New Role
+          </Button>
+
+          <Button
+            onClick={() => setAssignRoleOpen(true)}
+            disabled={!currentUserId || isRolesError}
+            className="gap-2"
+          >
+            <UserPlus className="size-4" />
+            Assign Role
+          </Button>
+        </div>
       </div>
 
       {/* Active Role Assignments */}
@@ -152,16 +195,27 @@ export function UserProfileRoles({ userId }: UserProfileRolesProps) {
             <p className="mt-1 text-sm text-muted-foreground">
               This user does not currently hold any active roles.
             </p>
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-4 gap-2"
-              onClick={() => setAssignRoleOpen(true)}
-              disabled={!currentUserId}
-            >
-              <UserPlus className="size-4" />
-              Assign Role Now
-            </Button>
+            <div className="mt-4 flex justify-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="gap-1.5"
+                onClick={() => setCreateRoleOpen(true)}
+                disabled={!currentUserId}
+              >
+                <ShieldPlus className="size-4 text-primary" />
+                Create New Role
+              </Button>
+              <Button
+                size="sm"
+                className="gap-2"
+                onClick={() => setAssignRoleOpen(true)}
+                disabled={!currentUserId}
+              >
+                <UserPlus className="size-4" />
+                Assign Role Now
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="space-y-3">
@@ -206,17 +260,27 @@ export function UserProfileRoles({ userId }: UserProfileRolesProps) {
         </section>
       )}
 
-      {/* Dialogs */}
+      {/* Dialog Modals */}
       {currentUserId && (
         <>
+          {/* Modal for creating a brand new role with bundled permissions */}
+          <CreateRoleDialog
+            open={createRoleOpen}
+            onOpenChange={setCreateRoleOpen}
+            currentUserId={currentUserId}
+          />
+
+          {/* Modal for assigning an existing role to the user */}
           <AssignRoleDialog
             open={assignRoleOpen}
             onOpenChange={setAssignRoleOpen}
             userId={userId}
             currentUserId={currentUserId}
             assignments={assignments}
+            onCreateNewRole={() => setCreateRoleOpen(true)}
           />
 
+          {/* Modal for confirming role revocation */}
           <RevokeRoleDialog
             open={revokeDialogOpen}
             onOpenChange={setRevokeDialogOpen}
@@ -226,6 +290,7 @@ export function UserProfileRoles({ userId }: UserProfileRolesProps) {
             role={selectedRole}
           />
 
+          {/* Modal for adjusting expiration date */}
           <EditAssignmentDialog
             open={editExpirationOpen}
             onOpenChange={setEditExpirationOpen}
@@ -233,6 +298,22 @@ export function UserProfileRoles({ userId }: UserProfileRolesProps) {
             currentUserId={currentUserId}
             assignment={selectedAssignment}
             role={selectedRole}
+          />
+
+          {/* [ROOM FOR UPDATE]: Modal for updating an existing role definition */}
+          <EditRoleDialog
+            open={editRoleOpen}
+            onOpenChange={setEditRoleOpen}
+            role={roleToManage}
+            currentUserId={currentUserId}
+          />
+
+          {/* [ROOM FOR DELETION]: Modal for deleting a role definition */}
+          <DeleteRoleDialog
+            open={deleteRoleOpen}
+            onOpenChange={setDeleteRoleOpen}
+            role={roleToManage}
+            currentUserId={currentUserId}
           />
         </>
       )}

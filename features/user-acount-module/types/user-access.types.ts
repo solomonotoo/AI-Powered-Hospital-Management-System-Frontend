@@ -12,5 +12,11 @@ export type AssignRoleRequest = components["schemas"]["AssignRoleRequest"];
 export type UpdateAssignmentRequest =
   components["schemas"]["UpdateAssignmentRequest"];
 
-//permissions type will be added later
 export type PermissionsResponse = components["schemas"]["PermissionResponse"];
+
+// Request payload for creating a new role
+export type CreateRoleRequest = components["schemas"]["CreateRoleRequest"];
+
+// Request payload for registering a new permission code in the system
+export type CreatePermissionRequest =
+  components["schemas"]["CreatePermissionRequest"];

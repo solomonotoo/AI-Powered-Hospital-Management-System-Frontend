@@ -14,12 +14,27 @@ import {
   Info,
   Layers,
   Filter,
+  Plus,
+  MoreHorizontal,
+  Edit3,
+  Trash2,
 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useUserAccess } from "@/features/user-acount-module/hook/use-user-access";
 import { useRoles } from "@/features/user-acount-module/hook/use-roles";
 import { usePermissions } from "@/features/user-acount-module/hook/use-permissions";
 import { LoadingState } from "@/features/shared-features/loading-state";
 import { ErrorState } from "@/features/shared-features/error-state";
+import { PermissionsResponse } from "@/features/user-acount-module/types/user-access.types";
+import { CreatePermissionDialog } from "./create-permission-dialog";
+import { EditPermissionDialog } from "./edit-permission-dialog";
+import { DeletePermissionDialog } from "./delete-permission-dialog";
 
 interface UserProfilePermissionsProps {
   userId: string;
@@ -34,6 +49,10 @@ interface ParsedPermission {
   grantedByRoles: string[];
 }
 
+/**
+ * Parses standard uppercase permission codes like "PATIENT_READ" or "BILLING:CREATE"
+ * into a human-friendly module and action label.
+ */
 function parsePermissionCode(code: string): { module: string; action: string } {
   const parts = code.split(/[_:]/);
   if (parts.length >= 2) {
@@ -49,6 +68,12 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
   const [statusFilter, setStatusFilter] = useState<"all" | "granted" | "not_granted">("all");
   const [selectedModule, setSelectedModule] = useState<string>("all");
 
+  // Dialog state for adding, editing, and deleting permissions
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editTarget, setEditTarget] = useState<PermissionsResponse | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<PermissionsResponse | null>(null);
+
+  // Fetch effective access control details for this specific user
   const {
     data: access,
     isLoading: isAccessLoading,
@@ -56,10 +81,13 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
     refetch: refetchAccess,
   } = useUserAccess(userId);
 
+  // Fetch system-wide roles catalog
   const { data: allRoles = [], isLoading: isRolesLoading } = useRoles();
+
+  // Fetch system-wide permissions catalog (registered permission endpoints)
   const { data: permissionsCatalog = [], isLoading: isCatalogLoading } = usePermissions();
 
-  // Active role map
+  // Filter to currently active role assignments for this user
   const activeAssignments = useMemo(
     () => (access?.roles ?? []).filter((a) => a.status === "ACTIVE"),
     [access?.roles]
@@ -75,13 +103,13 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
     [allRoles, activeRoleIds]
   );
 
-  // User effective permissions
+  // User effective permissions granted via RBAC inheritance
   const grantedPermissionCodes = useMemo(
     () => new Set(access?.permissions ?? []),
     [access?.permissions]
   );
 
-  // Map each permission code to the role(s) that grant it
+  // Map each permission code to the list of roles that grant it to this user
   const permissionToRolesMap = useMemo(() => {
     const map = new Map<string, string[]>();
     for (const role of activeRoles) {
@@ -97,18 +125,18 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
     return map;
   }, [activeRoles]);
 
-  // Combine system catalog with effective permissions
+  // Combine system catalog with user effective permissions
   const allPermissions = useMemo<ParsedPermission[]>(() => {
     const codesMap = new Map<string, { description?: string }>();
 
-    // Add permissions from catalog
+    // Add permissions defined in system catalog
     for (const p of permissionsCatalog) {
       if (p.code) {
         codesMap.set(p.code, { description: p.description });
       }
     }
 
-    // Also include any effective permission that might not be in catalog
+    // Also include any effective permission that might not be in catalog yet
     for (const pCode of grantedPermissionCodes) {
       if (!codesMap.has(pCode)) {
         codesMap.set(pCode, {});
@@ -133,18 +161,18 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
     return list.sort((a, b) => a.code.localeCompare(b.code));
   }, [permissionsCatalog, grantedPermissionCodes, permissionToRolesMap]);
 
-  // Distinct modules for filtering
+  // Distinct modules for filtering dropdown
   const availableModules = useMemo(() => {
     const modules = Array.from(new Set(allPermissions.map((p) => p.module))).sort();
     return modules;
   }, [allPermissions]);
 
-  // Filtered permissions
+  // Filtered permissions list based on search, granted status, and module
   const filteredPermissions = useMemo(() => {
     const query = search.trim().toLowerCase();
 
     return allPermissions.filter((perm) => {
-      // Search
+      // Search query filtering
       if (
         query &&
         !perm.code.toLowerCase().includes(query) &&
@@ -155,18 +183,18 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
         return false;
       }
 
-      // Status
+      // Status filtering (granted vs not granted)
       if (statusFilter === "granted" && !perm.isGranted) return false;
       if (statusFilter === "not_granted" && perm.isGranted) return false;
 
-      // Module
+      // Module category filtering
       if (selectedModule !== "all" && perm.module !== selectedModule) return false;
 
       return true;
     });
   }, [allPermissions, search, statusFilter, selectedModule]);
 
-  // Group filtered by module
+  // Group filtered permissions by module for clean visual categorization
   const groupedByModule = useMemo(() => {
     const groups = new Map<string, ParsedPermission[]>();
     for (const perm of filteredPermissions) {
@@ -196,7 +224,7 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {/* Header with Title, Stats, and Action Buttons */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b pb-5">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
@@ -211,6 +239,16 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
             View system capabilities and operational permissions granted to this account.
           </p>
         </div>
+
+        {/* Global Action: Add New Permission to the system catalog */}
+        <Button
+          type="button"
+          onClick={() => setIsCreateOpen(true)}
+          className="inline-flex items-center gap-2 self-start sm:self-auto shadow-sm"
+        >
+          <Plus className="size-4" />
+          <span>New Permission</span>
+        </Button>
       </div>
 
       {/* RBAC Informational Notice */}
@@ -324,8 +362,8 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
                           : "bg-muted/10 opacity-70 hover:opacity-100"
                       }`}
                     >
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
+                      <div className="space-y-1 flex-1 pr-4">
+                        <div className="flex items-center gap-2 flex-wrap">
                           {perm.isGranted ? (
                             <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
                           ) : (
@@ -350,7 +388,8 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
                         )}
                       </div>
 
-                      <div className="flex items-center gap-2 pl-6 sm:pl-0 shrink-0">
+                      {/* Right section: status badges and actions dropdown */}
+                      <div className="flex items-center justify-between sm:justify-end gap-3 pl-6 sm:pl-0 shrink-0">
                         {perm.isGranted ? (
                           <div className="flex flex-wrap items-center gap-1.5">
                             <Badge
@@ -373,6 +412,51 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
                             Not Granted
                           </Badge>
                         )}
+
+                        {/* Dropdown Menu for Edit and Delete operations */}
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+                              title="Permission actions"
+                            >
+                              <MoreHorizontal className="size-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="w-48">
+                            {/* [ROOM FOR UPDATE]: Edit permission metadata */}
+                            <DropdownMenuItem
+                              onClick={() =>
+                                setEditTarget({
+                                  code: perm.code,
+                                  description: perm.description,
+                                })
+                              }
+                              className="cursor-pointer gap-2 text-xs"
+                            >
+                              <Edit3 className="size-3.5 text-muted-foreground" />
+                              <span>Edit Details</span>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuSeparator />
+
+                            {/* [ROOM FOR DELETION]: Delete permission from system catalog */}
+                            <DropdownMenuItem
+                              onClick={() =>
+                                setDeleteTarget({
+                                  code: perm.code,
+                                  description: perm.description,
+                                })
+                              }
+                              className="cursor-pointer gap-2 text-xs text-destructive focus:text-destructive"
+                            >
+                              <Trash2 className="size-3.5" />
+                              <span>Delete Permission</span>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </div>
                     </div>
                   ))}
@@ -382,6 +466,27 @@ export function UserProfilePermissions({ userId }: UserProfilePermissionsProps) 
           })}
         </div>
       )}
+
+      {/* Create Permission Dialog */}
+      <CreatePermissionDialog
+        open={isCreateOpen}
+        onOpenChange={setIsCreateOpen}
+      />
+
+      {/* Edit Permission Dialog (Prepared for PUT /api/v1/permissions/{code}) */}
+      <EditPermissionDialog
+        open={Boolean(editTarget)}
+        onOpenChange={(open) => !open && setEditTarget(null)}
+        permission={editTarget}
+      />
+
+      {/* Delete Permission Dialog (Prepared for DELETE /api/v1/permissions/{code}) */}
+      <DeletePermissionDialog
+        open={Boolean(deleteTarget)}
+        onOpenChange={(open) => !open && setDeleteTarget(null)}
+        permission={deleteTarget}
+      />
     </div>
   );
 }
+
