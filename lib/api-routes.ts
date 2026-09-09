@@ -49,6 +49,9 @@ export const API_ROUTES = {
 
     PERMISSIONS: (userId: string) => `/users/${userId}/permissions`,
     ACCESS: (userId: string) => `/users/${userId}/access`,
+    SUSPEND: (userId: string) => `/users/${userId}/suspend`,
+    REACTIVATE: (userId: string) => `/users/${userId}/reactivate`,
+
   },
   ROLES: {
     LIST: "/roles",

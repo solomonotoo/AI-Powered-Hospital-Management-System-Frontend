@@ -3,7 +3,8 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { UsersTableRowActions } from "./users-table-row-actions";
 import { UsersStatusBadge } from "../users-status-badge";
 import { UserSummaryResponse } from "../../types/users";
-import { MFABadge } from "../mfa-badge";
+import { Button } from "@/components/ui/button";
+import { UserCheck } from "lucide-react";
 
 interface UsersTableRowProps {
   users: UserSummaryResponse;
@@ -12,6 +13,8 @@ interface UsersTableRowProps {
   onView: (users: UserSummaryResponse) => void;
   onDelete: (users: UserSummaryResponse) => void;
   onExport: (users: UserSummaryResponse) => void;
+  onSuspend: (users: UserSummaryResponse) => void;
+  onReactivate?: (users: UserSummaryResponse) => void;
 }
 
 export function UsersTableRow({
@@ -21,8 +24,11 @@ export function UsersTableRow({
   onView,
   onDelete,
   onExport,
+  onSuspend,
+  onReactivate,
 }: UsersTableRowProps) {
-   //console.log("RAW users STATUS:", users);
+  const isSuspended = users.status?.toUpperCase() === "SUSPENDED";
+
   return (
     <TableRow
       onClick={() => onRowClick(users)}
@@ -32,7 +38,6 @@ export function UsersTableRow({
       <TableCell className="flex items-center gap-3">
         <Avatar className="h-8 w-8">
           <AvatarImage src="https://github.com/shadcn.png" />
-
           <AvatarFallback>
             {users.fullName?.charAt(0)?.toUpperCase() ?? "U"}
           </AvatarFallback>
@@ -53,13 +58,30 @@ export function UsersTableRow({
 
       {/* Status */}
       <TableCell className="font-medium">
-        <UsersStatusBadge status={users.status} />
+        <div className="flex items-center gap-2">
+          <UsersStatusBadge status={users.status} />
+          {isSuspended && onReactivate && (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onReactivate(users);
+              }}
+              title="Reactivate this suspended account"
+              className="h-6 px-2 text-[11px] gap-1 border-emerald-500/30 text-emerald-600 hover:bg-emerald-500/10 hover:text-emerald-700 dark:text-emerald-400"
+            >
+              <UserCheck className="size-3" />
+              <span>Reactivate</span>
+            </Button>
+          )}
+        </div>
       </TableCell>
 
       {/* MFA */}
       <TableCell className="font-medium">
         ---
-        {/* <MFABadge enabled={users.mfaEnabled} /> */}
       </TableCell>
 
       {/* Last Login */}
@@ -78,9 +100,6 @@ export function UsersTableRow({
         )}
       </TableCell>
 
-
-
-
       {/* Actions */}
       <TableCell className="text-right">
         <UsersTableRowActions
@@ -89,6 +108,8 @@ export function UsersTableRow({
           onView={onView}
           onDelete={onDelete}
           onExport={onExport}
+          onSuspend={onSuspend}
+          onReactivate={onReactivate}
         />
       </TableCell>
     </TableRow>

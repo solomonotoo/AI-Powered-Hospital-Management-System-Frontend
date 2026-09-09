@@ -21,9 +21,14 @@ import {
   Check,
   AlertTriangle,
   User as UserIcon,
+  UserCheck,
+  UserLock,
 } from "lucide-react";
 import { toast } from "sonner";
 import { UserSummaryResponse } from "../../types/users";
+import { useCurrentUser } from "../../hook/use-current-user";
+import { SuspendUserDialog } from "../suspend-user-dialog";
+import { ReactivateUserDialog } from "../reactivate-user-dialog";
 
 interface ProfileCardProps {
   user?: UserSummaryResponse | null;
@@ -68,11 +73,16 @@ export function ProfileCard({
   onImageUpload,
   onImageRemove,
 }: ProfileCardProps) {
+  const { user: currentUser } = useCurrentUser();
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [hasCopiedId, setHasCopiedId] = useState(false);
+  const [suspendOpen, setSuspendOpen] = useState(false);
+  const [reactivateOpen, setReactivateOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const isSuspended = user?.status?.toUpperCase() === "SUSPENDED";
 
   const handleCopyId = async (id?: string) => {
     if (!id) return;
@@ -192,6 +202,33 @@ export function ProfileCard({
   return (
     <Card className="border bg-card shadow-sm">
       <CardContent className="p-6">
+        {/* Suspended Alert Banner */}
+        {isSuspended && (
+          <div className="mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-lg border border-red-500/30 bg-red-500/10 p-3.5 text-xs text-red-800 dark:text-red-300">
+            <div className="flex items-center gap-2.5">
+              <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-red-500/20 text-red-600 dark:text-red-400">
+                <AlertTriangle className="size-4" />
+              </div>
+              <div>
+                <p className="font-semibold text-red-900 dark:text-red-200">
+                  This user account is currently suspended
+                </p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">
+                  The user cannot sign in or perform clinical operations. Reactivate to restore full access privileges.
+                </p>
+              </div>
+            </div>
+            <Button
+              size="sm"
+              onClick={() => setReactivateOpen(true)}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs gap-1.5 shrink-0 self-start sm:self-auto"
+            >
+              <UserCheck className="size-3.5" />
+              <span>Reactivate Now</span>
+            </Button>
+          </div>
+        )}
+
         <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
           {/* Avatar / Photo with hover upload */}
           <div
@@ -254,28 +291,54 @@ export function ProfileCard({
 
           {/* User Details */}
           <div className="min-w-0 flex-1 space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-2xl font-bold tracking-tight text-foreground">
-                {user.fullName || "Unnamed User"}
-              </h1>
-              <Badge variant={getStatusBadgeVariant(user.status)}>
-                {statusLabel}
-              </Badge>
-              {user.staffRole && (
-                <Badge variant="outline" className="gap-1 font-normal">
-                  <Shield className="size-3 text-primary" />
-                  {user.staffRole}
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <h1 className="text-2xl font-bold tracking-tight text-foreground">
+                  {user.fullName || "Unnamed User"}
+                </h1>
+                <Badge variant={getStatusBadgeVariant(user.status)}>
+                  {statusLabel}
                 </Badge>
-              )}
-              {user.mustChangePassword && (
-                <Badge
-                  variant="outline"
-                  className="gap-1 border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                >
-                  <AlertTriangle className="size-3" />
-                  Password Reset Required
-                </Badge>
-              )}
+                {user.staffRole && (
+                  <Badge variant="outline" className="gap-1 font-normal">
+                    <Shield className="size-3 text-primary" />
+                    {user.staffRole}
+                  </Badge>
+                )}
+                {user.mustChangePassword && (
+                  <Badge
+                    variant="outline"
+                    className="gap-1 border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                  >
+                    <AlertTriangle className="size-3" />
+                    Password Reset Required
+                  </Badge>
+                )}
+              </div>
+
+              {/* Account Status Action Button: Reactivate or Suspend */}
+              <div className="flex items-center gap-2 shrink-0">
+                {isSuspended ? (
+                  <Button
+                    size="sm"
+                    onClick={() => setReactivateOpen(true)}
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs gap-1.5 shadow-sm"
+                  >
+                    <UserCheck className="size-3.5" />
+                    <span>Reactivate Account</span>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSuspendOpen(true)}
+                    className="border-destructive/30 text-destructive hover:bg-destructive/10 text-xs gap-1.5"
+                  >
+                    <UserLock className="size-3.5" />
+                    <span>Suspend Account</span>
+                  </Button>
+                )}
+              </div>
             </div>
 
             {/* Sub-info items */}
@@ -315,6 +378,21 @@ export function ProfileCard({
           </div>
         </div>
       </CardContent>
+
+      {/* Confirmation Dialogs */}
+      <SuspendUserDialog
+        open={suspendOpen}
+        onOpenChange={setSuspendOpen}
+        user={user}
+        currentUserId={currentUser?.staffId}
+      />
+
+      <ReactivateUserDialog
+        open={reactivateOpen}
+        onOpenChange={setReactivateOpen}
+        user={user}
+        currentUserId={currentUser?.staffId}
+      />
     </Card>
   );
 }

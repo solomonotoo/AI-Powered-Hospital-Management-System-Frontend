@@ -508,6 +508,8 @@ export const sidebarItems: SidebarSection[] = [
         url: "/facility",
         icon: Hospital,
         allowedRoles: ["admin", "super_admin"],
+        // [FEATURE REFERENCE]: Permission check for Hospital Facility overview and configurations
+        requiredPermissions: ["FACILITY_READ", "FACILITY_MANAGE"],
       },
     ],
   },
@@ -528,16 +530,22 @@ export const sidebarItems: SidebarSection[] = [
             title: "All Patients",
             url: "/patients",
             allowedRoles: allowedPatientRoles,
+            // [FEATURE REFERENCE]: Requires patient read access to view patient directory
+            requiredPermissions: ["PATIENT_READ"],
           },
           {
             title: "Register Patient",
             url: "/patients/register",
             allowedRoles: allowedPatientRegistrationRoles,
+            // [FEATURE REFERENCE]: Requires patient write access to enroll new patients
+            requiredPermissions: ["PATIENT_WRITE"],
           },
           {
             title: "Medical Records",
             url: "/patients/records",
             allowedRoles: allowedMedicalRecordsRoles,
+            // [FEATURE REFERENCE]: Requires patient read access to inspect medical histories
+            requiredPermissions: ["PATIENT_READ"],
           },
         ],
       },
@@ -550,16 +558,22 @@ export const sidebarItems: SidebarSection[] = [
             title: "Active Visits",
             url: "/visits/active",
             allowedRoles: allowedVisitRoles,
+            // [FEATURE REFERENCE]: Requires patient read access to track ongoing visits
+            requiredPermissions: ["PATIENT_READ"],
           },
           {
             title: "Visit History",
             url: "/visits/history",
             allowedRoles: allowedVisitHistoryRoles,
+            // [FEATURE REFERENCE]: Requires patient read access to browse past clinical visits
+            requiredPermissions: ["PATIENT_READ"],
           },
           {
             title: "Search Visits",
             url: "/visits/search",
             allowedRoles: allowedVisitSearchRoles,
+            // [FEATURE REFERENCE]: Requires patient read access to search and query visits
+            requiredPermissions: ["PATIENT_READ"],
           },
         ],
       },
@@ -842,16 +856,22 @@ export const sidebarItems: SidebarSection[] = [
             title: "All Staff",
             url: "/staff",
             allowedRoles: allowedStaffManagementRoles,
+            // [FEATURE REFERENCE]: Requires staff permissions to view active staff directory
+            requiredPermissions: ["STAFF_READ", "STAFF_MANAGE"],
           },
           {
             title: "Shift Schedules",
             url: "/staff/schedules",
             allowedRoles: allowedShiftScheduleRoles,
+            // [FEATURE REFERENCE]: Requires staff permissions to view or update duty schedules
+            requiredPermissions: ["STAFF_READ", "STAFF_MANAGE"],
           },
           {
             title: "Attendance",
             url: "/staff/attendance",
             allowedRoles: allowedAttendanceRoles,
+            // [FEATURE REFERENCE]: Requires staff permissions to track staff clock-in/out logs
+            requiredPermissions: ["STAFF_READ", "STAFF_MANAGE"],
           },
         ],
       },
@@ -895,16 +915,22 @@ export const sidebarItems: SidebarSection[] = [
             title: "Invoices",
             url: "/billing/invoices",
             allowedRoles: allowedBillingRoles,
+            // [FEATURE REFERENCE]: Requires billing permissions to generate and review invoices
+            requiredPermissions: ["BILLING_READ", "BILLING_MANAGE"],
           },
           {
             title: "Payments",
             url: "/billing/payments",
             allowedRoles: allowedBillingRoles,
+            // [FEATURE REFERENCE]: Requires billing permissions to view and process transactions
+            requiredPermissions: ["BILLING_READ", "BILLING_MANAGE"],
           },
           {
             title: "Insurance Claims",
             url: "/billing/insurance",
             allowedRoles: allowedInsuranceRoles,
+            // [FEATURE REFERENCE]: Requires billing permissions to manage third-party insurance claims
+            requiredPermissions: ["BILLING_READ", "BILLING_MANAGE"],
           },
         ],
       },
@@ -951,11 +977,15 @@ export const sidebarItems: SidebarSection[] = [
             title: "User Accounts",
             url: "/users",
             allowedRoles: allowedUserManagementRoles,
+            // [FEATURE REFERENCE]: Requires user management permission to manage user directory & statuses
+            requiredPermissions: ["USER_MANAGE"],
           },
           {
             title: "Roles & Permissions",
             url: "/users/roles",
             allowedRoles: allowedRoleManagementRoles,
+            // [FEATURE REFERENCE]: Requires role management permission to create and configure roles
+            requiredPermissions: ["ROLE_MANAGE"],
           },
         ],
       },

@@ -5,7 +5,7 @@ import { PageQuery } from "@/features/types/api-query";
 //   status?: string;
 //   department?: string;
 // }
-export type UserSortField = "lastLoginAt" | "loginemail" | "createdAt";
+export type UserSortField = "lastLoginAt" | "loginEmail" | "createdAt";
 
 export interface UsersQuery {
   search?: string;

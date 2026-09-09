@@ -26,6 +26,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { sidebarItems } from "@/app/sidebar-data";
+import { useUserPermissions } from "@/features/user-acount-module/hook/use-user-permissions";
 
 /**
  * Sidebar rail + scrolling, the two structural things this rewrite adds:
@@ -47,6 +48,71 @@ import { sidebarItems } from "@/app/sidebar-data";
  */
 export function AppSidebar() {
   const pathname = usePathname();
+
+  // [FEATURE REFERENCE]: Granular user permissions and role verification hook
+  const { hasPermission, hasRole, isSuperAdmin } = useUserPermissions();
+
+  // [FEATURE REFERENCE]: Filter sidebar navigation sections and menus based on active user permissions and roles
+  const filteredSections = React.useMemo(() => {
+    // Super admins bypass all granular restrictions and see the full navigation hierarchy
+    if (isSuperAdmin) {
+      return sidebarItems;
+    }
+
+    return sidebarItems
+      .map((section) => {
+        const filteredMenus = section.menus
+          .map((menu) => {
+            // Check collapsible menu with nested child items
+            if ("items" in menu) {
+              const visibleChildren = menu.items.filter((child) => {
+                // [FEATURE REFERENCE]: Verify granular permissions if configured for the child route
+                const meetsPermission =
+                  child.requiredPermissions && child.requiredPermissions.length > 0
+                    ? hasPermission(child.requiredPermissions)
+                    : true;
+
+                // [FEATURE REFERENCE]: Verify role eligibility as secondary / fallback guard
+                const meetsRole = hasRole(child.allowedRoles);
+
+                return meetsPermission && meetsRole;
+              });
+
+              // If user cannot access any child in this group, hide the parent item completely
+              if (visibleChildren.length === 0) {
+                return null;
+              }
+
+              return {
+                ...menu,
+                items: visibleChildren,
+              };
+            }
+
+            // Direct single menu item
+            const meetsPermission =
+              menu.requiredPermissions && menu.requiredPermissions.length > 0
+                ? hasPermission(menu.requiredPermissions)
+                : true;
+
+            const meetsRole = hasRole(menu.allowedRoles);
+
+            return meetsPermission && meetsRole ? menu : null;
+          })
+          .filter((menu): menu is NonNullable<typeof menu> => menu !== null);
+
+        // Omit section header completely if there are no visible menus inside it
+        if (filteredMenus.length === 0) {
+          return null;
+        }
+
+        return {
+          ...section,
+          menus: filteredMenus,
+        };
+      })
+      .filter((section): section is NonNullable<typeof section> => section !== null);
+  }, [hasPermission, hasRole, isSuperAdmin]);
 
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
@@ -75,7 +141,7 @@ export function AppSidebar() {
 
       {/* Content: the ONLY scrolling region in the sidebar. */}
       <SidebarContent>
-        {sidebarItems.map((section, idx) => (
+        {filteredSections.map((section, idx) => (
           <SidebarGroup key={section.group || `section-${idx}`}>
             {section.group && (
               <SidebarGroupLabel>{section.group}</SidebarGroupLabel>
