@@ -66,16 +66,16 @@ export function AppSidebar() {
             // Check collapsible menu with nested child items
             if ("items" in menu) {
               const visibleChildren = menu.items.filter((child) => {
-                // [FEATURE REFERENCE]: Verify granular permissions if configured for the child route
-                const meetsPermission =
-                  child.requiredPermissions && child.requiredPermissions.length > 0
-                    ? hasPermission(child.requiredPermissions)
-                    : true;
+                // [FEATURE REFERENCE]: Granular permissions take precedence when configured
+                if (
+                  child.requiredPermissions &&
+                  child.requiredPermissions.length > 0
+                ) {
+                  return hasPermission(child.requiredPermissions);
+                }
 
-                // [FEATURE REFERENCE]: Verify role eligibility as secondary / fallback guard
-                const meetsRole = hasRole(child.allowedRoles);
-
-                return meetsPermission && meetsRole;
+                // Fallback to role check for routes without granular permissions defined
+                return hasRole(child.allowedRoles);
               });
 
               // If user cannot access any child in this group, hide the parent item completely
@@ -89,15 +89,13 @@ export function AppSidebar() {
               };
             }
 
-            // Direct single menu item
-            const meetsPermission =
+            // Direct single menu item: permission takes precedence over legacy role
+            const isVisible =
               menu.requiredPermissions && menu.requiredPermissions.length > 0
                 ? hasPermission(menu.requiredPermissions)
-                : true;
+                : hasRole(menu.allowedRoles);
 
-            const meetsRole = hasRole(menu.allowedRoles);
-
-            return meetsPermission && meetsRole ? menu : null;
+            return isVisible ? menu : null;
           })
           .filter((menu): menu is NonNullable<typeof menu> => menu !== null);
 
