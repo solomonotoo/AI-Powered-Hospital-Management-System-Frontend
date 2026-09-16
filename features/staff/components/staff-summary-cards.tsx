@@ -3,7 +3,7 @@ import { Briefcase, LucideIcon, UserCheck, UserX } from "lucide-react";
 import { StaffSummaryCardTypes } from "../types/staff";
 
 interface StaffSummaryCardsProps {
-    summary: StaffSummaryCardTypes;
+    summary?: StaffSummaryCardTypes;
 }
 
 interface summaryCards {

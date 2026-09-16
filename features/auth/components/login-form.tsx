@@ -58,6 +58,8 @@ export default function LoginForm() {
             objectFit="cover"
             rounded="lg"
             alt="Hospital interior illustration"
+            loading="eager"
+            priority
           />
         </div>
         <CardContent className="p-6 md:p-8 lg:p-10 space-y-6">

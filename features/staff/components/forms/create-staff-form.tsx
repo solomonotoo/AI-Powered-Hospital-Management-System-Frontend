@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { staffFormDefaultValues } from "../../schema/staff-form-default-values";
 import {
@@ -39,6 +39,15 @@ export function CreateStaffForm({
     },
     mode: "onTouched",
   });
+
+  useEffect(() => {
+    if (defaultValues && Object.keys(defaultValues).length > 0) {
+      form.reset({
+        ...staffFormDefaultValues,
+        ...defaultValues,
+      });
+    }
+  }, [defaultValues, form]);
 
   async function next() {
 

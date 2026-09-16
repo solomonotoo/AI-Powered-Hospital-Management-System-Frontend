@@ -50,7 +50,7 @@ export function StaffTableRow({
         <StaffStatusBadge status={staff.status} />
       </TableCell>
       <TableCell className="font-medium">{staff.phoneNumber ?? "Not Provided"}</TableCell>
-      <TableCell className="text-medium">
+      <TableCell className="text-medium" onClick={(e) => e.stopPropagation()}>
         <StaffTableRowActions
           staff={staff}
           onEdit={onEdit}

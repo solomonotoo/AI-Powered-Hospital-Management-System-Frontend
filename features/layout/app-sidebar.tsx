@@ -49,10 +49,10 @@ import { useUserPermissions } from "@/features/user-acount-module/hook/use-user-
 export function AppSidebar() {
   const pathname = usePathname();
 
-  // [FEATURE REFERENCE]: Granular user permissions and role verification hook
-  const { hasPermission, hasRole, isSuperAdmin } = useUserPermissions();
+  // [FEATURE REFERENCE]: Granular user permissions verification hook
+  const { hasPermission, isSuperAdmin } = useUserPermissions();
 
-  // [FEATURE REFERENCE]: Filter sidebar navigation sections and menus based on active user permissions and roles
+  // [FEATURE REFERENCE]: Filter sidebar navigation sections and menus based on active user permissions
   const filteredSections = React.useMemo(() => {
     // Super admins bypass all granular restrictions and see the full navigation hierarchy
     if (isSuperAdmin) {
@@ -66,7 +66,7 @@ export function AppSidebar() {
             // Check collapsible menu with nested child items
             if ("items" in menu) {
               const visibleChildren = menu.items.filter((child) => {
-                // [FEATURE REFERENCE]: Granular permissions take precedence when configured
+                // If specific permissions are required, check against user's permissions
                 if (
                   child.requiredPermissions &&
                   child.requiredPermissions.length > 0
@@ -74,8 +74,8 @@ export function AppSidebar() {
                   return hasPermission(child.requiredPermissions);
                 }
 
-                // Fallback to role check for routes without granular permissions defined
-                return hasRole(child.allowedRoles);
+                // If no permissions specified, item is visible by default
+                return true;
               });
 
               // If user cannot access any child in this group, hide the parent item completely
@@ -89,11 +89,11 @@ export function AppSidebar() {
               };
             }
 
-            // Direct single menu item: permission takes precedence over legacy role
+            // Direct single menu item: check permissions if configured, otherwise allow access
             const isVisible =
               menu.requiredPermissions && menu.requiredPermissions.length > 0
                 ? hasPermission(menu.requiredPermissions)
-                : hasRole(menu.allowedRoles);
+                : true;
 
             return isVisible ? menu : null;
           })
@@ -110,7 +110,7 @@ export function AppSidebar() {
         };
       })
       .filter((section): section is NonNullable<typeof section> => section !== null);
-  }, [hasPermission, hasRole, isSuperAdmin]);
+  }, [hasPermission, isSuperAdmin]);
 
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">

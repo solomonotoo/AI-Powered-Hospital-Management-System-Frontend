@@ -41,7 +41,7 @@ export function ScheduleTableRow({
       <TableCell className="font-medium">{staff.role}</TableCell>
       <TableCell className="font-medium">{staff.status}</TableCell>
       <TableCell className="font-medium">{staff.phoneNumber}</TableCell>
-      <TableCell className="text-medium">
+      <TableCell className="text-medium" onClick={(e) => e.stopPropagation()}>
         <ScheduleTableRowActions
           staff={staff}
           onEdit={onEdit}

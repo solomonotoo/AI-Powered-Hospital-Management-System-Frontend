@@ -2,12 +2,12 @@ export interface UpdateStaffRequest {
   firstName: string;
   lastName: string;
   role: string;
-  specialisation: string;
+  specialisation?: string;
   department: string;
   workEmail: string;
-  phone: string;
-  qualifiction: string;
-  licenseNumber: string;
-  workingHours: string;
-  consultationFee: string;
+  phone?: string;
+  qualifications?: string;
+  licenseNumber?: string;
+  workingHours?: string;
+  consultationFee?: string;
 }

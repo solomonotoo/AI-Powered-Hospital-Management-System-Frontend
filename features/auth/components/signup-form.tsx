@@ -60,7 +60,8 @@ export default function SignupForm() {
             quality={75}
             objectFit="contain"
             rounded="lg"
-
+            loading="eager"
+            priority
           />
         </div>
         <CardContent className="p-6 md:p-8 lg:p-10 space-y-6">

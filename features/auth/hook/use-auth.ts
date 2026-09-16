@@ -19,6 +19,9 @@ export function useLogin() {
         staffId: data.staffId,
         fullName: data.fullName,
         role: data.role,
+        facilityId: data.facilityId,
+        facilityName: data.facilityName,
+        facilityCode: data.facilityCode,
         mustChangePassword: data.mustChangePassword,
       });
 

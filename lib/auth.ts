@@ -42,6 +42,9 @@ export interface AuthUser {
   staffId: string;
   fullName: string;
   role: string;
+  facilityId: string;
+  facilityName?: string;
+  facilityCode?: string;
   mustChangePassword: boolean;
 }
 
@@ -54,6 +57,11 @@ export function getCurrentUser(): AuthUser | null {
   } catch {
     return null;
   }
+}
+
+export function getCurrentFacilityId(): string | null {
+  const user = getCurrentUser();
+  return user?.facilityId ?? null;
 }
 
 export function setCurrentUser(user: AuthUser) {

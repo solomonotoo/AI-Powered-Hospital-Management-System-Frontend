@@ -12,6 +12,9 @@ export interface LoginResponse {
   fullName: string;
   role: string;
   mustChangePassword: boolean;
+  facilityId: string;
+  facilityName?: string;
+  facilityCode?: string;
 }
 
 export type CreateCredentialRequest = z.infer<typeof signupSchema>;
