@@ -38,6 +38,12 @@ export function removeRefreshToken(): void {
 // ==============================
 const USER_KEY = "auth_user";
 
+export interface AccessibleFacility {
+  id: string;
+  code: string;
+  name: string;
+}
+
 export interface AuthUser {
   staffId: string;
   fullName: string;
@@ -46,6 +52,8 @@ export interface AuthUser {
   facilityName?: string;
   facilityCode?: string;
   mustChangePassword: boolean;
+  canSelectFacility?: boolean;
+  accessibleFacilities?: AccessibleFacility[];
 }
 
 export function getCurrentUser(): AuthUser | null {
@@ -66,6 +74,9 @@ export function getCurrentFacilityId(): string | null {
 
 export function setCurrentUser(user: AuthUser) {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("auth_user_changed"));
+  }
 }
 
 export function removeCurrentUser() {

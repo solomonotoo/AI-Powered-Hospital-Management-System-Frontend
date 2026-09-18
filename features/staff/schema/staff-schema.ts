@@ -22,6 +22,7 @@ export const basicInformationSchema = z.object({
 export const employmentAndAssignmentSchema = z.object({
   role: roleEnum,
   department: departmentEnum,
+  facilityId: requiredString("Facility"),
   employmentDate: isoDateString,
   workingHours: isoTime,
 });

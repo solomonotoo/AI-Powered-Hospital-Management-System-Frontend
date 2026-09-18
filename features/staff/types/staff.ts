@@ -43,6 +43,9 @@ export interface Staff {
   status: Status;
   endDate?: string;
 
+  // Tenant scoping
+  facilityId: string;
+
   //auditmetadata
   createdAt: string;
   updatedAt: string;

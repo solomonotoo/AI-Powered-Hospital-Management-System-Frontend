@@ -3,6 +3,12 @@ import { loginSchema, signupSchema } from "../schema/auth";
 
 export type LoginRequest = z.infer<typeof loginSchema>;
 
+export interface AccessibleFacility {
+  id: string;
+  code: string;
+  name: string;
+}
+
 export interface LoginResponse {
   accessToken: string;
   accessTokenExpiresAt: string;
@@ -15,6 +21,24 @@ export interface LoginResponse {
   facilityId: string;
   facilityName?: string;
   facilityCode?: string;
+  canSelectFacility?: boolean;
+  accessibleFacilities?: AccessibleFacility[];
 }
 
 export type CreateCredentialRequest = z.infer<typeof signupSchema>;
+
+export interface FirstLoginPasswordChangeRequest {
+  newPassword: string;
+  confirmPassword?: string;
+}
+
+export interface ChangePasswordRequest {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword?: string;
+}
+
+export interface SelectFacilityRequest {
+  facilityId: string;
+}
+

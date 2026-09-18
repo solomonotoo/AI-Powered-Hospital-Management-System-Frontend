@@ -6,6 +6,7 @@ import { PatientFormValues } from "../schemas/patient-schema";
 // export type UpdatePatientRequest = PatientFormValues;
 
 export interface CreatePatientRequest {
+    facilityId: string;
     firstName: string;
     lastName: string;
     preferredName?: string;

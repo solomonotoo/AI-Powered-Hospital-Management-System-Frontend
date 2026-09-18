@@ -13,4 +13,5 @@ export const staffFormDefaultValues: Partial<StaffFormValues> = {
   employmentDate: "",
   workingHours: "",
   specialisation: "",
+  facilityId: "",
 };

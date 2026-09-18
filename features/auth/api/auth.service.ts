@@ -49,6 +49,42 @@ class AuthService {
   async createCredentials(data: CreateCredentialRequest): Promise<void> {
     await api.post(API_ROUTES.AUTH.CREDENTIALS, data);
   }
+
+  async selectFacility(data: import("../types/login-response").SelectFacilityRequest): Promise<LoginResponse> {
+    const response = await api.post<ApiResponse<LoginResponse> | LoginResponse>(
+      API_ROUTES.AUTH.SELECT_FACILITY,
+      data
+    );
+    const body = response.data;
+    if (body && typeof body === "object" && "success" in body && "data" in body) {
+      return (body as ApiResponse<LoginResponse>).data;
+    }
+    return body as LoginResponse;
+  }
+
+  async firstLoginPasswordChange(data: import("../types/login-response").FirstLoginPasswordChangeRequest): Promise<LoginResponse> {
+    const response = await api.post<ApiResponse<LoginResponse> | LoginResponse>(
+      API_ROUTES.AUTH.FIRST_LOGIN_PASSWORD_CHANGE,
+      data
+    );
+    const body = response.data;
+    if (body && typeof body === "object" && "success" in body && "data" in body) {
+      return (body as ApiResponse<LoginResponse>).data;
+    }
+    return body as LoginResponse;
+  }
+
+  async changePassword(data: import("../types/login-response").ChangePasswordRequest): Promise<LoginResponse> {
+    const response = await api.post<ApiResponse<LoginResponse> | LoginResponse>(
+      API_ROUTES.AUTH.CHANGE_PASSWORD,
+      data
+    );
+    const body = response.data;
+    if (body && typeof body === "object" && "success" in body && "data" in body) {
+      return (body as ApiResponse<LoginResponse>).data;
+    }
+    return body as LoginResponse;
+  }
 }
 
 export const authService = new AuthService();

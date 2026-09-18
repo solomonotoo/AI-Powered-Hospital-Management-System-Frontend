@@ -109,7 +109,7 @@ export const StaffSummaryMock = {
   onLeaveStaff: 2,
 };
 
-export const staffDataMock = [
+const rawStaffDataMock = [
   {
     id: "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
     employeeId: "EMP001",
@@ -510,7 +510,14 @@ export const staffDataMock = [
     createdBy: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     updatedBy: "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
   },
-] satisfies Staff[];
+];
+
+const DEFAULT_FACILITY_ID = "3fafffbb-05ac-4999-9403-914062d4d540";
+
+export const staffDataMock: Staff[] = rawStaffDataMock.map((staff) => ({
+  facilityId: DEFAULT_FACILITY_ID,
+  ...staff,
+})) as Staff[];
 
 // export const staffDataMock = [
 //     {

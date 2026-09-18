@@ -1,9 +1,30 @@
+import { useEffect } from "react";
 import { FieldGroup } from "@/components/ui/field";
 import { AppFormField } from "@/features/forms/fields/app-form-field";
 import { StaffFormStepProps } from "@/features/staff/types/staff";
+import { useFacilities } from "@/features/facility/hook/use-facilities";
+import { getCurrentFacilityId } from "@/lib/auth";
 
 export const EmploymentAndAssignmentStep = ({ form }: StaffFormStepProps) => {
-  const { control } = form;
+  const { control, setValue, watch } = form;
+  const currentFacilityVal = watch("facilityId");
+
+  const { data: facilitiesData } = useFacilities({ page: 0, size: 50 });
+  const facilityOptions = facilitiesData?.content.map((f) => ({
+    label: `${f.name} (${f.code})`,
+    value: f.facilityId,
+  })) ?? [];
+
+  useEffect(() => {
+    if (!currentFacilityVal) {
+      const activeFacId = getCurrentFacilityId();
+      if (activeFacId) {
+        setValue("facilityId", activeFacId);
+      } else if (facilityOptions.length > 0) {
+        setValue("facilityId", facilityOptions[0].value);
+      }
+    }
+  }, [currentFacilityVal, facilityOptions, setValue]);
 
   const departmentOptions = [
     { label: "Radiology", value: "RADIOLOGY" },
@@ -39,6 +60,16 @@ export const EmploymentAndAssignmentStep = ({ form }: StaffFormStepProps) => {
   return (
     <FieldGroup>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <AppFormField
+          control={control}
+          name="facilityId"
+          label="Facility"
+          type="select"
+          options={facilityOptions.length > 0 ? facilityOptions : [
+            { label: "Current Facility", value: currentFacilityVal || getCurrentFacilityId() || "" }
+          ]}
+          description="SaaS tenant facility assignment"
+        />
         <AppFormField
           control={control}
           name="role"

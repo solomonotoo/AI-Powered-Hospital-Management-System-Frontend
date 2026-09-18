@@ -5,4 +5,5 @@ export interface StaffQuery extends PageQuery {
   role?: string;
   status?: string;
   department?: string;
+  facilityId?: string;
 }

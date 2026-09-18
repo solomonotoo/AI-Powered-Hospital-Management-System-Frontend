@@ -13,4 +13,5 @@ export interface CreateStaffRequest {
   joiningDate: string | Date; // Accepts ISO date string (YYYY-MM-DD) or Date instance
   workingHours?: string; // Optional shift/work hours
   consultationFee?: string; // Optional consultation charge
+  facilityId: string; // Tenant facility ID
 }

@@ -2,6 +2,7 @@ import { StaffFormInput, StaffFormValues } from "../schema/staff-schema";
 import { Department, Role, Staff, StaffSummaryCardTypes } from "../types/staff";
 import { CreateStaffRequest } from "../types/staff-request";
 import { StaffResponse, StaffSummaryResponse } from "../types/staff-response";
+import { getCurrentFacilityId } from "@/lib/auth";
 
 /**
  * Normalizes any backend StaffCategory enum or string to a valid frontend Role value.
@@ -75,7 +76,6 @@ export function normalizeStaffRole(rawRole?: string | null): Role {
       return "PHARMACIST";
 
     case "INFORMATION_TECHNOLOGY":
-    case "BOOTSTRAP_SYSTEM_ACCOUNT":
     case "IT":
       return "SUPER_ADMIN";
 
@@ -133,6 +133,7 @@ export function toCreateStaffRequest(values: StaffFormValues): CreateStaffReques
     joiningDate: values.employmentDate, // Map form employmentDate to backend joiningDate
     workingHours: values.workingHours,
     consultationFee: values.consultationFee,
+    facilityId: values.facilityId || getCurrentFacilityId() || "",
   };
 }
 
@@ -156,6 +157,7 @@ export function toStaff(response: StaffResponse): Staff {
     consultationFee: response.consultationFee,
     status: response.status,
     endDate: response.endDate,
+    facilityId: response.facilityId || "",
     createdAt: response.createdAt,
     updatedAt: response.updatedAt,
     createdBy: response.createdBy, // UUID
@@ -186,6 +188,7 @@ export function toStaffFormValues(staff: Staff): Partial<StaffFormInput> {
     licenseNumber: staff.licenseNumber ?? "",
     qualifications: staff.qualifications ?? "",
     consultationFee: staff.consultationFee ? String(staff.consultationFee) : "",
+    facilityId: staff.facilityId || getCurrentFacilityId() || "",
   };
 }
 

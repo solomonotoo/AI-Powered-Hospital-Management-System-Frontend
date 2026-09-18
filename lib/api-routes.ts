@@ -5,6 +5,9 @@ export const API_ROUTES = {
     LOGIN: "/auth/login",
     REFRESH: "/auth/refresh",
     CREDENTIALS: "/auth/credentials",
+    SELECT_FACILITY: "/auth/select-facility",
+    FIRST_LOGIN_PASSWORD_CHANGE: "/auth/first-login-password-change",
+    CHANGE_PASSWORD: "/auth/change-password",
   },
   STAFF: {
     ROOT: "/staff",

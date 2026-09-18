@@ -4,9 +4,11 @@
 
 import { PatientFormValues } from "../schemas/patient-schema";
 import { CreatePatientRequest } from "../types/patient-request";
+import { getCurrentFacilityId } from "@/lib/auth";
 
 export function toCreatePatientRequest(values: PatientFormValues): CreatePatientRequest {
   return {
+    facilityId: (values as any).facilityId || getCurrentFacilityId() || "3fafffbb-05ac-4999-9403-914062d4d540",
     firstName: values.firstName,
     lastName: values.lastName,
     preferredName: values.preferredName || undefined,

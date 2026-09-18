@@ -21,6 +21,7 @@ export interface StaffResponse {
   updatedAt: string;
   createdBy: string; // UUID
   updatedBy?: string; // UUID
+  facilityId: string; // UUID
 }
 
 

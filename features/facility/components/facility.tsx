@@ -54,21 +54,22 @@ export function Facility() {
     isLoading: isFacilitiesLoading,
     isError: isFacilitiesError,
     error: facilitiesError,
+    refetch: refetchFacilities,
   } = useFacilities(query);
   const {
     data: summary,
     isLoading: isSummaryLoading,
     isError: isSummaryError,
     error: summaryError,
+    refetch: refetchSummary,
   } = useFacilitySummary();
 
   const facilityData = facilities?.content.map(toFacility) ?? [];
 
   // Handle successful facility creation
   const handleFacilityCreated = () => {
-    // Refresh your facility list here
-    console.log("Facility created, refreshing list...");
-    // You could refetch data here
+    refetchFacilities();
+    refetchSummary();
   };
 
   return (

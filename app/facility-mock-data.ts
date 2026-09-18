@@ -242,9 +242,9 @@ export const FacilitySummaryMock = {
 
 export const facilities = [
   {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "code": "FAC-001",
-    "name": "Korle-Bu Teaching Hospital",
+    "id": "3fafffbb-05ac-4999-9403-914062d4d540",
+    "code": "KBTH001",
+    "name": "Korle Bu Teaching Hospital",
     "type": "TEACHING_HOSPITAL",
     "status": "ACTIVE",
     "location": {

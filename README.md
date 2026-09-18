@@ -1,4 +1,15 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 AI-Powered Hospital Management System - Frontend
+
+> **Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS · TanStack Query**
+
+Modern, responsive frontend application for the AI-Powered Hospital Management System, supporting multi-facility scoping, role-based access control, first-login credential onboarding, and facility switching.
+
+---
+
+## 📚 Architecture & Documentation
+- [Multi-Facility Authentication & Setup Guide](docs/MULTI_FACILITY_AUTH_GUIDE.md)
+
+---
 
 ## Getting Started
 

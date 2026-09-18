@@ -56,6 +56,7 @@ export function StaffManagement() {
     department: department !== "all" ? department : undefined,
     role: role !== "all" ? role : undefined,
     status: status !== "all" ? status : undefined,
+    facilityId: (typeof window !== "undefined" ? (JSON.parse(localStorage.getItem("auth_user") || "{}").facilityId) : undefined) || undefined,
   };
 
   const {
