@@ -8,14 +8,16 @@ import { useRouter } from "next/navigation";
 
 interface StaffTableProps {
   staff: Staff[];
+  onEdit?: (staff: Staff) => void;
+  onDelete?: (staff: Staff) => void;
 }
 
-export default function StaffTable({ staff }: StaffTableProps) {
+export default function StaffTable({ staff, onEdit, onDelete }: StaffTableProps) {
   const router = useRouter();
 
   const {
     open,
-    selectedEntity: selectedFacility,
+    selectedEntity: selectedStaff,
     showDetails,
     hideDetails,
   } = useEntityDetails<Staff>();
@@ -24,15 +26,15 @@ export default function StaffTable({ staff }: StaffTableProps) {
     <DataTable>
       <StaffTableHeader />
       <TableBody>
-        {staff.map((staff) => (
+        {staff.map((item) => (
           <StaffTableRow
-            key={staff.id}
-            staff={staff}
-            onRowClick={(staff) => router.push(`/staff/${staff.id}`)}
+            key={item.id}
+            staff={item}
+            onRowClick={(clickedStaff) => router.push(`/staff/${clickedStaff.id}`)}
             onView={showDetails}
-            onEdit={showDetails}
+            onEdit={onEdit ?? showDetails}
             onExport={showDetails}
-            onDelete={showDetails}
+            onDelete={onDelete ?? showDetails}
           />
         ))}
       </TableBody>

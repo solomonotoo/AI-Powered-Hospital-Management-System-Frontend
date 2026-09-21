@@ -1,7 +1,121 @@
 import { StaffFormInput, StaffFormValues } from "../schema/staff-schema";
-import { Staff, StaffSummaryCardTypes } from "../types/staff";
+import { Department, Role, Staff, StaffSummaryCardTypes } from "../types/staff";
 import { CreateStaffRequest } from "../types/staff-request";
 import { StaffResponse, StaffSummaryResponse } from "../types/staff-response";
+
+/**
+ * Normalizes any backend StaffCategory enum or string to a valid frontend Role value.
+ */
+export function normalizeStaffRole(rawRole?: string | null): Role {
+  if (!rawRole) return "DOCTOR";
+  const normalized = rawRole.trim().toUpperCase().replace(/[-\s]+/g, "_");
+
+  const validRoles: Role[] = [
+    "DOCTOR",
+    "NURSE",
+    "ADMIN",
+    "BILLING_STAFF",
+    "RECEPTIONIST",
+    "WARD_MANAGER",
+    "LAB_TECH",
+    "PHARMACIST",
+    "RADIOLOGIST",
+    "SUPER_ADMIN",
+    "ADMINSTRATIVE",
+  ];
+
+  if (validRoles.includes(normalized as Role)) {
+    return normalized as Role;
+  }
+
+  switch (normalized) {
+    case "GENERALIST_MEDICAL_PRACTITIONER":
+    case "SPECIALIST_MEDICAL_PRACTITIONER":
+    case "MEDICAL_ASSISTANT":
+    case "DENTIST":
+    case "DENTAL_THERAPIST":
+    case "PHYSICIAN":
+    case "DOCTORS":
+      return "DOCTOR";
+
+    case "NURSING_PROFESSIONAL":
+    case "NURSING_ASSOCIATE_PROFESSIONAL":
+    case "MIDWIFERY_PROFESSIONAL":
+    case "COMMUNITY_HEALTH_NURSE":
+    case "NURSE_ASSISTANT_CLINICAL":
+    case "NURSE_ASSISTANT_PREVENTIVE":
+    case "NURSES":
+      return "NURSE";
+
+    case "HEALTH_SERVICE_ADMINISTRATOR":
+    case "HOSPITAL_ADMIN":
+      return "ADMIN";
+
+    case "ACCOUNTANT":
+    case "FINANCE":
+      return "BILLING_STAFF";
+
+    case "HUMAN_RESOURCE_OFFICER":
+    case "ADMINISTRATIVE":
+    case "HR":
+      return "ADMINSTRATIVE";
+
+    case "LABORATORY_TECHNICIAN":
+    case "MEDICAL_LABORATORY_TECHNOLOGIST":
+    case "LAB_TECHNICIAN":
+    case "TECHNICIAN":
+      return "LAB_TECH";
+
+    case "MEDICAL_IMAGING_OPERATOR":
+    case "RADIOGRAPHER":
+      return "RADIOLOGIST";
+
+    case "PHARMACEUTICAL_TECHNICIAN":
+    case "PHARMACY_TECHNICIAN":
+      return "PHARMACIST";
+
+    case "INFORMATION_TECHNOLOGY":
+    case "BOOTSTRAP_SYSTEM_ACCOUNT":
+    case "IT":
+      return "SUPER_ADMIN";
+
+    case "OTHER_SUPPORT_STAFF":
+    case "DRIVER":
+      return "RECEPTIONIST";
+
+    default:
+      return "DOCTOR";
+  }
+}
+
+/**
+ * Normalizes backend department string to a valid frontend Department enum value.
+ */
+export function normalizeStaffDepartment(dept?: string | null): Department | undefined {
+  if (!dept) return undefined;
+  const normalized = dept.trim().toUpperCase().replace(/[-\s]+/g, "_");
+  const validDepartments: Department[] = [
+    "RADIOLOGY",
+    "CARDIOLOGY",
+    "ONCOLOGY",
+    "NEUROLOGY",
+    "ORTHOPEDICS",
+    "PEDIATRICS",
+    "DERMATOLOGY",
+    "OTOLARYNGOLOGY",
+    "OPHTHALMOLOGY",
+    "UROLOGY",
+    "SURGERY",
+    "EMERGENCY",
+    "PHARMACY",
+    "OPD",
+  ];
+
+  if (validDepartments.includes(normalized as Department)) {
+    return normalized as Department;
+  }
+  return undefined;
+}
 
 // Maps UI form values to the CreateStaffRequest DTO expected by the backend
 export function toCreateStaffRequest(values: StaffFormValues): CreateStaffRequest {
@@ -31,9 +145,9 @@ export function toStaff(response: StaffResponse): Staff {
     employeeId: response.employeeNumber,
     firstName: response.firstName,
     lastName: response.lastName,
-    role: response.role,
+    role: normalizeStaffRole(response.role),
     specialisation: response.specialisation,
-    department: response.department,
+    department: normalizeStaffDepartment(response.department),
     workEmail: response.workEmail,
     phoneNumber: response.phone,
     licenseNumber: response.licenseNumber,
@@ -51,20 +165,27 @@ export function toStaff(response: StaffResponse): Staff {
 
 //for form editing
 export function toStaffFormValues(staff: Staff): Partial<StaffFormInput> {
+  const cleanDate = staff.employmentDate ? staff.employmentDate.split("T")[0] : "";
+  const cleanTime = staff.workingHours
+    ? staff.workingHours.length > 5
+      ? staff.workingHours.substring(0, 5)
+      : staff.workingHours
+    : "";
+
   return {
     employeeId: staff.employeeId,
     firstName: staff.firstName,
     lastName: staff.lastName,
     workEmail: staff.workEmail,
     phoneNumber: staff.phoneNumber ?? "",
-    role: staff.role,
-    department: staff.department,
-    employmentDate: staff.employmentDate,
-    workingHours: staff.workingHours,
+    role: normalizeStaffRole(staff.role),
+    department: (normalizeStaffDepartment(staff.department) ?? "") as unknown as Department,
+    employmentDate: cleanDate,
+    workingHours: cleanTime,
     specialisation: staff.specialisation ?? "",
     licenseNumber: staff.licenseNumber ?? "",
     qualifications: staff.qualifications ?? "",
-    consultationFee: staff.consultationFee ?? "",
+    consultationFee: staff.consultationFee ? String(staff.consultationFee) : "",
   };
 }
 
@@ -77,3 +198,21 @@ export function toStaffSummary(response: StaffSummaryResponse): StaffSummaryCard
     onLeaveStaff: response.onLeaveStaff,
   };
 } 
+
+// Maps UI form values to the UpdateStaffRequest DTO for editing existing staff
+export function toUpdateStaffRequest(values: StaffFormValues): import("../types/staff-update-request").UpdateStaffRequest {
+  return {
+    firstName: values.firstName,
+    lastName: values.lastName,
+    role: values.role,
+    specialisation: values.specialisation,
+    department: values.department,
+    workEmail: values.workEmail,
+    phone: values.phoneNumber,
+    qualifications: values.qualifications,
+    licenseNumber: values.licenseNumber,
+    workingHours: values.workingHours,
+    consultationFee: values.consultationFee,
+  };
+}
+

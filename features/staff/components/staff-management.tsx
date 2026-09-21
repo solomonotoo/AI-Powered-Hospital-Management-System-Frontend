@@ -6,11 +6,13 @@ import { SectionCard } from "@/features/shared-features/section-card";
 import { StaffToolbar } from "./toolbar/staff-toolbar";
 import StaffTable from "./table/staff-table";
 import { CreateStaffDialog } from "./create-staff-dialog";
+import { EditStaffDialog } from "./edit-staff-dialog";
 import { useStaffSummary } from "../hooks/use-staff-summary";
 import { useStaff } from "../hooks/use-staff";
 import { StaffQuery } from "../types/staff-query";
 import { SortState } from "@/features/types/sort-state";
 import { toStaff } from "../mapper/staff-mapper";
+import { Staff } from "../types/staff";
 
 export function StaffManagement() {
   const [search, setSearch] = useState("");
@@ -30,6 +32,15 @@ export function StaffManagement() {
 
   //open create staff modal
   const [openCreateStaffDialog, setOpenCreateStaffDialog] = useState(false);
+
+  //open edit staff modal
+  const [editingStaff, setEditingStaff] = useState<Staff | null>(null);
+  const [openEditStaffDialog, setOpenEditStaffDialog] = useState(false);
+
+  const handleEditStaff = (selectedStaff: Staff) => {
+    setEditingStaff(selectedStaff);
+    setOpenEditStaffDialog(true);
+  };
 
   //NB you can check api.query.ts
   //query for pagination and filtering of the API
@@ -90,9 +101,8 @@ export function StaffManagement() {
       >
         <SectionCard>
           <StaffTable
-            staff={
-              listStaff
-            }
+            staff={listStaff}
+            onEdit={handleEditStaff}
           />
         </SectionCard>
       </WorkspaceSection>
@@ -100,6 +110,11 @@ export function StaffManagement() {
         open={openCreateStaffDialog}
         onOpenChange={setOpenCreateStaffDialog}
         onSuccess={handleStaffCreated}
+      />
+      <EditStaffDialog
+        staff={editingStaff}
+        open={openEditStaffDialog}
+        onOpenChange={setOpenEditStaffDialog}
       />
     </>
   );

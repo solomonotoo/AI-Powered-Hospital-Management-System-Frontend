@@ -1,5 +1,4 @@
 import { SidebarSection } from "@/features/layout/sidebar-types";
-import { UserRole } from "@/features/layout/types";
 import {
   Activity,
   BarChart3,
@@ -20,473 +19,7 @@ import {
 } from "lucide-react";
 
 /* =========================================================
-   ROLE GROUPS
-   ========================================================= */
-
-const allRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "receptionist",
-  "doctor",
-  "nurse",
-  "lab_technician",
-  "radiologist",
-  "pharmacist",
-  "theater_staff",
-  "emergency_staff",
-  "department_head",
-  "inventory_manager",
-  "accountant",
-  "hr_manager",
-  "analyst",
-];
-
-/* =========================================================
-   PATIENTS
-   ========================================================= */
-
-const allowedPatientRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "receptionist",
-  "doctor",
-  "nurse",
-  "lab_technician",
-  "radiologist",
-  "pharmacist",
-  "theater_staff",
-  "emergency_staff",
-  "department_head",
-];
-
-const allowedPatientRegistrationRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "receptionist",
-  "nurse",
-  "emergency_staff",
-];
-
-const allowedMedicalRecordsRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "department_head",
-  "theater_staff",
-  "emergency_staff",
-];
-
-/* =========================================================
-   VISITS
-   ========================================================= */
-
-const allowedVisitRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-  "department_head",
-  "theater_staff",
-  "emergency_staff",
-];
-
-const allowedVisitHistoryRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "department_head",
-  "emergency_staff",
-  "theater_staff",
-];
-
-const allowedVisitSearchRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-  "department_head",
-];
-
-/* =========================================================
-   DOCTORS
-   ========================================================= */
-
-const allowedDoctorViewRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-  "department_head",
-];
-
-const allowedDoctorManagementRoles: UserRole[] = ["admin", "super_admin"];
-
-const allowedDoctorScheduleRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "receptionist",
-  "department_head",
-];
-
-const allowedDepartmentRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "department_head",
-];
-
-/* =========================================================
-   APPOINTMENTS
-   ========================================================= */
-
-const allowedAppointmentRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-  "department_head",
-];
-
-const allowedScheduleAppointmentRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-];
-
-/* =========================================================
-   OPD
-   ========================================================= */
-
-const allowedOpdRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-  "department_head",
-];
-
-const allowedOpdQueueRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-  "department_head",
-];
-
-const allowedOpdVisitRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-];
-
-const allowedConsultationRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "department_head",
-];
-
-const allowedTriageRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "emergency_staff",
-];
-
-const allowedCompletedVisitRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "department_head",
-];
-
-/* =========================================================
-   IPD & BEDS
-   ========================================================= */
-
-const allowedIpdRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "department_head",
-];
-
-const allowedAdmissionRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-];
-
-const allowedTransferRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "department_head",
-];
-
-const allowedDischargeRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-];
-
-const allowedBedManagementRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "nurse",
-  "department_head",
-];
-
-/* =========================================================
-   ACCIDENT & EMERGENCY
-   ========================================================= */
-
-const allowedEmergencyRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "emergency_staff",
-  "department_head",
-];
-
-const allowedEmergencyRegistrationRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "receptionist",
-  "emergency_staff",
-];
-
-const allowedEmergencyClinicalRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "emergency_staff",
-];
-
-/* =========================================================
-   OPERATION THEATER
-   ========================================================= */
-
-const allowedTheaterRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "theater_staff",
-  "department_head",
-];
-
-const allowedTheaterClinicalRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "theater_staff",
-];
-
-/* =========================================================
-   LABORATORY
-   ========================================================= */
-
-const allowedLaboratoryRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "lab_technician",
-];
-
-const allowedLabRequestRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "lab_technician",
-  "department_head",
-];
-
-const allowedLabResultRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "lab_technician",
-];
-
-/* =========================================================
-   RADIOLOGY
-   ========================================================= */
-
-const allowedRadiologyRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "radiologist",
-];
-
-const allowedImagingRequestRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "radiologist",
-];
-
-const allowedRadiologyReportRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "radiologist",
-  "department_head",
-];
-
-/* =========================================================
-   PHARMACY
-   ========================================================= */
-
-const allowedPharmacyRoles: UserRole[] = ["admin", "super_admin", "pharmacist"];
-
-const allowedPrescriptionRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "doctor",
-  "nurse",
-  "pharmacist",
-];
-
-const allowedPharmacyInventoryRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "pharmacist",
-  "inventory_manager",
-];
-
-/* =========================================================
-   STAFF
-   ========================================================= */
-
-const allowedStaffManagementRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "hr_manager",
-  "department_head",
-];
-
-const allowedShiftScheduleRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "hr_manager",
-  "department_head",
-  "nurse",
-];
-
-const allowedAttendanceRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "hr_manager",
-  "department_head",
-];
-
-/* =========================================================
-   INVENTORY
-   ========================================================= */
-
-const allowedInventoryRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "inventory_manager",
-];
-
-const allowedStockRequestRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "inventory_manager",
-  "department_head",
-  "nurse",
-];
-
-/* =========================================================
-   BILLING
-   ========================================================= */
-
-const allowedBillingRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "accountant",
-  "receptionist",
-];
-
-const allowedInsuranceRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "accountant",
-];
-
-/* =========================================================
-   ANALYTICS
-   ========================================================= */
-
-const allowedPatientAnalyticsRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "department_head",
-  "analyst",
-];
-
-const allowedFinancialAnalyticsRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "accountant",
-  "analyst",
-];
-
-const allowedAppointmentAnalyticsRoles: UserRole[] = [
-  "admin",
-  "super_admin",
-  "department_head",
-  "analyst",
-  "receptionist",
-];
-
-/* =========================================================
-   ADMINISTRATION
-   ========================================================= */
-
-const allowedUserManagementRoles: UserRole[] = ["admin", "super_admin"];
-
-const allowedRoleManagementRoles: UserRole[] = ["super_admin"];
-
-const allowedHospitalSettingsRoles: UserRole[] = ["admin", "super_admin"];
-
-const allowedSystemSettingsRoles: UserRole[] = ["super_admin"];
-
-/* =========================================================
-   SIDEBAR
+   SIDEBAR NAVIGATION ITEMS (PBAC - Permission-Based Access Control)
    ========================================================= */
 
 export const sidebarItems: SidebarSection[] = [
@@ -496,7 +29,7 @@ export const sidebarItems: SidebarSection[] = [
       {
         title: "Dashboard",
         url: "/dashboard",
-        icon: LayoutDashboard, //Everyone can access
+        icon: LayoutDashboard, // Everyone can access
       },
     ],
   },
@@ -507,7 +40,6 @@ export const sidebarItems: SidebarSection[] = [
         title: "Facility",
         url: "/facility",
         icon: Hospital,
-        allowedRoles: ["admin", "super_admin"],
         // [FEATURE REFERENCE]: Permission check for Hospital Facility overview and configurations
         requiredPermissions: ["FACILITY_READ", "FACILITY_MANAGE"],
       },
@@ -529,21 +61,18 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "All Patients",
             url: "/patients",
-            allowedRoles: allowedPatientRoles,
             // [FEATURE REFERENCE]: Requires patient read access to view patient directory
             requiredPermissions: ["PATIENT_READ"],
           },
           {
             title: "Register Patient",
             url: "/patients/register",
-            allowedRoles: allowedPatientRegistrationRoles,
             // [FEATURE REFERENCE]: Requires patient write access to enroll new patients
             requiredPermissions: ["PATIENT_WRITE"],
           },
           {
             title: "Medical Records",
             url: "/patients/records",
-            allowedRoles: allowedMedicalRecordsRoles,
             // [FEATURE REFERENCE]: Requires patient read access to inspect medical histories
             requiredPermissions: ["PATIENT_READ"],
           },
@@ -557,21 +86,18 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Active Visits",
             url: "/visits/active",
-            allowedRoles: allowedVisitRoles,
             // [FEATURE REFERENCE]: Requires patient read access to track ongoing visits
             requiredPermissions: ["PATIENT_READ"],
           },
           {
             title: "Visit History",
             url: "/visits/history",
-            allowedRoles: allowedVisitHistoryRoles,
             // [FEATURE REFERENCE]: Requires patient read access to browse past clinical visits
             requiredPermissions: ["PATIENT_READ"],
           },
           {
             title: "Search Visits",
             url: "/visits/search",
-            allowedRoles: allowedVisitSearchRoles,
             // [FEATURE REFERENCE]: Requires patient read access to search and query visits
             requiredPermissions: ["PATIENT_READ"],
           },
@@ -585,22 +111,22 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "All Doctors",
             url: "/doctors",
-            allowedRoles: allowedDoctorViewRoles,
+            requiredPermissions: ["DOCTOR_READ"],
           },
           {
             title: "Add Doctor",
             url: "/doctors/new",
-            allowedRoles: allowedDoctorManagementRoles,
+            requiredPermissions: ["DOCTOR_WRITE", "DOCTOR_MANAGE"],
           },
           {
             title: "Schedules",
             url: "/doctors/schedules",
-            allowedRoles: allowedDoctorScheduleRoles,
+            requiredPermissions: ["DOCTOR_READ"],
           },
           {
             title: "Departments",
             url: "/departments",
-            allowedRoles: allowedDepartmentRoles,
+            requiredPermissions: ["DEPARTMENT_READ"],
           },
         ],
       },
@@ -612,17 +138,17 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "All Appointments",
             url: "/appointments",
-            allowedRoles: allowedAppointmentRoles,
+            requiredPermissions: ["APPOINTMENT_READ"],
           },
           {
             title: "Schedule Appointment",
             url: "/appointments/new",
-            allowedRoles: allowedScheduleAppointmentRoles,
+            requiredPermissions: ["APPOINTMENT_WRITE"],
           },
           {
             title: "Calendar",
             url: "/appointments/calendar",
-            allowedRoles: allowedAppointmentRoles,
+            requiredPermissions: ["APPOINTMENT_READ"],
           },
         ],
       },
@@ -634,27 +160,27 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Today's Queue",
             url: "/opd/queue",
-            allowedRoles: allowedOpdQueueRoles,
+            requiredPermissions: ["OPD_READ"],
           },
           {
             title: "New OPD Visit",
             url: "/opd/visits",
-            allowedRoles: allowedOpdVisitRoles,
+            requiredPermissions: ["OPD_WRITE"],
           },
           {
             title: "Consultations",
             url: "/opd/consultations",
-            allowedRoles: allowedConsultationRoles,
+            requiredPermissions: ["OPD_READ", "CONSULTATION_READ"],
           },
           {
             title: "Triage",
             url: "/opd/triage",
-            allowedRoles: allowedTriageRoles,
+            requiredPermissions: ["OPD_READ", "TRIAGE_READ"],
           },
           {
             title: "Completed Visits",
             url: "/opd/completed-visits",
-            allowedRoles: allowedCompletedVisitRoles,
+            requiredPermissions: ["OPD_READ"],
           },
         ],
       },
@@ -666,27 +192,27 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "New Admission",
             url: "/ipd/new",
-            allowedRoles: allowedAdmissionRoles,
+            requiredPermissions: ["IPD_WRITE"],
           },
           {
             title: "Current Admissions",
             url: "/ipd",
-            allowedRoles: allowedIpdRoles,
+            requiredPermissions: ["IPD_READ"],
           },
           {
             title: "Transfers",
             url: "/transfers",
-            allowedRoles: allowedTransferRoles,
+            requiredPermissions: ["IPD_WRITE"],
           },
           {
             title: "Discharges",
             url: "/ipd/discharges",
-            allowedRoles: allowedDischargeRoles,
+            requiredPermissions: ["IPD_WRITE"],
           },
           {
             title: "Ward & Bed Management",
             url: "/wards",
-            allowedRoles: allowedBedManagementRoles,
+            requiredPermissions: ["IPD_READ", "BED_MANAGE"],
           },
         ],
       },
@@ -698,27 +224,27 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "New Emergency Visit",
             url: "/emergency/visits/new",
-            allowedRoles: allowedEmergencyRegistrationRoles,
+            requiredPermissions: ["EMERGENCY_WRITE"],
           },
           {
             title: "Waiting Patients",
             url: "/emergency/waiting",
-            allowedRoles: allowedEmergencyClinicalRoles,
+            requiredPermissions: ["EMERGENCY_READ"],
           },
           {
             title: "Triage",
             url: "/emergency/triage",
-            allowedRoles: allowedEmergencyClinicalRoles,
+            requiredPermissions: ["EMERGENCY_READ"],
           },
           {
             title: "Treatment",
             url: "/emergency/treatment",
-            allowedRoles: allowedEmergencyClinicalRoles,
+            requiredPermissions: ["EMERGENCY_READ"],
           },
           {
             title: "Observation",
             url: "/emergency/observation",
-            allowedRoles: allowedEmergencyClinicalRoles,
+            requiredPermissions: ["EMERGENCY_READ"],
           },
         ],
       },
@@ -730,17 +256,17 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Theater Schedule",
             url: "/theater/schedule",
-            allowedRoles: allowedTheaterRoles,
+            requiredPermissions: ["THEATER_READ"],
           },
           {
             title: "Ongoing Surgeries",
             url: "/theater/ongoing",
-            allowedRoles: allowedTheaterClinicalRoles,
+            requiredPermissions: ["THEATER_READ"],
           },
           {
             title: "Post-Op Recovery",
             url: "/theater/recovery",
-            allowedRoles: allowedTheaterClinicalRoles,
+            requiredPermissions: ["THEATER_READ"],
           },
         ],
       },
@@ -764,17 +290,17 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Lab Tests",
             url: "/laboratory/tests",
-            allowedRoles: allowedLaboratoryRoles,
+            requiredPermissions: ["LAB_READ"],
           },
           {
             title: "Results",
             url: "/laboratory/results",
-            allowedRoles: allowedLabResultRoles,
+            requiredPermissions: ["LAB_READ"],
           },
           {
             title: "Requests",
             url: "/laboratory/requests",
-            allowedRoles: allowedLabRequestRoles,
+            requiredPermissions: ["LAB_READ"],
           },
         ],
       },
@@ -786,12 +312,12 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Imaging Requests",
             url: "/radiology/requests",
-            allowedRoles: allowedImagingRequestRoles,
+            requiredPermissions: ["RADIOLOGY_READ"],
           },
           {
             title: "Reports",
             url: "/radiology/reports",
-            allowedRoles: allowedRadiologyReportRoles,
+            requiredPermissions: ["RADIOLOGY_READ"],
           },
         ],
       },
@@ -816,22 +342,22 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Dashboard",
             url: "/pharmacy",
-            allowedRoles: allowedPharmacyRoles,
+            requiredPermissions: ["PHARMACY_READ"],
           },
           {
             title: "Medicines",
             url: "/pharmacy/medicines",
-            allowedRoles: allowedPharmacyRoles,
+            requiredPermissions: ["PHARMACY_READ"],
           },
           {
             title: "Prescriptions",
             url: "/pharmacy/prescriptions",
-            allowedRoles: allowedPrescriptionRoles,
+            requiredPermissions: ["PHARMACY_READ"],
           },
           {
             title: "Inventory",
             url: "/pharmacy/inventory",
-            allowedRoles: allowedPharmacyInventoryRoles,
+            requiredPermissions: ["PHARMACY_READ", "PHARMACY_MANAGE"],
           },
         ],
       },
@@ -855,21 +381,18 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "All Staff",
             url: "/staff",
-            allowedRoles: allowedStaffManagementRoles,
             // [FEATURE REFERENCE]: Requires staff permissions to view active staff directory
             requiredPermissions: ["STAFF_READ", "STAFF_MANAGE"],
           },
           {
             title: "Shift Schedules",
             url: "/staff/schedules",
-            allowedRoles: allowedShiftScheduleRoles,
             // [FEATURE REFERENCE]: Requires staff permissions to view or update duty schedules
             requiredPermissions: ["STAFF_READ", "STAFF_MANAGE"],
           },
           {
             title: "Attendance",
             url: "/staff/attendance",
-            allowedRoles: allowedAttendanceRoles,
             // [FEATURE REFERENCE]: Requires staff permissions to track staff clock-in/out logs
             requiredPermissions: ["STAFF_READ", "STAFF_MANAGE"],
           },
@@ -883,17 +406,17 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Supplies",
             url: "/inventory/supplies",
-            allowedRoles: allowedInventoryRoles,
+            requiredPermissions: ["INVENTORY_READ"],
           },
           {
             title: "Equipment",
             url: "/inventory/equipment",
-            allowedRoles: allowedInventoryRoles,
+            requiredPermissions: ["INVENTORY_READ"],
           },
           {
             title: "Stock Requests",
             url: "/inventory/requests",
-            allowedRoles: allowedStockRequestRoles,
+            requiredPermissions: ["INVENTORY_READ", "INVENTORY_MANAGE"],
           },
         ],
       },
@@ -914,21 +437,18 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Invoices",
             url: "/billing/invoices",
-            allowedRoles: allowedBillingRoles,
             // [FEATURE REFERENCE]: Requires billing permissions to generate and review invoices
             requiredPermissions: ["BILLING_READ", "BILLING_MANAGE"],
           },
           {
             title: "Payments",
             url: "/billing/payments",
-            allowedRoles: allowedBillingRoles,
             // [FEATURE REFERENCE]: Requires billing permissions to view and process transactions
             requiredPermissions: ["BILLING_READ", "BILLING_MANAGE"],
           },
           {
             title: "Insurance Claims",
             url: "/billing/insurance",
-            allowedRoles: allowedInsuranceRoles,
             // [FEATURE REFERENCE]: Requires billing permissions to manage third-party insurance claims
             requiredPermissions: ["BILLING_READ", "BILLING_MANAGE"],
           },
@@ -942,17 +462,17 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Patient Reports",
             url: "/analytics/patients",
-            allowedRoles: allowedPatientAnalyticsRoles,
+            requiredPermissions: ["ANALYTICS_READ"],
           },
           {
             title: "Financial Reports",
             url: "/analytics/finance",
-            allowedRoles: allowedFinancialAnalyticsRoles,
+            requiredPermissions: ["ANALYTICS_READ"],
           },
           {
             title: "Appointments Report",
             url: "/analytics/appointments",
-            allowedRoles: allowedAppointmentAnalyticsRoles,
+            requiredPermissions: ["ANALYTICS_READ"],
           },
         ],
       },
@@ -976,14 +496,12 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "User Accounts",
             url: "/users",
-            allowedRoles: allowedUserManagementRoles,
             // [FEATURE REFERENCE]: Requires user management permission to manage user directory & statuses
             requiredPermissions: ["USER_MANAGE"],
           },
           {
             title: "Roles & Permissions",
             url: "/users/roles",
-            allowedRoles: allowedRoleManagementRoles,
             // [FEATURE REFERENCE]: Requires role management permission to create and configure roles
             requiredPermissions: ["ROLE_MANAGE"],
           },
@@ -997,17 +515,17 @@ export const sidebarItems: SidebarSection[] = [
           {
             title: "Hospital Information",
             url: "/settings/hospital",
-            allowedRoles: allowedHospitalSettingsRoles,
+            requiredPermissions: ["SETTINGS_MANAGE"],
           },
           {
             title: "Departments",
             url: "/settings/departments",
-            allowedRoles: allowedDepartmentRoles,
+            requiredPermissions: ["SETTINGS_MANAGE", "DEPARTMENT_READ"],
           },
           {
             title: "System Settings",
             url: "/settings/system",
-            allowedRoles: allowedSystemSettingsRoles,
+            requiredPermissions: ["SYSTEM_MANAGE"],
           },
         ],
       },

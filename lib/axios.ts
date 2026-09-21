@@ -5,6 +5,7 @@ import { env } from "./env";
 import {
   clearAuth,
   getAccessToken,
+  getCurrentFacilityId,
   getRefreshToken,
   setAccessToken,
   setRefreshToken,
@@ -46,26 +47,19 @@ const refreshApi = axios.create({
   },
 });
 
-//request interceptors- Adds JWT token to every request
+//request interceptors- Adds JWT token and Tenant Facility Id to every request
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    //remove this code before production deploument
-    // Development authentication bypass
-    // if (env.BYPASS_AUTH) {
-    //   return config;
-    // }
-
     const token = getAccessToken(); // Gets the stored JWT
-    // console.log("========== API REQUEST ==========");
-    // console.log("METHOD:", config.method?.toUpperCase());
-    // console.log("URL:", config.url);
-    // console.log("BASE URL:", config.baseURL);
-    // console.log("FULL URL:", `${config.baseURL ?? ""}${config.url ?? ""}`);
-    // console.log("HAS TOKEN:", !!token);
-    // console.log("=================================");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; // Adds to header
     }
+
+    const facilityId = getCurrentFacilityId();
+    if (facilityId) {
+      config.headers["X-Facility-Id"] = facilityId; // Multi-tenant SaaS facility scope
+    }
+
     return config;
   },
   (error) => Promise.reject(error)

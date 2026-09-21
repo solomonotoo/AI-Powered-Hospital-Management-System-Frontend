@@ -65,6 +65,7 @@ export default function ReusableImage({
         width={!fill ? width : undefined}
         height={!fill ? height : undefined}
         priority={priority}
+        loading={priority ? undefined : loading}
         quality={quality}
         sizes={fill ? sizes : undefined}
         className={`${fitClass} ${roundedClass} ${className}`}
