@@ -21,7 +21,7 @@ export function StaffTableRow({
   onDelete,
   onExport,
 }: StaffTableRowProps) {
-  // console.log("STAFF ROW:", staff);
+   //console.log("STAFF ROW:", staff);
 
   return (
     <TableRow

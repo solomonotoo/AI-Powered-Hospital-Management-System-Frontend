@@ -18,7 +18,7 @@ const locationSchema = z.object({
 
 export const facilitySchema = z.object({
   code: requiredString("Facility code is required", 10),
-  name: requiredString("Facility name is required", 20),
+  name: requiredString("Facility name is required", 50),
   type: facilityType, // MUST be one of the enum values
   location: locationSchema,
   contactPhone: requiredPhone("Contact phone"),

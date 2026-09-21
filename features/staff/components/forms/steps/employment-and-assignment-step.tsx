@@ -17,6 +17,7 @@ export const EmploymentAndAssignmentStep = ({ form }: StaffFormStepProps) => {
     { label: "Ophthalmology", value: "OPHTHALMOLOGY" },
     { label: "Otolaryngology", value: "OTOLARYNGOLOGY" },
     { label: "Urology", value: "UROLOGY" },
+    { label: "Information Technology", value: "INFORMATION_TECHNOLOGY" },
   ];
 
   const roleOptions = [
@@ -30,7 +31,7 @@ export const EmploymentAndAssignmentStep = ({ form }: StaffFormStepProps) => {
     { label: "Receptionist", value: "RECEPTIONIST" },
     { label: "Ward Manager", value: "WARD_MANAGER" },
     { label: "Radiologist", value: "RADIOLOGIST" },
-    { label: "Super Admin", value: "SUPER_ADMIN" },
+    { label: "Information Technology", value: "INFORMATION_TECHNOLOGY" },
   ];
 
   return (
@@ -39,10 +40,10 @@ export const EmploymentAndAssignmentStep = ({ form }: StaffFormStepProps) => {
         <AppFormField
           control={control}
           name="role"
-          label="Role"
+          label="Profession"
           type="select"
           options={roleOptions}
-          description="Staff current role"
+          description="Staff current profession"
         />
         <AppFormField
           control={control}
